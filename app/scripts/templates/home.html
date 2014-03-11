@@ -1,0 +1,72 @@
+<p><a href="http://www.phila.gov/Pages/default.aspx">Phila</a> > <a href="http://www.phila.gov/li/Pages/default.aspx">L & I</a> > <strong>Zoning Appeals</strong></p>
+  <h1>Zoning Appeals</h1>
+  <div class="row">
+    <div class="col-md-4 appeal-search">
+      <div class="panel panel-default search-panel">
+        <div class="panel-body search-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="RegionPicker"><h4><i class="fa fa-map-marker"></i> Region</h4></label><br />
+              <select class="selectpicker region-picker" title="Select a region..." data-live-search="true">
+                <optgroup label="Council District">
+                  <option value="cd:1">Council District 1</option>
+                  <option value="cd:2">Council District 2</option>
+                  <option value="cd:3">Council District 3</option>
+                  <option value="cd:4">Council District 4</option>
+                  <option value="cd:5">Council District 5</option>
+                  <option value="cd:6">Council District 6</option>
+                  <option value="cd:7">Council District 7</option>
+                  <option value="cd:8">Council District 8</option>
+                  <option value="cd:9">Council District 9</option>
+                  <option value="cd:10">Council District 10</option>
+                </optgroup>
+                <optgroup label="Planning District">
+                  <option value="planning:River Wards">River Wards</option>
+                  <option value="planning:North Delaware">North Delaware</option>
+                  <option value="planning:Lower Far Northeast">Lower Far Northeast</option>
+                  <option value="planning:Central">Central</option>
+                  <option value="planning:University/Southwest">University/Southwest</option>
+                  <option value="planning:Upper Northwest">Upper Northwest</option>
+                  <option value="planning:Upper North">Upper North</option>
+                  <option value="planning:South">South</option>
+                  <option value="planning:North">North</option>
+                  <option value="planning:Lower Northwest">Lower Northwest</option>
+                  <option value="planning:Lower South">Lower South</option>
+                  <option value="planning:Lower Northeast">Lower Northeast</option>
+                  <option value="planning:Central Northeast">Central Northeast</option>
+                  <option value="planning:West">West</option>
+                  <option value="planning:Upper Far Northeast">Upper Far Northeast</option>
+                  <option value="planning:Lower Southwest">Lower Southwest</option>
+                  <option value="planning:West Park">West Park</option>
+                  <option value="planning:Lower North">Lower North</option>
+                </optgroup>
+                <optgroup label="RCO">
+                	<% _.each(rcos, function(rco) { %>
+                		<option value="rco:<%= rco.ORG_NAME %>"><%= rco.ORG_NAME %></option>
+                	<% }); %>
+                </optgroup>
+              </select>
+            </div>
+          </form>
+          <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="DatePicker"><h4><i class="fa fa-calendar"></i> Date</h4></label>
+                  <p>
+                    <input type="date" class="form-control start-date" id="startDate"> to
+                    <input type="date" class="form-control end-date" id="endDate">
+                  </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="results col-md-8">
+      <table class="table table-striped appeals-table">
+        <th>Date</th>
+        <th>Time</th>
+        <th>Address</th>
+        <th>Appeal #</th>
+      </table>
+      <button type="button" class="btn btn-primary btn-block btn-more">More</button>
+    </div>
+  </div>

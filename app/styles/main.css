@@ -1,0 +1,48 @@
+.start-date {
+	width: 45%;
+}
+
+.end-date {
+	width: 45%;
+}
+
+.detail-appeal-no {
+	color: #c0c0c0;
+}
+
+.list-group-item {
+	border: 0;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+.list-group-item-label {
+	padding-bottom: 0;
+}
+
+.list-group {
+	margin-bottom: 0;
+}
+
+.appeal-search {
+	padding-top: 5px;
+}
+
+.search-panel {
+	background-color: #f9f9f9;
+}
+
+.search-body {
+	padding-left: 20px;
+	padding-top: 6px;
+	padding-bottom: 10px;
+}
+
+.appeal-row:hover {
+	outline: thin solid black;
+	cursor: pointer;
+}
+
+#map {
+	height: 325px;
+	width: 328px;
+}
