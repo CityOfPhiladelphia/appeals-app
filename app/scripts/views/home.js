@@ -18,8 +18,11 @@ define([
         template: _.template(Template),
 
         initialize: function(options) {
-          this.collection = new Appeals();
-          this.collection.on('reset', this.resetAppeals, this);
+          this.collection = new Appeals({mode: 'client'});
+          this.collection.fullCollection.on('reset', this.resetAppeals, this);
+          this.collection.on('reset', this.checkPageCount, this);
+          this.page = 1;
+
           var opts = options || {};
           var startDate = opts.startDate || Util.queryableDate(new Date());
           var endDate = opts.endDate || this.setEndDate(startDate);
@@ -35,6 +38,12 @@ define([
             where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
           }});
           this.views = [];
+        },
+
+        checkPageCount: function(collection) {
+          if (collection.state.currentPage === collection.state.totalPages) {
+            $('.btn-more').hide();
+          }
         },
 
         setEndDate: function(date) {
@@ -63,7 +72,8 @@ define([
           _.each(this.views, function(view) {
             view.close();
           });
-          this.addAppeals(collection);
+          this.addAppeals(this.collection.getFirstPage());
+          this.page = this.page + 1;
         },
 
         addAppeals: function(collection) {
@@ -94,8 +104,8 @@ define([
 
         paginate: function(e) {
           e.stopPropagation();
-          var nextAppeals = this.collection.getNextPage();
-          this.addAppeals(this.collection.getNextPage());
+          this.addAppeals(this.collection.getPage(this.page));
+          this.page = this.page + 1;
         },
 
         filterByRegion: function(e) {

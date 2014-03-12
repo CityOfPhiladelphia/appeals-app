@@ -14,10 +14,6 @@ define([
 
         mode: 'client',
 
-        state: {
-          pageSize: 10
-        },
-
         url: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/Construction/MapServer/5/query',
 
         parse: function(data) {
