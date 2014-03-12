@@ -17,6 +17,20 @@ define([
         $(window).scrollTop(0);
     };
 
+    /**
+     * Converts a YYYY-MM-DD date string into a JavaScript date object
+     */
+    util.fullDate = function(date) {
+      return new Date(date.split('-')[0], date.split('-')[1] - 1, date.split('-')[2]);
+    };
+
+    /**
+     * Converts a JavaScript Date object into a YYYY-MM-DD string so that it can be used in
+     * an ArcGIS REST API query
+     */
+    util.queryableDate = function(date) {
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    };
 
     util.friendlyDate = function(timestamp) {
         var date = new Date(timestamp);

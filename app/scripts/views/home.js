@@ -8,17 +8,23 @@ define([
     '../collections/appeals',
     '../views/appeal',
     '../collections/rcos',
-    '../models/request'
-], function ($, _, Backbone, Template, Appeals, AppealView, RCOs, Request) {
+    '../models/request',
+    '../util'
+], function ($, _, Backbone, Template, Appeals, AppealView, RCOs, Request, Util) {
     'use strict';
 
     var AppView = Backbone.View.extend({
 
         template: _.template(Template),
 
-        initialize: function() {
+        initialize: function(options) {
           this.collection = new Appeals();
           this.collection.on('reset', this.resetAppeals, this);
+          var opts = options || {};
+          var startDate = opts.startDate || Util.queryableDate(new Date());
+          var endDate = opts.endDate || this.setEndDate(startDate);
+          Request.set('startDate', startDate);
+          Request.set('endDate', endDate);
           Request.on('change:geometry', this.getFilteredAppeals, this);
           this.collection.fetch({data: {
             f: 'json',
@@ -26,9 +32,14 @@ define([
             outFields: 'VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY',
             outSR: 4326,
             returnGeometry: true,
-            where: 'DATE_SCHEDULED>=date\'2014-03-05\''
+            where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
           }});
           this.views = [];
+        },
+
+        setEndDate: function(date) {
+          var startDate = Util.fullDate(date);
+          return Util.queryableDate(new Date(new Date(startDate).setMonth(startDate.getMonth() + 6)));
         },
 
         render: function() {
@@ -76,7 +87,7 @@ define([
             inSR: 2272,
             outSR: 4326,
             returnGeometry: true,
-            where: 'DATE_SCHEDULED>=date\'2014-03-05\''
+            where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
           },
           type: 'POST'});
         },
