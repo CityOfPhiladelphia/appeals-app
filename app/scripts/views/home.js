@@ -69,8 +69,13 @@ define([
 
         onRender: function() {
           var self = this;
+
+          $('.input-daterange .start-date')[0].value = Util.friendlyDate(Request.get('startDate'));
+          $('.input-daterange .end-date')[0].value = Util.friendlyDate(Request.get('endDate'));
+
           $('.input-daterange .start-date').datepicker()
             .on('changeDate', function(e) {
+              console.log($('.start-date'));
               Request.set('startDate', Util.queryableDate(e.date));
               self.fetchData();
           });
