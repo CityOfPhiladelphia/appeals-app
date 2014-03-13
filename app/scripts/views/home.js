@@ -7,10 +7,12 @@ define([
     'text!templates/home.html',
     '../collections/appeals',
     '../views/appeal',
+    '../views/summary',
     '../collections/rcos',
     '../models/request',
-    '../util'
-], function ($, _, Backbone, Template, Appeals, AppealView, RCOs, Request, Util) {
+    '../util',
+    '../config'
+], function ($, _, Backbone, Template, Appeals, AppealView, SummaryView, RCOs, Request, Util, Config) {
     'use strict';
 
     var AppView = Backbone.View.extend({
@@ -19,6 +21,7 @@ define([
 
         initialize: function(options) {
           this.collection = new Appeals({mode: 'client'});
+          this.summaryView = new SummaryView();
           this.collection.fullCollection.on('reset', this.resetAppeals, this);
           this.collection.on('reset', this.checkPageCount, this);
           this.page = 1;
@@ -97,7 +100,23 @@ define([
           this.addAppeals(this.collection.getFirstPage());
           this.page = this.page + 1;
           this.checkPageCount(this.collection);
+
+          $('#results-summary').empty().append(this.summaryView.render({
+            count: collection.length,
+            startDate: Util.friendlyDate(Request.get('startDate')),
+            endDate: Util.friendlyDate(Request.get('endDate')),
+            regionType: this.friendlyRegionType(),
+            regionValue: Request.get('regionValue') || undefined
+          }));
           Backbone.history.navigate('/search/' + Request.get('startDate') + '/' + Request.get('endDate'));
+        },
+
+        friendlyRegionType: function() {
+          if (Request.get('regionType') !== '') {
+            return Config.regionMappings[Request.get('regionType')].fullName;
+          } else {
+            return undefined;
+          }
         },
 
         addAppeals: function(collection) {
