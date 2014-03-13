@@ -22,13 +22,17 @@ define([
           this.collection.fullCollection.on('reset', this.resetAppeals, this);
           this.collection.on('reset', this.checkPageCount, this);
           this.page = 1;
-
           var opts = options || {};
           var startDate = opts.startDate || Util.queryableDate(new Date());
           var endDate = opts.endDate || this.setEndDate(startDate);
           Request.set('startDate', startDate);
           Request.set('endDate', endDate);
           Request.on('change:geometry', this.getFilteredAppeals, this);
+          this.views = [];
+          this.fetchData();
+        },
+
+        fetchData: function() {
           this.collection.fetch({data: {
             f: 'json',
             orderByFields: 'DATE_SCHEDULED',
@@ -37,12 +41,15 @@ define([
             returnGeometry: true,
             where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
           }});
-          this.views = [];
         },
 
         checkPageCount: function(collection) {
-          if (collection.state.currentPage === collection.state.totalPages) {
+          if (collection.state.currentPage === collection.state.totalPages || collection.state.totalPages === null) {
             $('.btn-more').hide();
+          } else {
+            if (!$('.btn-more').is(':visible')) {
+              $('.btn-more').show();
+            }
           }
         },
 
@@ -57,6 +64,20 @@ define([
           return this;
         },
 
+        onRender: function() {
+          var self = this;
+          $('.input-daterange .start-date').datepicker()
+            .on('changeDate', function(e) {
+              Request.set('startDate', Util.queryableDate(e.date));
+              self.fetchData();
+          });
+          $('.input-daterange .end-date').datepicker()
+            .on('changeDate', function(e) {
+              Request.set('endDate', Util.queryableDate(e.date));
+              self.fetchData();
+          });
+        },
+
         events: {
           'click .btn-more': 'paginate',
           'change .region-picker': 'filterByRegion'
@@ -69,11 +90,13 @@ define([
         },
 
         resetAppeals: function(collection) {
+          this.page = 1;
           _.each(this.views, function(view) {
             view.close();
           });
           this.addAppeals(this.collection.getFirstPage());
           this.page = this.page + 1;
+          this.checkPageCount(this.collection);
         },
 
         addAppeals: function(collection) {

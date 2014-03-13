@@ -8,7 +8,8 @@ define([
     'views/map',
     'models/current-appeal',
     'collections/rcos',
-    'bootstrapSelect'
+    'bootstrapSelect',
+    'bootstrapDatepicker'
 ], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection) {
     'use strict';
 
@@ -26,6 +27,14 @@ define([
           document.title = view.title !== undefined && view.title ? view.title : $('title').text();
           this.currentView = view;
           $('.selectpicker').selectpicker();
+          $('.input-daterange').datepicker({
+            format: 'mm/dd/yyyy',
+            startDate: 'today',
+            endDate: '+6m',
+            todayBtn: true,
+            autoclose: true,
+            todayHighlight: true
+          });
           // TODO: scroll to the top
           // TODO: GA log request?
         },
@@ -40,6 +49,7 @@ define([
               .done(function() {
                 var homeView = new HomeView();
                 self.showView(homeView);
+                homeView.onRender();
               })
               .fail(function(xhr) {
                 // TODO: Handle failure here
@@ -48,6 +58,7 @@ define([
           } else {
             var homeView = new HomeView();
             self.showView(homeView);
+            homeView.onRender();
           }
         },
 

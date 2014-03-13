@@ -19,6 +19,10 @@ require.config({
             deps: ['bootstrap', 'jquery'],
             exports: 'bootstrap-select'
         },
+        bootstrapDatepicker: {
+            deps: ['bootstrap', 'jquery'],
+            exports: 'bootstrap-datepicker'
+        },
         backbonePageable: {
             deps: ['backbone'],
             exports: 'backbone-pageable'
@@ -34,6 +38,7 @@ require.config({
         underscore: '../vendor/underscore/underscore',
         bootstrap: '../vendor/sass-bootstrap/dist/js/bootstrap',
         bootstrapSelect: '../vendor/bootstrap-select/bootstrap-select',
+        bootstrapDatepicker: '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
         text: '../vendor/requirejs-text/text',
         backbonePageable: '../vendor/backbone-pageable/lib/backbone-pageable',
         leaflet: 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet'

@@ -48,15 +48,11 @@
               </select>
             </div>
           </form>
-          <form class="form-inline" role="form">
-            <div class="form-group">
-                <label for="DatePicker"><h4><i class="fa fa-calendar"></i> Date</h4></label>
-                  <p>
-                    <input type="date" class="form-control start-date" id="startDate"> to
-                    <input type="date" class="form-control end-date" id="endDate">
-                  </p>
-            </div>
-          </form>
+          <div class="input-daterange input-group" id="datepicker">
+    				<input type="text" class="input-sm form-control start-date" name="start" />
+    				<span class="input-group-addon">to</span>
+    				<input type="text" class="input-sm form-control end-date" name="end" />
+					</div>
         </div>
       </div>
     </div>
