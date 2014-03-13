@@ -97,6 +97,7 @@ define([
           this.addAppeals(this.collection.getFirstPage());
           this.page = this.page + 1;
           this.checkPageCount(this.collection);
+          Backbone.history.navigate('/search/' + Request.get('startDate') + '/' + Request.get('endDate'));
         },
 
         addAppeals: function(collection) {

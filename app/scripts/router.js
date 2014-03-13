@@ -16,6 +16,7 @@ define([
     var router = Backbone.Router.extend({
         routes: {
           'appeals/:appealNum': 'showAppeal',
+          'search/:startDate/:endDate(/:regionType/:regionValue)': 'search',
           '*path': 'home'
         },
 
@@ -39,15 +40,16 @@ define([
           // TODO: GA log request?
         },
 
-        home: function () {
+        home: function(options) {
           var promises = [],
-            self = this;
+            self = this,
+            opts = options || {};
 
           if (RCOCollection.length <= 0) {
             promises.push(RCOCollection.fetch());
             $.when.apply($, promises)
               .done(function() {
-                var homeView = new HomeView();
+                var homeView = new HomeView(opts);
                 self.showView(homeView);
                 homeView.onRender();
               })
@@ -56,10 +58,19 @@ define([
                 console.log('Error getting RCOs');
               });
           } else {
-            var homeView = new HomeView();
+            var homeView = new HomeView(opts);
             self.showView(homeView);
             homeView.onRender();
           }
+        },
+
+        search: function(startDate, endDate, regionType, regionValue) {
+          var options = {};
+          options.startDate = startDate;
+          options.endDate = endDate;
+          options.regionType = regionType || undefined;
+          options.regionValue = regionValue || undefined;
+          this.home(options);
         },
 
         showAppeal: function(appealNum) {
