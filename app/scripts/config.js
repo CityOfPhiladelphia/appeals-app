@@ -24,5 +24,9 @@ define([
       }
     };
 
+    config.basemap = {
+      url: 'http://gis.phila.gov/arcgis/rest/services/BaseMaps/Hybrid_WM/MapServer/tile/{z}/{y}/{x}'
+    };
+
     return config;
 });
