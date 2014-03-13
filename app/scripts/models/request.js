@@ -11,7 +11,6 @@ define([
         defaults: {
           regionType: '',
           regionValue: ''
-          // TODO: Add start and end date
         },
 
         url: function() {

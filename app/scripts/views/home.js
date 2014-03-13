@@ -75,7 +75,6 @@ define([
 
           $('.input-daterange .start-date').datepicker()
             .on('changeDate', function(e) {
-              console.log($('.start-date'));
               Request.set('startDate', Util.queryableDate(e.date));
               self.fetchData();
           });

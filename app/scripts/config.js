@@ -22,7 +22,7 @@ define([
       },
       planning: {
         fullName: 'Planning District',
-        url: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/21',
+        apiRoot: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/21',
         field: 'DIST_NAME'
       }
     };
