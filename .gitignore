@@ -6,3 +6,4 @@ app/vendor
 .tmp
 test/vendor/
 *.pdf
+*.log
