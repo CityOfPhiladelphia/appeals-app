@@ -70,18 +70,67 @@
   		</div>
   		<div class="panel-body">
   			<div class="row">
-  				<div class="col-md-6">
-  					<ul class="list-group">
-  						<li class="list-group-item list-group-item-label"><strong>DECISION HISTORY</strong></li>
-  						<li class="list-group-item">[+]</li>
-  						<li class="list-group-item list-group-item-label"><strong>COURT HISTORY</strong></li>
-  						<li class="list-group-item">[+]</li>
-  					</ul>
-  				</div>
-  			</div>
+          <div class="panel-group center-block" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#decision-history">
+                    DECISION HISTORY
+                  </a>
+                </h4>
+              </div>
+              <div id="decision-history" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <table class="table table-striped decision-history-table">
+                    <tbody>
+                      <tr>
+                        <th>Date</th>
+                        <th>Decision</th>
+                        <th>Notes</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#court-history">
+                    COURT HISTORY
+                  </a>
+                </h4>
+              </div>
+              <div id="court-history" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <table class="table table-striped court-history-table">
+                    <tbody>
+                      <tr>
+                        <th>Case #</th>
+                        <th>Court Action</th>
+                        <th>Date</th>
+                        <th>Result</th>
+                      </tr>
+                      <tr>
+                        <td>6/9/13</td>
+                        <td>HELD/INFO</td>
+                        <td>FOR TAX CERT</td>
+                      </tr>
+                      <tr>
+                        <td>6/10/13</td>
+                        <td>HELD/INFO</td>
+                        <td>FOR TAX CERT</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
   		</div>
   	</div>
 	</div>
+</div>
 	<div class="col-md-4 map-view">
 		<div class="panel panel-default">
   		<div class="panel-body map-panel">

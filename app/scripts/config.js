@@ -45,5 +45,10 @@ define([
       monthsAhead: 6
     };
 
+    config.history = {
+      court: '',
+      decision: 'http://services.phila.gov/PhillyAPI/Data/v1.0/zbahearingdecisions(<%= appealNum %>)?$format=json'
+    };
+
     return config;
 });

@@ -79,6 +79,7 @@ define([
           var mapView = new MapView();
           if (CurrentAppeal.get('appealNum') === appealNum) {
             this.showView(detailView);
+            detailView.onRender();
             mapView.render();
           } else {
             CurrentAppeal.set('appealNum', appealNum);
@@ -88,6 +89,7 @@ define([
             $.when.apply($, promises)
             .done(function() {
               self.showView(detailView);
+              detailView.onRender();
               mapView.render();
             })
             .fail(function(xhr) {
