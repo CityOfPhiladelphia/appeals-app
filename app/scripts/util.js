@@ -3,8 +3,9 @@
  */
 define([
     'jquery',
-    'underscore'
-], function($, _) {
+    'underscore',
+    'config'
+], function($, _, Config) {
     'use strict';
 
     var util = {};
@@ -57,6 +58,19 @@ define([
       var data = feature.attributes;
       data.polygon = feature.geometry;
       return data;
+    };
+
+    util.friendlyRegionType = function(regionType) {
+      if (regionType !== '') {
+        return Config.regionMappings[regionType].fullName;
+      } else {
+        return undefined;
+      }
+    };
+
+    util.setEndDate = function(date) {
+      var startDate = this.fullDate(date);
+      return this.queryableDate(new Date(new Date(startDate).setMonth(startDate.getMonth() + Config.defaults.monthsAhead)));
     };
 
     return util;

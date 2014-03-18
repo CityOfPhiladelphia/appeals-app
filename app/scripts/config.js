@@ -31,5 +31,19 @@ define([
       url: 'http://gis.phila.gov/arcgis/rest/services/BaseMaps/Hybrid_WM/MapServer/tile/{z}/{y}/{x}'
     };
 
+    config.request = {
+      params: {
+        f: 'json',
+        orderByFields: 'DATE_SCHEDULED',
+        outFields: 'VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY',
+        outSR: 4326,
+        returnGeometry: true
+      }
+    };
+
+    config.defaults = {
+      monthsAhead: 6
+    };
+
     return config;
 });

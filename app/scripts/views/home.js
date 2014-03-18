@@ -26,33 +26,40 @@ define([
           this.collection.on('reset', this.checkPageCount, this);
           this.page = 1;
           var opts = options || {};
-          console.log(opts);
           var startDate = opts.startDate || Util.queryableDate(new Date());
-          var endDate = opts.endDate || this.setEndDate(startDate);
+          var endDate = opts.endDate || Util.setEndDate(startDate);
           var regionType = opts.regionType || '';
           var regionValue = opts.regionValue || '';
           Request.set('startDate', startDate);
           Request.set('endDate', endDate);
-          Request.on('change:regionValue', this.getGeometry);
           Request.set('regionType', regionType);
           Request.set('regionValue', regionValue);
-          console.log(Request.toJSON());
-          Request.on('change:geometry', this.getFilteredAppeals, this);
+          Request.on('change:geometry', this.fetchData, this); // fix
           this.views = [];
           if (!Request.get('regionValue')) {
             this.fetchData();
           }
         },
 
+        events: {
+          'click .btn-more': 'paginate',
+          'change .region-picker': 'filterByRegion'
+        },
+
         fetchData: function() {
-          this.collection.fetch({data: {
-            f: 'json',
-            orderByFields: 'DATE_SCHEDULED',
-            outFields: 'VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY',
-            outSR: 4326,
-            returnGeometry: true,
-            where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
-          }});
+          this.params = _.extend({}, Config.request.params, {where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''});
+          this.reqType = 'GET';
+          if (Request.get('geometry') !== '') {
+            this.params = _.extend(this.params, {
+                geometryType: 'esriGeometryPolygon',
+                geometry: JSON.stringify({
+                  rings: [Request.get('geometry').rings[0]],
+                  spatialReference: {wkid: 2272}
+                }),
+                spatialRel: 'esriSpatialRelContains'});
+            this.reqType = 'POST';
+          }
+          this.collection.fetch({ data: this.params, type: this.reqType });
         },
 
         checkPageCount: function(collection) {
@@ -82,6 +89,10 @@ define([
           $('.input-daterange .start-date')[0].value = Util.friendlyDate(Request.get('startDate'));
           $('.input-daterange .end-date')[0].value = Util.friendlyDate(Request.get('endDate'));
 
+          if (Request.get('regionType')) {
+            $('.region-picker').selectpicker('val', Request.get('regionType') + ':' + Request.get('regionValue'));
+          }
+
           $('.input-daterange .start-date').datepicker()
             .on('changeDate', function(e) {
               Request.set('startDate', Util.queryableDate(e.date));
@@ -92,11 +103,6 @@ define([
               Request.set('endDate', Util.queryableDate(e.date));
               self.fetchData();
           });
-        },
-
-        events: {
-          'click .btn-more': 'paginate',
-          'change .region-picker': 'filterByRegion'
         },
 
         addOne: function(model) {
@@ -118,18 +124,15 @@ define([
             count: collection.length,
             startDate: Util.friendlyDate(Request.get('startDate')),
             endDate: Util.friendlyDate(Request.get('endDate')),
-            regionType: this.friendlyRegionType(),
+            regionType: Util.friendlyRegionType(Request.get('regionType')),
             regionValue: Request.get('regionValue') || undefined
           }));
-          Backbone.history.navigate('/search/' + Request.get('startDate') + '/' + Request.get('endDate') + '/' + Request.get('regionType') + '/' + Request.get('regionValue'));
-        },
-
-        friendlyRegionType: function() {
+          this.route = '/search/' + Request.get('startDate') + '/' + Request.get('endDate');
           if (Request.get('regionType') !== '') {
-            return Config.regionMappings[Request.get('regionType')].fullName;
-          } else {
-            return undefined;
+            this.route = this.route + '/' + Request.get('regionType') + '/' + Request.get('regionValue');
           }
+
+          Backbone.history.navigate(this.route);
         },
 
         addAppeals: function(collection) {
@@ -139,31 +142,6 @@ define([
           });
         },
 
-        getFilteredAppeals: function(model) {
-          console.log('in filtered appeals');
-          if (!model.get('geometry')) {
-            this.fetchData();
-          } else {
-            // Spatial fetch
-            this.collection.fetch({data: {
-              geometryType: 'esriGeometryPolygon',
-              geometry: JSON.stringify({
-                rings: [model.get('geometry').rings[0]],
-                spatialReference: {wkid: 2272}
-              }),
-              spatialRel: 'esriSpatialRelContains',
-              f: 'json',
-              orderByFields: 'DATE_SCHEDULED',
-              outFields: 'VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY',
-              inSR: 2272,
-              outSR: 4326,
-              returnGeometry: true,
-              where: 'DATE_SCHEDULED>=date\'' + Request.get('startDate') + '\' and DATE_SCHEDULED<=DATE\'' + Request.get('endDate') + '\''
-            },
-            type: 'POST'});
-          }
-        },
-
         paginate: function(e) {
           e.stopPropagation();
           this.addAppeals(this.collection.getPage(this.page));
@@ -171,18 +149,23 @@ define([
         },
 
         getGeometry: function() {
-          Request.fetch();
+          if (Request.get('regionValue') !== '') {
+            Request.fetch();
+          } else {
+            this.fetchData();
+          }
         },
 
         filterByRegion: function(e) {
           e.stopPropagation();
-          if ($('.region-picker').val().split(':')[0] === 'all') {
+          if ($('.region-picker').val() === 'all') {
             Request.set('regionType', '');
             Request.set('regionValue', '');
-            Request.get('geometry', '');
+            Request.set('geometry', '');
           } else {
             Request.set('regionType', $('.region-picker').val().split(':')[0]);
             Request.set('regionValue', $('.region-picker').val().split(':')[1]);
+            this.getGeometry();
           }
         },
 

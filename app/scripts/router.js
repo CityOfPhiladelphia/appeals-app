@@ -8,9 +8,10 @@ define([
     'views/map',
     'models/current-appeal',
     'collections/rcos',
+    'config',
     'bootstrapSelect',
     'bootstrapDatepicker'
-], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection) {
+], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection, Config) {
     'use strict';
 
     var router = Backbone.Router.extend({
@@ -31,7 +32,7 @@ define([
           $('.input-daterange').datepicker({
             format: 'mm/dd/yyyy',
             startDate: 'today',
-            endDate: '+6m',
+            endDate: '+' + Config.defaults.monthsAhead + 'm',
             todayBtn: true,
             autoclose: true,
             todayHighlight: true

@@ -33,7 +33,7 @@ require.config({
         }
     },
     paths: {
-        jquery: '../vendor/jquery/dist/jquery',
+        jquery: '../vendor/jquery/jquery',
         backbone: '../vendor/backbone/backbone',
         underscore: '../vendor/underscore/underscore',
         bootstrap: '../vendor/sass-bootstrap/dist/js/bootstrap',
