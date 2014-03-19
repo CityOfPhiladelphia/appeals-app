@@ -41,7 +41,9 @@ define([
     };
 
     util.friendlyTime = function(timestamp) {
-      return timestamp.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
+      return timestamp.toLocaleTimeString('en-US', { timeZone: 'America/New_York',
+        hour: '2-digit',
+        minute: '2-digit' });
     };
 
     util.friendlyLIDate = function(dateString) {
