@@ -49,7 +49,7 @@ define([
 
       onRender: function() {
         var self = this;
-        $('#decision-history').on('show.bs.collapse', function(e) {
+        $('#decision-history').one('show.bs.collapse', function(e) {
           e.stopPropagation();
           self.collection = new DecisionsCollection({ appealNum: CurrentAppeal.get('appealNum') });
           self.collection.once('sync', self.addDecisions, self);
