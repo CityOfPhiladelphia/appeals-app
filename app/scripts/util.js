@@ -10,6 +10,8 @@ define([
 
     var util = {};
 
+    util.liDateRegEx = /\/Date\(([0-9]+)\)\//;
+
     util.loading = function(status) {
         $('body').toggleClass('loading', status);
     };
@@ -40,6 +42,11 @@ define([
 
     util.friendlyTime = function(timestamp) {
       return timestamp.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
+    };
+
+    util.friendlyLIDate = function(dateString) {
+      var date = parseInt(this.liDateRegEx.exec(dateString)[1], 10);
+      return this.friendlyDate(date);
     };
 
     /**

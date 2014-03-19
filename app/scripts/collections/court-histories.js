@@ -4,8 +4,9 @@ define([
     'underscore',
     'backbone',
     'models/court-history',
-    '../config'
-], function (_, Backbone, CourtHistoryModel, Config) {
+    '../config',
+    '../util'
+], function (_, Backbone, CourtHistoryModel, Config, Util) {
     'use strict';
 
     var CourtHistoriesCollection = Backbone.Collection.extend({
@@ -20,11 +21,13 @@ define([
         },
 
         parse: function(data) {
-          // TODO: Parse the date
           if (data.d.results.length < 1) {
             this.trigger('noHistory', {status: 404});
           } else {
-          return data.d.results;
+          return _.map(data.d.results, function(entry) {
+            entry.court_action_datetime = Util.friendlyLIDate(entry.court_action_datetime);
+            return entry;
+          });
           }
         }
     });

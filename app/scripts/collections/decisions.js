@@ -4,26 +4,33 @@ define([
     'underscore',
     'backbone',
     'models/decision',
-    '../config'
-], function (_, Backbone, DecisionModel, Config) {
+    '../config',
+    '../util'
+], function (_, Backbone, DecisionModel, Config, Util) {
     'use strict';
 
-    var AppealsCollection = Backbone.Collection.extend({
+    var DecisionsCollection = Backbone.Collection.extend({
         model: DecisionModel,
 
         initialize: function(options) {
-          this.appealNum = options.appealNum;
+          this.appealId = options.appealId;
         },
 
         url: function() {
-          return _.template(Config.history.decision, {appealNum: this.appealNum});
+          return _.template(Config.history.decision, {appealId: this.appealId});
         },
 
         parse: function(data) {
-          // TODO: Parse the date
-          return data.d;
+          if (data.d.results.length < 1) {
+            this.trigger('noDecisions', {status: 404});
+          } else {
+          return _.map(data.d.results, function(entry) {
+            entry.decision_datetime = Util.friendlyLIDate(entry.decision_datetime);
+            return entry;
+          });
+          }
         }
     });
 
-    return AppealsCollection;
+    return DecisionsCollection;
 });

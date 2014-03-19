@@ -67,10 +67,8 @@ define([
         });
       },
 
-      displayNoHistoryMessage: function(collection, resp) {
-        if (resp.status === 404) {
-          $('.decision-history-table').append(_.template(NoDecisionHistoryTemplate));
-        }
+      displayNoHistoryMessage: function(collection) {
+        $('.decision-history-table').append(_.template(NoDecisionHistoryTemplate));
       },
 
       displayNoCourtHistoryMessage: function(collection) {
@@ -81,9 +79,9 @@ define([
         var self = this;
         $('#decision-history').one('show.bs.collapse', function(e) {
           e.stopPropagation();
-          self.decisionsCollection = new DecisionsCollection({ appealNum: CurrentAppeal.get('appealNum') });
+          self.decisionsCollection = new DecisionsCollection({ appealId: CurrentAppeal.get('APPEAL_KEY') });
           self.decisionsCollection.once('sync', self.addDecisions, self);
-          self.decisionsCollection.once('error', self.displayNoHistoryMessage, self);
+          self.decisionsCollection.once('noDecisions', self.displayNoHistoryMessage, self);
           self.decisionsCollection.fetch();
         });
 
