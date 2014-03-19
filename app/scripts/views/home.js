@@ -24,6 +24,9 @@ define([
           this.summaryView = new SummaryView();
           this.collection.fullCollection.on('reset', this.resetAppeals, this);
           this.collection.on('reset', this.checkPageCount, this);
+          this.collection.on('request', function() { Util.loading(true); })
+            .on('sync', function() { Util.loading(false); })
+            .on('error', function() { Util.loading(false); });
           this.page = 1;
           var opts = options || {};
           var startDate = opts.startDate || Util.queryableDate(new Date());

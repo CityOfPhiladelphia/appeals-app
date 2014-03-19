@@ -63,3 +63,9 @@
 .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #f5f5f5;
 }
+
+#nprogress .bar,{
+  margin-top: 0px;
+  z-index: 999999;
+  background: #ED9C28;
+}

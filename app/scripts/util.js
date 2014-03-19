@@ -4,8 +4,9 @@
 define([
     'jquery',
     'underscore',
-    'config'
-], function($, _, Config) {
+    'config',
+    'nprogress'
+], function($, _, Config, NProgress) {
     'use strict';
 
     var util = {};
@@ -13,7 +14,11 @@ define([
     util.liDateRegEx = /\/Date\(([0-9]+)\)\//;
 
     util.loading = function(status) {
-        $('body').toggleClass('loading', status);
+        if(status !== undefined && status) {
+          NProgress.start();
+        } else {
+          NProgress.done();
+        }
     };
 
     util.scrollToTop = function() {

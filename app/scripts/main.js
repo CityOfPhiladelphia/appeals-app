@@ -1,6 +1,19 @@
 /*global require*/
 require.config({
-    shim: {
+		baseUrl: 'scripts/',
+    paths: {
+        jquery: '../vendor/jquery/dist/jquery',
+        backbone: '../vendor/backbone/backbone',
+        underscore: '../vendor/underscore/underscore',
+        bootstrap: '../vendor/sass-bootstrap/dist/js/bootstrap',
+        bootstrapSelect: '../vendor/bootstrap-select/bootstrap-select',
+        bootstrapDatepicker: '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
+        text: '../vendor/requirejs-text/text',
+        backbonePageable: '../vendor/backbone-pageable/lib/backbone-pageable',
+        leaflet: 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet',
+        nprogress: '../vendor/nprogress/nprogress'
+    },
+        shim: {
         underscore: {
             exports: '_'
         },
@@ -30,18 +43,12 @@ require.config({
         leaflet: {
             deps: ['jquery'],
             exports: 'L'
+        },
+        nprogress: {
+            deps: ['jquery'],
+            exports: 'Nprogress'
         }
-    },
-    paths: {
-        jquery: '../vendor/jquery/jquery',
-        backbone: '../vendor/backbone/backbone',
-        underscore: '../vendor/underscore/underscore',
-        bootstrap: '../vendor/sass-bootstrap/dist/js/bootstrap',
-        bootstrapSelect: '../vendor/bootstrap-select/bootstrap-select',
-        bootstrapDatepicker: '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
-        text: '../vendor/requirejs-text/text',
-        backbonePageable: '../vendor/backbone-pageable/lib/backbone-pageable',
-        leaflet: 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet'
+
     }
 });
 
@@ -52,7 +59,7 @@ require([
     'views/home',
     'bootstrap',
     'leaflet'
-], function ($, Backbone, Router, HomeView) {
+], function ($, Backbone, Router) {
     'use strict';
     /*jshint nonew:false*/
     new Router();

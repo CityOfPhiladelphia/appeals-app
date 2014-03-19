@@ -11,9 +11,10 @@ define([
     '../collections/decisions',
     '../collections/court-histories',
     '../views/decision',
-    '../views/court-history'
+    '../views/court-history',
+    '../util'
 ], function ($, _, Backbone, Template, NoDecisionHistoryTemplate, NoCourtHistoryTemplate,
-    CurrentAppeal, DecisionsCollection, CourtHistoriesCollection, DecisionView, CourtHistoryView) {
+    CurrentAppeal, DecisionsCollection, CourtHistoriesCollection, DecisionView, CourtHistoryView, Util) {
     'use strict';
 
     var DetailView = Backbone.View.extend({
@@ -49,11 +50,11 @@ define([
       addCourtHistory: function(model) {
         var self = this;
         var courtHistoryView = new CourtHistoryView({ model: model});
-
         $('.court-history-table').append(courtHistoryView.render().el);
       },
 
       addDecisions: function(collection) {
+        Util.loading(false);
         var self = this;
         collection.forEach(function(model) {
           self.addDecision(model);
@@ -61,6 +62,7 @@ define([
       },
 
       addCourtHistories: function(collection) {
+        Util.loading(false);
         var self = this;
         collection.forEach(function(model) {
           self.addCourtHistory(model);
@@ -68,11 +70,13 @@ define([
       },
 
       displayNoHistoryMessage: function(collection) {
-        $('.decision-history-table').append(_.template(NoDecisionHistoryTemplate));
+        Util.loading(false);
+        $('.decision-history-body').html(_.template(NoDecisionHistoryTemplate));
       },
 
       displayNoCourtHistoryMessage: function(collection) {
-        $('.court-history-table').append(_.template(NoCourtHistoryTemplate));
+        Util.loading(false);
+        $('.court-history-body').html(_.template(NoCourtHistoryTemplate));
       },
 
       onRender: function() {
@@ -82,6 +86,7 @@ define([
           self.decisionsCollection = new DecisionsCollection({ appealId: CurrentAppeal.get('APPEAL_KEY') });
           self.decisionsCollection.once('sync', self.addDecisions, self);
           self.decisionsCollection.once('noDecisions', self.displayNoHistoryMessage, self);
+          self.decisionsCollection.once('request', function() { Util.loading(true); });
           self.decisionsCollection.fetch();
         });
 
@@ -90,6 +95,7 @@ define([
           self.courtHistoriesCollection = new CourtHistoriesCollection({ appealId: CurrentAppeal.get('APPEAL_KEY') });
           self.courtHistoriesCollection.once('sync', self.addCourtHistories, self);
           self.courtHistoriesCollection.once('noHistory', self.displayNoCourtHistoryMessage, self);
+          self.courtHistoriesCollection.once('request', function() { Util.loading(true); });
           self.courtHistoriesCollection.fetch();
         });
       }
