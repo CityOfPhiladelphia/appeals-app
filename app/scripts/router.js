@@ -31,7 +31,7 @@ define([
           $('.selectpicker').selectpicker();
           $('.input-daterange').datepicker({
             format: 'mm/dd/yyyy',
-            startDate: 'today',
+            startDate: '-30d',
             endDate: '+' + Config.defaults.monthsAhead + 'm',
             todayBtn: true,
             autoclose: true,
