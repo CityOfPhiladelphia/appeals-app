@@ -67,9 +67,9 @@ require([
      */
     Backbone.ajax = function() {
         if( ! $.support.cors && arguments.length) {
-            arguments[0].cache = "true";
+            arguments[0].cache = 'true';
             arguments[0].timeout = 15000;
-            arguments[0].dataType = "jsonp";
+            arguments[0].dataType = 'jsonp';
             return Backbone.$.ajax.apply(Backbone.$, arguments);
         }
         return Backbone.$.ajax.apply(Backbone.$, arguments);

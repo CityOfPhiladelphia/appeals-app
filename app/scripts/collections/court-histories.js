@@ -25,6 +25,7 @@ define([
             this.trigger('noHistory', {status: 404});
           } else {
           return _.map(data.d.results, function(entry) {
+            /*jshint camelcase: false */
             entry.court_action_datetime = Util.friendlyLIDate(entry.court_action_datetime);
             return entry;
           });

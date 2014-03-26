@@ -21,7 +21,7 @@ define([
         },
 
         url: function() {
-          return "http://gis.phila.gov/arcgis/rest/services/PhilaGov/Construction/MapServer/5/query?f=json&returnIdsOnly=false&returnCountOnly=false&outFields=VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY&&where=APPEAL_NUM='" + this.get('appealNum') + "'&outSR=4326&returnGeometry=true";
+          return _.template(Config.appeal.url, { appealNum: this.get('appealNum') });
         },
 
         parse: function(resp) {

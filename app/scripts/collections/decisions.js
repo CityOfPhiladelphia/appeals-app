@@ -25,6 +25,7 @@ define([
             this.trigger('noDecisions', {status: 404});
           } else {
           return _.map(data.d.results, function(entry) {
+            /*jshint camelcase: false */
             entry.decision_datetime = Util.friendlyLIDate(entry.decision_datetime);
             return entry;
           });

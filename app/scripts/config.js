@@ -31,6 +31,12 @@ define([
       url: 'http://gis.phila.gov/arcgis/rest/services/BaseMaps/Hybrid_WM/MapServer/tile/{z}/{y}/{x}'
     };
 
+    config.appeal = {
+      /*jshint quotmark:double */
+      url: "http://gis.phila.gov/arcgis/rest/services/PhilaGov/Construction/MapServer/5/query?f=json&returnIdsOnly=false&returnCountOnly=false&outFields=VIOLATION_ADDRESS,TYPE,APPEAL_NUM,PERMIT_NO,GROUNDS,PRIMARY_APPLICANT,DATE_SCHEDULED,APPEAL_KEY&&where=APPEAL_NUM='<%= appealNum %>'&outSR=4326&returnGeometry=true"
+    };
+
+    /*jshint quotmark:single */
     config.request = {
       params: {
         f: 'json',
