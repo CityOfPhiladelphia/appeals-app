@@ -1,17 +1,46 @@
 /*global require*/
 require.config({
-		baseUrl: 'scripts/',
+	baseUrl: 'scripts/',
     paths: {
-        jquery: '../vendor/jquery/jquery',
-        backbone: '../vendor/backbone/backbone',
-        underscore: '../vendor/underscore/underscore',
-        bootstrap: '../vendor/sass-bootstrap/dist/js/bootstrap',
-        bootstrapSelect: '../vendor/bootstrap-select/bootstrap-select',
-        bootstrapDatepicker: '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
-        text: '../vendor/requirejs-text/text',
-        backbonePageable: '../vendor/backbone-pageable/lib/backbone-pageable',
-        leaflet: 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet',
-        nprogress: '../vendor/nprogress/nprogress'
+        'jquery': [
+            '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min',
+            '../vendor/jquery/jquery'
+        ],
+        'backbone': [
+            '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min',
+            '../vendor/backbone/backbone'
+        ],
+        'underscore': [
+            '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
+            '../vendor/underscore/underscore'
+        ],
+        'bootstrap': [
+            '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.0.0/js/bootstrap.min',
+            '../vendor/sass-bootstrap/dist/js/bootstrap'
+        ],
+        'bootstrapSelect': [
+            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.3.5/bootstrap-select.min',
+            '../vendor/bootstrap-select/bootstrap-select'
+        ],
+        'bootstrapDatepicker': [
+            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min',
+            '../vendor/bootstrap-datepicker/js/bootstrap-datepicker'
+        ],
+        'text': [
+            '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.min',
+            '../vendor/requirejs-text/text'
+        ],
+        'backbonePageable': [
+            '//cdnjs.cloudflare.com/ajax/libs/backbone-pageable/1.4.5/backbone-pageable.min',
+            '../vendor/backbone-pageable/lib/backbone-pageable'
+        ],
+        'leaflet': [
+            '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet'
+        ],
+        'nprogress': [
+            '//cdnjs.cloudflare.com/ajax/libs/nprogress/0.1.2/nprogress.min',
+            '../vendor/nprogress/nprogress'
+        ]
     },
         shim: {
         underscore: {

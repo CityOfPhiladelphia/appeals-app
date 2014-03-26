@@ -22,7 +22,7 @@ module.exports = function (grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist'
+        dist: 'build'
     };
 
     grunt.initConfig({
@@ -103,8 +103,9 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            dist: ['.tmp', '<%= yeoman.dist %>/*'],
-            server: '.tmp'
+            build: ['build/**/*', '!build/.git', '!build/CNAME'],
+            server: '.tmp',
+            temp: ['temp/']
         },
         jshint: {
             options: {
@@ -128,7 +129,7 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
+                cssDir: '<%= yeoman.app %>/styles',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
@@ -143,26 +144,57 @@ module.exports = function (grunt) {
             }
         },
         requirejs: {
-            dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+            compile: {
                 options: {
+                    name: 'main',
                     baseUrl: '<%= yeoman.app %>/scripts',
-                    optimize: 'none',
+                    mainConfigFile: '<%= yeoman.app %>/scripts/main.js',
+                    out: '<%= yeoman.app %>/<%= yeoman.dist %>/scripts/main.js',
+                    optimize: 'uglify',
                     paths: {
-                        'templates': '../../.tmp/scripts/templates',
-                        'jquery': '../../app/vendor/jquery/jquery',
-                        'underscore': '../../app/vendor/underscore/underscore',
-                        'backbone': '../../app/vendor/backbone/backbone'
+                        'jquery': [
+                            '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min',
+                            '../vendor/jquery/jquery'
+                        ],
+                        'backbone': [
+                            '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min',
+                            '../vendor/backbone/backbone'
+                        ],
+                        'underscore': [
+                            '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
+                            '../vendor/underscore/underscore'
+                        ],
+                        'bootstrap': [
+                            '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.0.0/js/bootstrap.min',
+                            '../vendor/sass-bootstrap/dist/js/bootstrap'
+                        ],
+                        'bootstrapSelect': [
+                            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.3.5/bootstrap-select.min',
+                            '../vendor/bootstrap-select/bootstrap-select'
+                        ],
+                        'bootstrapDatepicker': [
+                            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min',
+                            '../vendor/bootstrap-datepicker/js/bootstrap-datepicker'
+                        ],
+                        'text': [
+                            '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.min',
+                            '../vendor/requirejs-text/text'
+                        ],
+                        'backbonePageable': [
+                            '//cdnjs.cloudflare.com/ajax/libs/backbone-pageable/1.4.5/backbone-pageable.min',
+                            '../vendor/backbone-pageable/lib/backbone-pageable'
+                        ],
+                        'leaflet': [
+                            '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet'
+                        ],
+                        'nprogress': [
+                            '//cdnjs.cloudflare.com/ajax/libs/nprogress/0.1.2/nprogress.min',
+                            '../vendor/nprogress/nprogress'
+                        ]
                     },
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
                     preserveLicenseComments: false,
                     useStrict: true,
                     wrap: true
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
         },
@@ -301,18 +333,16 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('build', [
-        'clean:dist',
-        'compass:dist',
-        'useminPrepare',
-        'requirejs',
-        'imagemin',
-        'htmlmin',
-        'concat',
+        'clean:build', // Clear the build folder
+        'clean:temp', // Clear the temp folder
+        // 'compass:dist',
+        // 'useminPrepare',
+        'requirejs', // Combine JS assets
+        'compass', // Compile the SASS files to CSS
         'cssmin',
-        'uglify',
         'copy',
-        'rev',
-        'usemin'
+        'processhtml',
+        'clean:temp'
     ]);
 
     grunt.registerTask('default', [
