@@ -18,21 +18,21 @@ var dirs = {
 
 gulp.task('umd', function() {
   return es.concat(
-    gulp.src([ // Group these together since they have the same wrap params
-        dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.js',
-        dirs.dev + 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    gulp.src([
+      dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.js',
+      dirs.dev + 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'
     ])
-        .pipe(wrap({deps: ['jquery']}))
-        .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
+      .pipe(wrap({deps: ['jquery']}))
+      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
     gulp.src(dirs.dev + 'vendor/nprogress/nprogress.js')
-        .pipe(wrap({deps: ['jquery'], exports: 'NProgress'}))
-        .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
+      .pipe(wrap({deps: ['jquery'], exports: 'NProgress'}))
+      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
     gulp.src(dirs.dev + 'vendor/leaflet/dist/leaflet.js')
-        .pipe(wrap({deps: ['jquery'], exports: 'L'}))
-        .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
+      .pipe(wrap({deps: ['jquery'], exports: 'L'}))
+      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
     gulp.src(dirs.dev + 'vendor/backbone-pageable/lib/backbone-pageable.min.js')
-        .pipe(wrap({deps: ['backbone']}))
-        .pipe(gulp.dest(dirs.dev + 'vendor/umd'))
+      .pipe(wrap({deps: ['backbone']}))
+      .pipe(gulp.dest(dirs.dev + 'vendor/umd'))
   );
 });
 
@@ -71,7 +71,7 @@ gulp.task('scripts', function() {
     include: ['requireLib'], // Includes require.js in build
         
     paths: {
-      'requireLib': '../vendor/requirejs/require', // namespace "require" is reserved
+      'requireLib': '../vendor/requirejs/require',
       
       // CDNs
       'jquery': 'empty:',
@@ -98,7 +98,7 @@ gulp.task('images', function() {
     .pipe(gulp.dest(dirs.prod + 'images'));
 });
 
-// Copies all of the vendor/ directory to the build for JS fallback
+// Copies all of the vendor/ directory to build/
 gulp.task('vendor', function() {
    return gulp.src(dirs.dev + 'vendor/**/*')
     .pipe(gulp.dest(dirs.prod + 'vendor'));
