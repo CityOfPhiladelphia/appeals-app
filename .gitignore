@@ -3,6 +3,7 @@ dist
 test/temp
 .sass-cache
 app/vendor
+app/build
 .tmp
 test/vendor/
 *.pdf

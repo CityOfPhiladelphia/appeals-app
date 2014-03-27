@@ -19,26 +19,21 @@ require.config({
             '../vendor/sass-bootstrap/dist/js/bootstrap'
         ],
         'bootstrapSelect': [
-            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.3.5/bootstrap-select.min',
             '../vendor/bootstrap-select/bootstrap-select'
         ],
         'bootstrapDatepicker': [
-            '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min',
             '../vendor/bootstrap-datepicker/js/bootstrap-datepicker'
         ],
         'text': [
-            '//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.11/require.min',
             '../vendor/requirejs-text/text'
         ],
         'backbonePageable': [
-            '//cdnjs.cloudflare.com/ajax/libs/backbone-pageable/1.4.5/backbone-pageable.min',
             '../vendor/backbone-pageable/lib/backbone-pageable'
         ],
         'leaflet': [
-            '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet'
+            '../vendor/leaflet/dist/leaflet'
         ],
         'nprogress': [
-            '//cdnjs.cloudflare.com/ajax/libs/nprogress/0.1.2/nprogress.min',
             '../vendor/nprogress/nprogress'
         ]
     },
