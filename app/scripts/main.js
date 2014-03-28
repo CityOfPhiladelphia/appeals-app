@@ -79,10 +79,7 @@ require.config({
 require([
     'jquery',
     'backbone',
-    'router',
-    'views/home',
-    'bootstrap',
-    'leaflet'
+    'router'
 ], function ($, Backbone, Router) {
     'use strict';
     /*jshint nonew:false*/
@@ -90,15 +87,15 @@ require([
      * If no CORS support, use jsonp
      */
     Backbone.ajax = function() {
-        if( ! $.support.cors && arguments.length) {
-            arguments[0].cache = 'true';
-            arguments[0].timeout = 15000;
-            arguments[0].dataType = 'jsonp';
-            return Backbone.$.ajax.apply(Backbone.$, arguments);
-        }
+      if( ! $.support.cors && arguments.length) {
+        arguments[0].cache = 'true';
+        arguments[0].timeout = 15000;
+        arguments[0].dataType = 'jsonp';
         return Backbone.$.ajax.apply(Backbone.$, arguments);
+      }
+      return Backbone.$.ajax.apply(Backbone.$, arguments);
     };
-            
+
     new Router();
     Backbone.history.start();
 });

@@ -36,6 +36,38 @@ gulp.task('umd', function() {
   );
 });
 
+// Compress all JavaScript modules into main.min.js
+gulp.task('scripts', function() {
+  return rjs({
+    name: 'main',
+    baseUrl: dirs.dev + 'scripts',
+    mainConfigFile: dirs.dev + 'scripts/main.js',
+    out: 'main.min.js',
+    preserveLicenseComments: false,
+    include: ['requireLib'], // Includes require.js in build
+
+    paths: {
+      'requireLib': '../vendor/requirejs/require',
+
+      // CDNs
+      'jquery': 'empty:',
+      'underscore': 'empty:',
+      'backbone': 'empty:',
+      'bootstrap': 'empty:',
+
+      // UMD Wrapped
+      'nprogress': '../vendor/umd/nprogress',
+      'bootstrapSelect': '../vendor/umd/bootstrap-select.min',
+      'bootstrapDatepicker': '../vendor/umd/bootstrap-datepicker',
+      'leaflet': '../vendor/umd/leaflet',
+      'backbonePageable': '../vendor/umd/backbone-pageable.min',
+      'text': '../vendor/requirejs-text/text'
+    }
+  })
+      //.pipe(uglify())
+      .pipe(gulp.dest(dirs.prod + 'scripts/'));
+});
+
 // Compiles main.scss to CSS, concats all CSS assets and minifies to main.min.css
 gulp.task('styles', function() {
   return es.concat(
@@ -60,38 +92,6 @@ gulp.task('styles', function() {
     )
 });
 
-// Compress all JavaScript modules into main.min.js
-gulp.task('scripts', function() {
-  return rjs({
-    name: 'main',
-    baseUrl: dirs.dev + 'scripts',
-    mainConfigFile: dirs.dev + 'scripts/main.js',
-    out: 'main.min.js',
-    preserveLicenseComments: false,
-    include: ['requireLib'], // Includes require.js in build
-        
-    paths: {
-      'requireLib': '../vendor/requirejs/require',
-      
-      // CDNs
-      'jquery': 'empty:',
-      'underscore': 'empty:',
-      'backbone': 'empty:',
-      'bootstrap': 'empty:',
-      
-      // UMD Wrapped
-      'nprogress': '../vendor/umd/nprogress',
-      'bootstrapSelect': '../vendor/umd/bootstrap-select.min',
-      'bootstrapDatepicker': '../vendor/umd/bootstrap-datepicker',
-      'leaflet': '../vendor/umd/leaflet',
-      'backbonePageable': '../vendor/umd/backbone-pageable.min',
-      'text': '../vendor/requirejs-text/text'
-    }
-  })
-      .pipe(uglify())
-      .pipe(gulp.dest(dirs.prod + 'scripts/'));
-});
-
 // Copies all images to build/ directory
 gulp.task('images', function() {
   return gulp.src(dirs.dev + 'images/**/*')
@@ -102,6 +102,12 @@ gulp.task('images', function() {
 gulp.task('vendor', function() {
    return gulp.src(dirs.dev + 'vendor/**/*')
     .pipe(gulp.dest(dirs.prod + 'vendor'));
+});
+
+// Copies all of the fonts/ directory to fonts/
+gulp.task('fonts', function() {
+   return gulp.src(dirs.dev + 'fonts/**/*')
+    .pipe(gulp.dest(dirs.prod + 'fonts'));
 });
 
 // Change index.html asset references to build ones
@@ -124,5 +130,5 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['clean', 'umd'], function() {
-  gulp.start('styles', 'scripts', 'images', 'vendor', 'html');
+  gulp.start('styles', 'scripts', 'images', 'fonts', 'vendor', 'html');
 });
