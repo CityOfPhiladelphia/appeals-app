@@ -43,14 +43,14 @@ gulp.task('scripts', function() {
       'underscore': 'empty:',
       'backbone': 'empty:',
       'bootstrap': 'empty:',
-
-      // UMD Wrapped
-      'bootstrapSelect': '../vendor/umd/bootstrap-select.min',
-      'bootstrapDatepicker': '../vendor/umd/bootstrap-datepicker'//,
-      //'text': '../vendor/requirejs-text/text' // Not sure why this is here?
+      'bootstrapSelect': 'empty:',
+      'bootstrapDatepicker': 'empty:',
+      'backbonePageable': 'empty:',
+      'leaflet': 'empty:',
+      'nprogress': 'empty:'
     }
   })
-      //.pipe(uglify())
+      .pipe(uglify())
       .pipe(gulp.dest(dirs.prod + 'scripts/'));
 });
 
@@ -66,8 +66,8 @@ gulp.task('styles', function() {
       dirs.dev + 'vendor/leaflet/dist/leaflet.css',
       dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.css',
       dirs.dev + 'vendor/bootstrap-datepicker/css/datepicker3.css',
-      dirs.dev + 'styles/main.css',
-      dirs.dev + 'styles/philagov.css'
+      dirs.dev + 'styles/philagov.css',
+      dirs.dev + 'styles/main.css'
     ])
       .pipe(concat('main.min.css'))
       .pipe(minifyCSS({
