@@ -99,6 +99,10 @@ require([
       return Backbone.$.ajax.apply(Backbone.$, arguments);
     };
 
+    $(".navbar-toggle").click(function(event) {
+        $(".navbar-collapse").toggle('in');
+    });
+
     new Router();
     Backbone.history.start();
 });

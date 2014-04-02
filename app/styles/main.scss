@@ -75,13 +75,18 @@
 	padding-bottom:5px;
 }
 
-.navbar-nav > li > img {
+/* .navbar-nav > li > a > img {
 	padding-top:0px !important; 
 	padding-bottom:0px !important;
-}
+} */
+
 
 .navbar {
 	min-height:41px !important;
 	padding-top: 5px;
 	padding-bottom: 5px;
+}
+
+.header-link {
+	padding: 5px;
 }
