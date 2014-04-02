@@ -46,7 +46,8 @@ define([
     };
 
     util.friendlyTime = function(timestamp) {
-      return timestamp.toLocaleTimeString('en-US', { timeZone: 'America/New_York',
+      return timestamp.toLocaleTimeString('en-US', { 
+        timeZone: 'UTC', // Should be America/New_York but timestamps are stored in API as GMT-4
         hour: '2-digit',
         minute: '2-digit' });
     };
