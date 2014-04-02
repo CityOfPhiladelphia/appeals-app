@@ -39,9 +39,7 @@ define([
           Request.set('regionValue', regionValue);
           Request.on('change:geometry', this.fetchData, this); // fix
           this.views = [];
-          if (!Request.get('regionValue')) {
-            this.fetchData();
-          }
+          this.fetchData();
         },
 
         events: {
