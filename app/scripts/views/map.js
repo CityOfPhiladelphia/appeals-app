@@ -17,9 +17,9 @@ define([
 
       render: function() {
         var coords = [CurrentAppeal.get('lat'), CurrentAppeal.get('lng')];
-        var map = L.map($('#map')[0]).setView(coords, 17);
+        var map = L.map($('#map')[0]).setView(coords, 18);
         L.tileLayer(Config.basemap.url, {
-          maxZoom: 20,
+          maxZoom: 18,
           minZoom: 11,
           attribution: 'City of Philadelphia'
         }).addTo(map);
@@ -30,6 +30,7 @@ define([
           [40.15211239398205, -75.29548645019531],
           [40.15211239398205, -74.88967895507812],
           [39.88023492849342, -74.88967895507812]]);
+
         return this;
       }
     });
