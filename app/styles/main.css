@@ -43,8 +43,7 @@
 #accordion {
   width: 95%; }
 
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: #f5f5f5; }
 
 #nprogress .bar {

@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
   gutil = require('gulp-util')
-  sass = require('gulp-ruby-sass'),
+  sass = require('gulp-sass'),
   minifyCSS = require('gulp-minify-css'),
   clean = require('gulp-clean'),
   concat = require('gulp-concat'),
