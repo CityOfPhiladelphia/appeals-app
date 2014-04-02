@@ -17,23 +17,12 @@ var dirs = {
 };
 
 gulp.task('umd', function() {
-  return es.concat(
-    gulp.src([
+  return gulp.src([
       dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.js',
       dirs.dev + 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'
     ])
       .pipe(wrap({deps: ['jquery']}))
-      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
-    gulp.src(dirs.dev + 'vendor/nprogress/nprogress.js')
-      .pipe(wrap({deps: ['jquery'], exports: 'NProgress'}))
-      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
-    gulp.src(dirs.dev + 'vendor/leaflet/dist/leaflet.js')
-      .pipe(wrap({deps: ['jquery'], exports: 'L'}))
-      .pipe(gulp.dest(dirs.dev + 'vendor/umd')),
-    gulp.src(dirs.dev + 'vendor/backbone-pageable/lib/backbone-pageable.min.js')
-      .pipe(wrap({deps: ['backbone']}))
-      .pipe(gulp.dest(dirs.dev + 'vendor/umd'))
-  );
+      .pipe(gulp.dest(dirs.dev + 'vendor/umd'));
 });
 
 // Compress all JavaScript modules into main.min.js
@@ -56,12 +45,9 @@ gulp.task('scripts', function() {
       'bootstrap': 'empty:',
 
       // UMD Wrapped
-      'nprogress': '../vendor/umd/nprogress',
       'bootstrapSelect': '../vendor/umd/bootstrap-select.min',
-      'bootstrapDatepicker': '../vendor/umd/bootstrap-datepicker',
-      'leaflet': '../vendor/umd/leaflet',
-      'backbonePageable': '../vendor/umd/backbone-pageable.min',
-      'text': '../vendor/requirejs-text/text'
+      'bootstrapDatepicker': '../vendor/umd/bootstrap-datepicker'//,
+      //'text': '../vendor/requirejs-text/text' // Not sure why this is here?
     }
   })
       //.pipe(uglify())

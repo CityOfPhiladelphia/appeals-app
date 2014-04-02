@@ -1,5 +1,5 @@
 /*global require*/
-require.config({
+requirejs.config({
 	baseUrl: 'scripts/',
     paths: {
         'jquery': [
@@ -18,24 +18,12 @@ require.config({
             '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap-wizard/1.0.0/js/bootstrap.min',
             '../vendor/sass-bootstrap/dist/js/bootstrap'
         ],
-        'bootstrapSelect': [
-            '../vendor/bootstrap-select/bootstrap-select'
-        ],
-        'bootstrapDatepicker': [
-            '../vendor/bootstrap-datepicker/js/bootstrap-datepicker'
-        ],
-        'text': [
-            '../vendor/requirejs-text/text'
-        ],
-        'backbonePageable': [
-            '../vendor/backbone-pageable/lib/backbone-pageable'
-        ],
-        'leaflet': [
-            '../vendor/leaflet/dist/leaflet'
-        ],
-        'nprogress': [
-            '../vendor/nprogress/nprogress'
-        ]
+        'bootstrapSelect': '../vendor/bootstrap-select/bootstrap-select', // NOTE: Don't use an array if there's only one value, it confuses the compiler
+        'bootstrapDatepicker': '../vendor/bootstrap-datepicker/js/bootstrap-datepicker',
+        'text': '../vendor/requirejs-text/text',
+        'backbonePageable': '../vendor/backbone-pageable/lib/backbone-pageable',
+        'leaflet': '../vendor/leaflet/dist/leaflet',
+        'nprogress': '../vendor/nprogress/nprogress'
     },
         shim: {
         underscore: {
@@ -70,7 +58,7 @@ require.config({
         },
         nprogress: {
             deps: ['jquery'],
-            exports: 'Nprogress'
+            exports: 'NProgress'
         }
 
     }
