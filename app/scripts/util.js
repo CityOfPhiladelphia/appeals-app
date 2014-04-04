@@ -41,8 +41,13 @@ define([
     };
 
     util.friendlyDate = function(timestamp) {
+      if (timestamp instanceof Date) {
         var date = new Date(timestamp);
         return (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();
+      } else {
+        var dateString = timestamp.split('-');
+        return dateString[1] + '/' + dateString[2] + '/' + dateString[0];
+      }
     };
 
     util.friendlyTime = function(timestamp) {
