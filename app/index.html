@@ -1,8 +1,4 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,17 +7,18 @@
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="images/favicon.ico">
 
-        <!-- Stylesheets -->
-<!--         <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
- -->
-        <!-- build:css styles/main.min.css -->      
+        <!-- build:css styles/main.ie.min.css -->  
+        <!--[if lt IE 9]><link rel="stylesheet" href="styles/main.ie.css"><![endif]-->
+        <!-- /build -->
+        
+        <!-- build:css styles/main.min.css -->
         <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="vendor/nprogress/nprogress.css" />
         <link rel="stylesheet" href="styles/philagov.css">
         <link rel="stylesheet" href="vendor/leaflet/dist/leaflet.css" />
         <link rel="stylesheet" href="vendor/bootstrap-select/bootstrap-select.min.css">
         <link rel="stylesheet" href="vendor/bootstrap-datepicker/css/datepicker3.css">
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/main.css">    
         <!-- /build -->
 
     </head>

@@ -286,8 +286,21 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        stripmq: {
+            options: {
+                width: 1000,
+                type: 'screen'
+            },
+            all: {
+                files: {
+                    '<%= yeoman.app %>/build/styles/main.ie.css': ['<%= yeoman.app %>/build/styles/main.min.css']
+                }
+            }
         }
     });
+
+    grunt.loadNpmTasks('grunt-stripmq');
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {

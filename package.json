@@ -38,11 +38,11 @@
     "gulp-processhtml": "0.0.3",
     "gulp-minify-html": "^0.1.1",
     "gulp-wrap-umd": "^0.2.0",
-    "gulp-uglify": "^0.2.1"
+    "gulp-uglify": "^0.2.1",
+    "grunt-stripmq": "0.0.4"
   },
   "engines": {
     "node": ">=0.10.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
