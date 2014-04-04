@@ -50,11 +50,10 @@ define([
       }
     };
 
-    util.friendlyTime = function(timestamp) {
-      return timestamp.toLocaleTimeString('en-US', { 
-        timeZone: 'UTC', // Should be America/New_York but timestamps are stored in API as GMT-4
-        hour: '2-digit',
-        minute: '2-digit' });
+    util.friendlyTime = function(date) {
+      var estDate = new Date(date.setHours(date.getHours() + 4));
+      var meridiem = (estDate.getHours() < 13) ? 'AM': 'PM';
+      return (estDate.getHours() + ':' + estDate.getMinutes() + ' ' + meridiem);
     };
 
     util.friendlyLIDate = function(dateString) {
