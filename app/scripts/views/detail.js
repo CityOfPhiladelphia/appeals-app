@@ -89,7 +89,7 @@ define([
           self.decisionsCollection.once('sync', self.addDecisions, self);
           self.decisionsCollection.once('noDecisions', self.displayNoHistoryMessage, self);
           self.decisionsCollection.once('request', function() { Util.loading(true); });
-          self.decisionsCollection.fetch();
+          self.decisionsCollection.fetch({'jsonp': '$callback'});
         });
 
         $('#court-history').one('show.bs.collapse', function(e) {
@@ -98,7 +98,7 @@ define([
           self.courtHistoriesCollection.once('sync', self.addCourtHistories, self);
           self.courtHistoriesCollection.once('noHistory', self.displayNoCourtHistoryMessage, self);
           self.courtHistoriesCollection.once('request', function() { Util.loading(true); });
-          self.courtHistoriesCollection.fetch();
+          self.courtHistoriesCollection.fetch({'jsonp': '$callback'});
         });
       }
     });
