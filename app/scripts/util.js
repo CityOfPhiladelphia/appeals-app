@@ -52,8 +52,10 @@ define([
 
     util.friendlyTime = function(date) {
       var estDate = new Date(date.setHours(date.getHours() + 4));
-      var meridiem = (estDate.getHours() < 13) ? 'AM': 'PM';
-      return (estDate.getHours() + ':' + estDate.getMinutes() + ' ' + meridiem);
+      var meridiem = (estDate.getHours() < 13) ? 'AM' : 'PM';
+      var hour = (estDate.getHours() > 12) ? estDate.getHours() - 12 : estDate.getHours();
+      var minutes = (estDate.getMinutes() < 10) ? '0' + estDate.getMinutes() : estDate.getMinutes();
+      return (hour + ':' + minutes + ' ' + meridiem);
     };
 
     util.friendlyLIDate = function(dateString) {
