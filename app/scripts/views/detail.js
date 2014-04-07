@@ -59,6 +59,7 @@ define([
         collection.forEach(function(model) {
           self.addDecision(model);
         });
+        $('#decision-history').height('100%');
       },
 
       addCourtHistories: function(collection) {
@@ -67,6 +68,7 @@ define([
         collection.forEach(function(model) {
           self.addCourtHistory(model);
         });
+        $('#court-history').height('100%');
       },
 
       displayNoHistoryMessage: function(collection) {
