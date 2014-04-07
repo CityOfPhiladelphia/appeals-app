@@ -3,7 +3,7 @@ requirejs.config({
 	baseUrl: 'scripts/',
     paths: {
         'jquery': [
-            '//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min',
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min',
             '../vendor/jquery/jquery'
         ],
         'backbone': [
@@ -75,7 +75,6 @@ requirejs.config({
             deps: ['jquery'],
             exports: 'NProgress'
         }
-
     }
 });
 
