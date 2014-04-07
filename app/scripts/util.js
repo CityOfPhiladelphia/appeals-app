@@ -60,7 +60,7 @@ define([
 
     util.friendlyLIDate = function(dateString) {
       var date = parseInt(this.liDateRegEx.exec(dateString)[1], 10);
-      return this.friendlyDate(date);
+      return this.friendlyDate(new Date(date));
     };
 
     /**
