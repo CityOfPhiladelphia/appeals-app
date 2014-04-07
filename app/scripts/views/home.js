@@ -37,9 +37,16 @@ define([
           Request.set('endDate', endDate);
           Request.set('regionType', regionType);
           Request.set('regionValue', regionValue);
-          Request.on('change:geometry', this.fetchData, this); // fix
+          Request.on('change:geometry', this.fetchData, this);
           this.views = [];
-          this.fetchData();
+          if (Request.get('regionType') !== '' && Request.get('regionValue') !== '' && Request.get('geometry') !== '') {
+            this.fetchData();
+          }
+
+          if (Request.get('regionType') === '' && Request.get('regionValue') === '') {
+            this.fetchData();
+          }
+
         },
 
         events: {
