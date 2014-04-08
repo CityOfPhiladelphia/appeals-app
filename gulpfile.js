@@ -16,7 +16,7 @@ var gulp = require('gulp'),
 var htmlFilter = gulpFilter('!**/**/*.html');
 var mdFilter = gulpFilter('!**/**/*.md');
 var lessFilter = gulpFilter('!**/**/*.less');
-var scssFilter = gulpFilter('!**/**/*.less');
+var scssFilter = gulpFilter('!**/**/*.scss');
 
 var dirs = {
   dev: './app/',
