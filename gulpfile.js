@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 
 var htmlFilter = gulpFilter('!**/**/*.html');
 var mdFilter = gulpFilter('!**/**/*.md');
+var lessFilter = gulpFilter('!**/**/*.less');
 
 var dirs = {
   dev: './app/',
@@ -104,6 +105,7 @@ gulp.task('vendor', function() {
    return gulp.src(dirs.dev + 'vendor/**/*')
     .pipe(htmlFilter)
     .pipe(mdFilter)
+    .pipe(lessFilter)
     .pipe(gulp.dest(dirs.prod + 'vendor'));
 });
 
