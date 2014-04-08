@@ -10,7 +10,11 @@ var gulp = require('gulp'),
   minifyHTML = require('gulp-minify-html'),
   wrap = require('gulp-wrap-umd'),
   uglify = require('gulp-uglify'),
-  rename = require('gulp-rename');
+  rename = require('gulp-rename'),
+  gulpFilter = require('gulp-filter');
+
+var htmlFilter = gulpFilter('!**/**/*.html');
+var mdFilter = gulpFilter('!**/**/*.md');
 
 var dirs = {
   dev: './app/',
@@ -98,6 +102,8 @@ gulp.task('images', function() {
 // Copies all of the vendor/ directory to build/
 gulp.task('vendor', function() {
    return gulp.src(dirs.dev + 'vendor/**/*')
+    .pipe(htmlFilter)
+    .pipe(mdFilter)
     .pipe(gulp.dest(dirs.prod + 'vendor'));
 });
 
