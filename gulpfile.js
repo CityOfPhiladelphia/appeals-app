@@ -9,7 +9,8 @@ var gulp = require('gulp'),
   processhtml = require('gulp-processhtml'),
   minifyHTML = require('gulp-minify-html'),
   wrap = require('gulp-wrap-umd'),
-  uglify = require('gulp-uglify');
+  uglify = require('gulp-uglify'),
+  rename = require('gulp-rename');
 
 var dirs = {
   dev: './app/',
@@ -76,6 +77,16 @@ gulp.task('styles', function() {
       }))
       .pipe(gulp.dest(dirs.prod + 'styles/'))
     )
+});
+
+gulp.task('ie', function() {
+  return gulp.src(dirs.prod + 'styles/main.ie.css')
+    .pipe(minifyCSS({
+      keepSpecialComments: 0,
+      removeEmpty: true
+    }))
+    .pipe(rename('main.ie.min.css'))
+    .pipe(gulp.dest(dirs.prod + 'styles/'))
 });
 
 // Copies all images to build/ directory
