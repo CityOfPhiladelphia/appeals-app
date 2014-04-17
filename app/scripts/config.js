@@ -52,8 +52,8 @@ define([
     };
 
     config.history = {
-      court: 'http://services.phila.gov/PhillyAPI/Data/v1.0/zbacourtdetails?$filter=appeal_id eq <%= appealId %>&$format=json',
-      decision: 'http://services.phila.gov/PhillyAPI/Data/v1.0/zbahearingdecisions?$filter=appeal_id eq <%= appealId %>&$format=json'
+      court: 'http://api.phila.gov/li/v1/zbacourtdetails?$filter=appeal_id eq <%= appealId %>&$format=json',
+      decision: 'http://api.phila.gov/li/v1/zbahearingdecisions?$filter=appeal_id eq <%= appealId %>&$format=json'
     };
 
     return config;
