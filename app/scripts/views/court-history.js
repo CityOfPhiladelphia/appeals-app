@@ -4,6 +4,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    // Templates
     'text!templates/court-history.html'
 ], function ($, _, Backbone, Template) {
     'use strict';

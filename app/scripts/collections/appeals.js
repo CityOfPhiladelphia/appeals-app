@@ -3,10 +3,12 @@
 define([
     'underscore',
     'backbone',
-    'models/appeal',
     '../util',
+    // Models
+    'models/appeal',
+    // Vendor
     'backbonePageable'
-], function (_, Backbone, AppealsModel, Util) {
+], function (_, Backbone, Util, AppealsModel) {
     'use strict';
 
     var AppealsCollection = Backbone.PageableCollection.extend({

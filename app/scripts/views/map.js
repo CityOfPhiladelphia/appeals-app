@@ -5,10 +5,12 @@ define([
     'underscore',
     'backbone',
     'leaflet',
+    '../config',
+    // Templates
     'text!templates/map.html',
-    '../models/current-appeal',
-    '../config'
-], function ($, _, Backbone, L, Template, CurrentAppeal, Config) {
+    // Models    
+    '../models/current-appeal'
+], function ($, _, Backbone, L, Config, Template, CurrentAppeal) {
     'use strict';
 
     var MapView = Backbone.View.extend({

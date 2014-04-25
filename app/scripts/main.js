@@ -85,6 +85,7 @@ require([
 ], function ($, Backbone, Router) {
     'use strict';
     /*jshint nonew:false*/
+
     /**
      * If no CORS support, use jsonp
      */

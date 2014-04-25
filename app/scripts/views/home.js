@@ -4,15 +4,19 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'text!templates/home.html',
-    '../collections/appeals',
+    '../util',
+    '../config',
+    // Views
     '../views/appeal',
     '../views/summary',
-    '../collections/rcos',
+    // Templates
+    'text!templates/home.html',
+    // Models
     '../models/request',
-    '../util',
-    '../config'
-], function ($, _, Backbone, Template, Appeals, AppealView, SummaryView, RCOs, Request, Util, Config) {
+    // Collections
+    '../collections/appeals',
+    '../collections/rcos'
+], function ($, _, Backbone, Util, Config, AppealView, SummaryView, Template, Request, Appeals, RCOs) {
     'use strict';
 
     var AppView = Backbone.View.extend({

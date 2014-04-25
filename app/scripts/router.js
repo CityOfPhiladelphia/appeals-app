@@ -3,16 +3,20 @@
 define([
     'jquery',
     'backbone',
+    'config',
+    'util',
+    // Views
     'views/home',
     'views/detail',
     'views/map',
+    // Models
     'models/current-appeal',
+    // Collections
     'collections/rcos',
-    'config',
-    'util',
+    // Vendor   
     'bootstrapSelect',
     'bootstrapDatepicker'
-], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection, Config, Util) {
+], function ($, Backbone, Config, Util, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection) {
     'use strict';
 
     var router = Backbone.Router.extend({

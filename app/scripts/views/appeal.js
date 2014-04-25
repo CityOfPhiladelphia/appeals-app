@@ -4,7 +4,9 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    // Templates
     'text!templates/appeal.html',
+    // Models
     '../models/current-appeal'
 ], function ($, _, Backbone, Template, CurrentAppeal) {
     'use strict';

@@ -3,10 +3,11 @@
 define([
     'underscore',
     'backbone',
-    'models/court-history',
     '../config',
-    '../util'
-], function (_, Backbone, CourtHistoryModel, Config, Util) {
+    '../util',
+    // Models
+    'models/court-history'
+], function (_, Backbone, Config, Util, CourtHistoryModel) {
     'use strict';
 
     var CourtHistoriesCollection = Backbone.Collection.extend({

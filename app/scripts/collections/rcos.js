@@ -3,9 +3,10 @@
 define([
     'underscore',
     'backbone',
-    'models/rco',
-    '../util'
-], function (_, Backbone, RcoModel, Util) {
+    '../util',
+    // Models
+    'models/rco'
+], function (_, Backbone, Util, RcoModel) {
     'use strict';
 
     var RcosCollection = Backbone.Collection.extend({

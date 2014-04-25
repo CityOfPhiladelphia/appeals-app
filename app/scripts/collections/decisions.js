@@ -3,10 +3,11 @@
 define([
     'underscore',
     'backbone',
-    'models/decision',
     '../config',
-    '../util'
-], function (_, Backbone, DecisionModel, Config, Util) {
+    '../util',
+    // Models
+    'models/decision'
+], function (_, Backbone, Config, Util, DecisionModel) {
     'use strict';
 
     var DecisionsCollection = Backbone.Collection.extend({

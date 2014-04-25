@@ -4,17 +4,21 @@ define([
     'jquery',
     'underscore',
     'backbone',
+    '../util',
+    // Views
+    '../views/decision',
+    '../views/court-history',
+    // Templates
     'text!templates/detail.html',
     'text!templates/no-decision-history.html',
     'text!templates/no-court-history.html',
+    // Models
     '../models/current-appeal',
+    // Collections 
     '../collections/decisions',
-    '../collections/court-histories',
-    '../views/decision',
-    '../views/court-history',
-    '../util'
-], function ($, _, Backbone, Template, NoDecisionHistoryTemplate, NoCourtHistoryTemplate,
-    CurrentAppeal, DecisionsCollection, CourtHistoriesCollection, DecisionView, CourtHistoryView, Util) {
+    '../collections/court-histories'
+], function ($, _, Backbone, Util, DecisionView, CourtHistoryView, Template, NoDecisionHistoryTemplate,
+      NoCourtHistoryTemplate, CurrentAppeal, DecisionsCollection, CourtHistoriesCollection) {
     'use strict';
 
     var DetailView = Backbone.View.extend({
