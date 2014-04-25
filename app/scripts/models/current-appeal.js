@@ -14,10 +14,7 @@ define([
         },
 
         fetchHistory: function() {
-          console.log('In fetchHistory of current appeal');
           var url = _.template(Config.history.decision, this.toJSON());
-          console.log(url);
-          //$.ajax
         },
 
         url: function() {
@@ -25,8 +22,12 @@ define([
         },
 
         parse: function(resp) {
-          var data = Util.formatFeature(resp.features[0]);
-          return data;
+          if (resp.features.length < 1) {
+            return {appealNum: 0};
+          } else {
+            var data = Util.formatFeature(resp.features[0]);
+            return data;
+          }
         }
     });
 

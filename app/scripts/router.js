@@ -9,6 +9,7 @@ define([
     'views/home',
     'views/detail',
     'views/map',
+    'views/not-found-appeal',
     // Models
     'models/current-appeal',
     // Collections
@@ -16,7 +17,7 @@ define([
     // Vendor   
     'bootstrapSelect',
     'bootstrapDatepicker'
-], function ($, Backbone, Config, Util, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection) {
+], function ($, Backbone, Config, Util, HomeView, DetailView, MapView, NotFoundView, CurrentAppeal, RCOCollection) {
     'use strict';
 
     var router = Backbone.Router.extend({
@@ -42,7 +43,6 @@ define([
             autoclose: true,
             todayHighlight: true
           });
-          // TODO: scroll to the top
           // TODO: GA log request?
         },
 
@@ -81,6 +81,7 @@ define([
         },
 
         showAppeal: function(appealNum) {
+          var self = this;
           var detailView = new DetailView();
           var mapView = new MapView();
           if (CurrentAppeal.get('appealNum') === appealNum) {
@@ -94,18 +95,29 @@ define([
             Util.loading(true);
             promises.push(CurrentAppeal.fetch());
             $.when.apply($, promises)
-            .done(function() {
-              self.showView(detailView);
-              detailView.onRender();
-              mapView.render();
-              Util.loading(false);
+              .done(function() {
+                if (CurrentAppeal.get('appealNum') === appealNum) {
+                  self.showView(detailView);
+                  detailView.onRender();
+                  mapView.render();
+                  Util.loading(false);
+                } else {
+                  // TODO: Log error in GA
+                  self.showAppealNotFound();
+                  Util.loading(false);
+                }
             })
             .fail(function(xhr) {
-              // TODO: Handle failure here
+              // TODO: Log error in GA
+              self.showAppealNotFound();
               Util.loading(false);
-              console.log('Error getting appeal details');
             });
           }
+        },
+
+        showAppealNotFound: function() {
+          var notFoundView = new NotFoundView();
+          this.showView(notFoundView);
         }
     });
 
