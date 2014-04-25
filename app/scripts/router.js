@@ -81,7 +81,6 @@ define([
         },
 
         showAppeal: function(appealNum) {
-          var self = this;
           var detailView = new DetailView();
           var mapView = new MapView();
           if (CurrentAppeal.get('appealNum') === appealNum) {
