@@ -9,9 +9,10 @@ define([
     'models/current-appeal',
     'collections/rcos',
     'config',
+    'util',
     'bootstrapSelect',
     'bootstrapDatepicker'
-], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection, Config) {
+], function ($, Backbone, HomeView, DetailView, MapView, CurrentAppeal, RCOCollection, Config, Util) {
     'use strict';
 
     var router = Backbone.Router.extend({
@@ -47,15 +48,18 @@ define([
             opts = options || {};
 
           if (RCOCollection.length <= 0) {
+            Util.loading(true);
             promises.push(RCOCollection.fetch());
             $.when.apply($, promises)
               .done(function() {
                 var homeView = new HomeView(opts);
                 self.showView(homeView);
                 homeView.onRender();
+                Util.loading(false);
               })
               .fail(function(xhr) {
                 // TODO: Handle failure here
+                Util.loading(false);
                 console.log('Error getting RCOs');
               });
           } else {
@@ -85,15 +89,18 @@ define([
             CurrentAppeal.set('appealNum', appealNum);
             var promises = [],
               self = this;
+            Util.loading(true);
             promises.push(CurrentAppeal.fetch());
             $.when.apply($, promises)
             .done(function() {
               self.showView(detailView);
               detailView.onRender();
               mapView.render();
+              Util.loading(false);
             })
             .fail(function(xhr) {
               // TODO: Handle failure here
+              Util.loading(false);
               console.log('Error getting appeal details');
             });
           }
