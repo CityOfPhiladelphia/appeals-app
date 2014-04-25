@@ -55,16 +55,14 @@ define([
             Util.loading(true);
             promises.push(RCOCollection.fetch());
             $.when.apply($, promises)
-              .done(function() {
+              .always(function() {
                 var homeView = new HomeView(opts);
                 self.showView(homeView);
                 homeView.onRender();
                 Util.loading(false);
               })
-              .fail(function(xhr) {
-                // TODO: Handle failure here
-                Util.loading(false);
-                console.log('Error getting RCOs');
+              .fail(function() {
+                // TODO: Log ajax error in GA
               });
           } else {
             var homeView = new HomeView(opts);

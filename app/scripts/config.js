@@ -27,6 +27,10 @@ define([
       }
     };
 
+    config.rcoList = {
+      url: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query?where=1%3D1&outFields=ORG_NAME&returnGeometry=true&returnIdsOnly=false&returnCountOnly=false&orderByFields=ORG_NAME&returnZ=false&returnM=false&returnDistinctValues=false&f=pjson'
+    };
+
     config.basemap = {
       url: 'http://gis.phila.gov/arcgis/rest/services/BaseMaps/Hybrid_WM/MapServer/tile/{z}/{y}/{x}'
     };

@@ -39,11 +39,13 @@
               <option value="planning:West">West</option>
               <option value="planning:West Park">West Park</option>              
             </optgroup>
+            <% if (typeof(rcos) !== 'undefined') { %>
             <optgroup label="RCO">
             	<% _.each(rcos, function(rco) { %>
             		<option value="rco:<%= rco.ORG_NAME %>"><%= rco.ORG_NAME %></option>
             	<% }); %>
             </optgroup>
+            <% } %>
           </select>
           <br />
           <label for="DatePicker"><h4><i class="fa fa-calendar"></i> Date</h4></label><br />
