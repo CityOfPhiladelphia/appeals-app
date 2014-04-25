@@ -135,7 +135,7 @@ define([
             regionType: Util.friendlyRegionType(Request.get('regionType')),
             regionValue: Request.get('regionValue') || undefined
           }));
-          this.route = '/search/' + Request.get('startDate') + '/' + Request.get('endDate');
+          this.route = '/filter/' + Request.get('startDate') + '/' + Request.get('endDate');
           if (Request.get('regionType') !== '') {
             this.route = this.route + '/' + Request.get('regionType') + '/' + Request.get('regionValue');
           }

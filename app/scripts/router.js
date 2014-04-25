@@ -18,7 +18,7 @@ define([
     var router = Backbone.Router.extend({
         routes: {
           'appeals/:appealNum': 'showAppeal',
-          'search/:startDate/:endDate(/:regionType/:regionValue)': 'search',
+          'filter/:startDate/:endDate(/:regionType/:regionValue)': 'filter',
           '*path': 'home'
         },
 
@@ -69,7 +69,7 @@ define([
           }
         },
 
-        search: function(startDate, endDate, regionType, regionValue) {
+        filter: function(startDate, endDate, regionType, regionValue) {
           var options = {};
           options.startDate = startDate;
           options.endDate = endDate;
