@@ -10,6 +10,7 @@ define([
     'views/detail',
     'views/map',
     'views/not-found-appeal',
+    'views/api-down',
     // Models
     'models/current-appeal',
     // Collections
@@ -17,7 +18,8 @@ define([
     // Vendor   
     'bootstrapSelect',
     'bootstrapDatepicker'
-], function ($, Backbone, Config, Util, HomeView, DetailView, MapView, NotFoundView, CurrentAppeal, RCOCollection) {
+], function ($, Backbone, Config, Util, HomeView, DetailView, MapView, NotFoundView, ApiDownView, CurrentAppeal,
+     RCOCollection) {
     'use strict';
 
     var router = Backbone.Router.extend({
@@ -108,7 +110,7 @@ define([
             })
             .fail(function(xhr) {
               // TODO: Log error in GA
-              self.showAppealNotFound();
+              self.showApiDown();
               Util.loading(false);
             });
           }
@@ -117,6 +119,11 @@ define([
         showAppealNotFound: function() {
           var notFoundView = new NotFoundView();
           this.showView(notFoundView);
+        },
+
+        showApiDown: function() {
+          var apiDownView = new ApiDownView();
+          this.showView(apiDownView);
         }
     });
 
