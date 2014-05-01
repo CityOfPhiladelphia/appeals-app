@@ -185,6 +185,7 @@ define([
           _.each(this.views, function(view) {
             view.close();
           });
+          this.summaryView.remove();
           this.undelegateEvents();
           this.remove();
           this.unbind();
