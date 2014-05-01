@@ -90,18 +90,18 @@ define([
         $('#decision-history').one('show.bs.collapse', function(e) {
           e.stopPropagation();
           self.decisionsCollection = new DecisionsCollection({ appealId: CurrentAppeal.get('APPEAL_KEY') });
-          self.decisionsCollection.once('sync', self.addDecisions, self);
-          self.decisionsCollection.once('noDecisions', self.displayNoHistoryMessage, self);
-          self.decisionsCollection.once('request', function() { Util.loading(true); });
+          self.listenToOnce(self.decisionsCollection, 'sync', self.addDecisions);
+          self.listenToOnce(self.decisionsCollection, 'noDecisions', self.displayNoHistoryMessage);
+          self.listenToOnce(self.decisionsCollection, 'request', function() { Util.loading(true); });
           self.decisionsCollection.fetch({'jsonp': '$callback'});
         });
 
         $('#court-history').one('show.bs.collapse', function(e) {
           e.stopPropagation();
           self.courtHistoriesCollection = new CourtHistoriesCollection({ appealId: CurrentAppeal.get('APPEAL_KEY') });
-          self.courtHistoriesCollection.once('sync', self.addCourtHistories, self);
-          self.courtHistoriesCollection.once('noHistory', self.displayNoCourtHistoryMessage, self);
-          self.courtHistoriesCollection.once('request', function() { Util.loading(true); });
+          self.listenToOnce(self.courtHistoriesCollection, 'sync', self.addCourtHistories);
+          self.listenToOnce(self.courtHistoriesCollection, 'noHistory', self.displayNoCourtHistoryMessage);
+          self.listenToOnce(self.courtHistoriesCollection, 'request', function() { Util.loading(true); });
           self.courtHistoriesCollection.fetch({'jsonp': '$callback'});
         });
       }

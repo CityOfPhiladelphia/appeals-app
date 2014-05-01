@@ -21,8 +21,6 @@ define([
         initialize: function(options) {
           this.model = options.model;
           this.render();
-          this.model.on('remove', this.modelRemoved, this);
-          this.model.on('destroy', this.modelDestroyed, this);
         },
 
         events: {
@@ -38,6 +36,7 @@ define([
         },
 
         close: function() {
+          this.undelegateEvents();
           this.remove();
           this.unbind();
         },

@@ -32,6 +32,9 @@ define([
         showView: function(view) {
           if (this.currentView) {
             this.currentView.close();
+            if (typeof this.mapView != 'undefined') {
+              this.mapView.close();
+            }
           }
           $('#app').empty().append(view.render().el);
           document.title = view.title !== undefined && view.title ? view.title : $('title').text();
@@ -84,11 +87,11 @@ define([
 
         showAppeal: function(appealNum) {
           var detailView = new DetailView();
-          var mapView = new MapView();
+          this.mapView = new MapView();
           if (CurrentAppeal.get('appealNum') === appealNum) {
             this.showView(detailView);
             detailView.onRender();
-            mapView.render();
+            this.mapView.render();
           } else {
             CurrentAppeal.set('appealNum', appealNum);
             var promises = [],
@@ -100,7 +103,7 @@ define([
                 if (CurrentAppeal.get('appealNum') === appealNum) {
                   self.showView(detailView);
                   detailView.onRender();
-                  mapView.render();
+                  this.mapView.render();
                   Util.loading(false);
                 } else {
                   // TODO: Log error in GA

@@ -26,11 +26,11 @@ define([
         initialize: function(options) {
           this.collection = new Appeals({mode: 'client'});
           this.summaryView = new SummaryView();
-          this.collection.fullCollection.on('reset', this.resetAppeals, this);
-          this.collection.on('reset', this.checkPageCount, this);
-          this.collection.on('request', function() { Util.loading(true); })
-            .on('sync', function() { Util.loading(false); })
-            .on('error', function() { Util.loading(false); });
+          this.listenTo(this.collection.fullCollection, 'reset', this.resetAppeals);
+          this.listenTo(this.collection, 'reset', this.checkPageCount);
+          this.listenTo(this.collection, 'request', function() { Util.loading(true); });
+          this.listenTo(this.collection, 'sync',function() { Util.loading(false); });
+          this.listenTo(this.collection, 'error', function() { Util.loading(false); });
           this.page = 1;
           var opts = options || {};
           var startDate = opts.startDate || Util.queryableDate(new Date());
@@ -41,7 +41,7 @@ define([
           Request.set('endDate', endDate);
           Request.set('regionType', regionType);
           Request.set('regionValue', regionValue);
-          Request.on('change:geometry', this.fetchData, this);
+          this.listenTo(Request, 'change:geometry', this.fetchData);
           this.views = [];
           if (Request.get('regionType') !== '' && Request.get('regionValue') !== '' && Request.get('geometry') !== '') {
             this.fetchData();
@@ -185,6 +185,7 @@ define([
           _.each(this.views, function(view) {
             view.close();
           });
+          this.undelegateEvents();
           this.remove();
           this.unbind();
         }

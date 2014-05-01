@@ -34,6 +34,11 @@ define([
           [39.88023492849342, -74.88967895507812]]);
 
         return this;
+      },
+
+      close: function() {
+        this.remove();
+        this.unbind();
       }
     });
 
