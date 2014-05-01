@@ -24,7 +24,13 @@ First, make sure you have [Node.js](http://nodejs.org) installed.
 
 You can now browse to the `app/` directory in the browser to view the development version of the app, which will load more slowly since it loads every file separately. Or, use `grunt serve` to start a NodeJS server.  
 
-To build the app into a single, production file, use `gulp` and browse to the `app/build/` directory in the browser.
+## Building  
+
+To build the app into a single, production file, from the command line:
+
+1. `gulp`
+2. `grunt stripmq` (Gulp doesn't have a suitable module for stripping media queries for older IE versions yet)
+3. `gulp ie` (to add the previous task's CSS output to the `index.html` page)
 
 ## Source Control
 
