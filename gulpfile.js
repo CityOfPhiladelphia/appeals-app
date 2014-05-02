@@ -126,7 +126,7 @@ gulp.task('fonts', function() {
 gulp.task('html', function() {
   return gulp.src(dirs.dev + 'index.html')
     .pipe(processhtml('index.html'))
-    //.pipe(minifyHTML())
+    .pipe(minifyHTML())
     .pipe(gulp.dest(dirs.prod));
 });
 
