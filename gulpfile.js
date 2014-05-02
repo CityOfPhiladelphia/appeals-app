@@ -11,7 +11,9 @@ var gulp = require('gulp'),
   wrap = require('gulp-wrap-umd'),
   uglify = require('gulp-uglify'),
   rename = require('gulp-rename'),
-  gulpFilter = require('gulp-filter');
+  gulpFilter = require('gulp-filter'),
+  open = require('gulp-open'),
+  connect = require('gulp-connect');
 
 var htmlFilter = gulpFilter('!**/**/*.html');
 var mdFilter = gulpFilter('!**/**/*.md');
@@ -22,6 +24,8 @@ var dirs = {
   dev: './app/',
   prod: './app/build/'
 };
+
+var PORT = 9000;
 
 gulp.task('umd', function() {
   return gulp.src([
@@ -136,6 +140,31 @@ gulp.task('clean', function() {
       .pipe(clean());
 });
 
+gulp.task('open', function() {
+  return gulp.src(dirs.dev + 'index.html')
+    .pipe(open('', {url: 'http://localhost:' + PORT}));
+});
+
+gulp.task('connect', function() {
+  connect.server({
+    root: dirs.dev,
+    livereload: true,
+    port: PORT
+  });
+});
+
+gulp.task('watch', function() {
+  gulp.watch([dirs.dev + 'index.html', dirs.dev + 'scripts/{,*/}*.js'], function() {
+    gulp.src(dirs.dev + 'index.html')
+      .pipe(connect.reload());
+  });
+});
+
 gulp.task('default', ['clean', 'umd'], function() {
   gulp.start('styles', 'scripts', 'images', 'fonts', 'vendor', 'html');
 });
+
+gulp.task('serve', [], function() {
+  gulp.start('connect', 'open', 'watch');
+});  
+

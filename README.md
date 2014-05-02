@@ -22,7 +22,7 @@ First, make sure you have [Node.js](http://nodejs.org) installed.
 
 ## Running Locally
 
-You can now browse to the `app/` directory in the browser to view the development version of the app, which will load more slowly since it loads every file separately. Or, use `grunt serve` to start a NodeJS server.  
+You can now browse to the `app/` directory in the browser to view the development version of the app, which will load more slowly since it loads every file separately. Or, use `gulp serve` to start a NodeJS server.  
 
 ## Building  
 
