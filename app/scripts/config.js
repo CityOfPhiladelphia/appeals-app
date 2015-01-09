@@ -28,7 +28,7 @@ define([
     };
 
     config.rcoList = {
-      url: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query?where=1%3D1&outFields=ORG_NAME&returnGeometry=true&returnIdsOnly=false&returnCountOnly=false&orderByFields=ORG_NAME&returnZ=false&returnM=false&returnDistinctValues=false&f=pjson'
+      url: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query?where=1%3D1&outFields=ORGANIZATION_NAME&returnGeometry=true&returnIdsOnly=false&returnCountOnly=false&orderByFields=ORGANIZATION_NAME&returnZ=false&returnM=false&returnDistinctValues=false&f=pjson'
     };
 
     config.basemap = {
