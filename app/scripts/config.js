@@ -1,3 +1,4 @@
+
 /**
  * Config / Data Mappings
  */
@@ -18,7 +19,7 @@ define([
       rco: {
         fullName: 'Registered Community Organization',
         apiRoot: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0',
-        field: 'ORG_NAME'
+        field: 'ORGANIZATION_NAME'
       },
       planning: {
         fullName: 'Planning District',

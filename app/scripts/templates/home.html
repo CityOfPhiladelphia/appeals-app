@@ -42,7 +42,7 @@
             <% if (typeof(rcos) !== 'undefined') { %>
             <optgroup label="RCO">
             	<% _.each(rcos, function(rco) { %>
-            		<option value="rco:<%= rco.ORG_NAME %>"><%= rco.ORG_NAME %></option>
+            		<option value="rco:<%= rco.ORGANIZATION_NAME %>"><%= rco.ORGANIZATION_NAME %></option>
             	<% }); %>
             </optgroup>
             <% } %>
