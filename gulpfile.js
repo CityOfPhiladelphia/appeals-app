@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
   gutil = require('gulp-util')
   minifyCSS = require('gulp-minify-css'),
-  clean = require('gulp-clean'),
+  del = require('del'),
   concat = require('gulp-concat'),
   es = require('event-stream'),
   rjs = require('gulp-requirejs'),
@@ -126,12 +126,11 @@ gulp.task('html', function() {
 
 // Empty the build/ directory besides git stuff
 gulp.task('clean', function() {
-  return gulp.src([
+  return del([
     dirs.prod + '**/*',
     '!' + dirs.prod + '.git',
     '!' + dirs.prod + 'CNAME'
-    ], {read: false})
-      .pipe(clean());
+    ]);
 });
 
 gulp.task('open', function() {
