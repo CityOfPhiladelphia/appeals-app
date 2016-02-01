@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
   gutil = require('gulp-util')
-  sass = require('gulp-sass'),
   minifyCSS = require('gulp-minify-css'),
   clean = require('gulp-clean'),
   concat = require('gulp-concat'),
@@ -65,28 +64,23 @@ gulp.task('scripts', function() {
       .pipe(gulp.dest(dirs.prod + 'scripts/'));
 });
 
-// Compiles main.scss to CSS, concats all CSS assets and minifies to main.min.css
+// Concats all CSS assets and minifies to main.min.css
 gulp.task('styles', function() {
-  return es.concat(
-    gulp.src(dirs.dev + 'styles/main.scss')
-      .pipe(sass())
-      .pipe(gulp.dest(dirs.dev + 'styles')),
-    gulp.src([
-      dirs.dev + 'vendor/font-awesome/css/font-awesome.min.css',
-      dirs.dev + 'vendor/nprogress/nprogress.css',
-      dirs.dev + 'vendor/leaflet/dist/leaflet.css',
-      dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.css',
-      dirs.dev + 'vendor/bootstrap-datepicker/css/datepicker3.css',
-      dirs.dev + 'styles/philagov.css',
-      dirs.dev + 'styles/main.css'
-    ])
-      .pipe(concat('main.min.css'))
-      .pipe(minifyCSS({
-        keepSpecialComments: 0,
-        removeEmpty: true
-      }))
-      .pipe(gulp.dest(dirs.prod + 'styles/'))
-    )
+  return gulp.src([
+    dirs.dev + 'vendor/font-awesome/css/font-awesome.min.css',
+    dirs.dev + 'vendor/nprogress/nprogress.css',
+    dirs.dev + 'vendor/leaflet/dist/leaflet.css',
+    dirs.dev + 'vendor/bootstrap-select/bootstrap-select.min.css',
+    dirs.dev + 'vendor/bootstrap-datepicker/css/datepicker3.css',
+    dirs.dev + 'styles/philagov.css',
+    dirs.dev + 'styles/main.css'
+  ])
+    .pipe(concat('main.min.css'))
+    .pipe(minifyCSS({
+      keepSpecialComments: 0,
+      removeEmpty: true
+    }))
+    .pipe(gulp.dest(dirs.prod + 'styles/'))
 });
 
 gulp.task('ie', function() {

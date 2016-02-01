@@ -8,4 +8,3 @@ app/build
 test/vendor/
 *.pdf
 *.log
-app/styles/*.css
