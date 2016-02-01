@@ -14,7 +14,7 @@ define([
       cd: {
         fullName: 'Council District',
         apiRoot: 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/2',
-        field: 'DIST_NUM'
+        field: 'DISTRICT'
       },
       rco: {
         fullName: 'Registered Community Organization',
