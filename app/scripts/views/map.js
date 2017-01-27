@@ -20,7 +20,13 @@ define([
       render: function() {
         var coords = [CurrentAppeal.get('lat'), CurrentAppeal.get('lng')];
         var map = L.map($('#map')[0]).setView(coords, 18);
-        L.tileLayer(Config.basemap.url, {
+        L.tileLayer(Config.basemap.basemap, {
+          maxZoom: 18,
+          minZoom: 11,
+          attribution: 'City of Philadelphia'
+        }).addTo(map);
+        
+        L.tileLayer(Config.basemap.labels, {
           maxZoom: 18,
           minZoom: 11,
           attribution: 'City of Philadelphia'
