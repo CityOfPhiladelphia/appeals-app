@@ -1,0 +1,51 @@
+@import "./assets/css/foundation-datepicker.min.css";
+@import "./assets/icons/foundation-icons.css";
+@import "./assets/css/phila-app.min.css";
+@media only screen {
+    body {
+        background-color: #eee;
+    }
+    main {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    table.hover td {
+        cursor: pointer;
+    }
+    .card-divider {
+        background: #d8d6d6;
+    }
+    .card-divider a {
+        font-weight: 100;
+    }
+    .card-section button {
+        font-weight: 100;
+        cursor: pointer;
+    }
+    .datepicker thead {
+        color: #444;
+    }
+    .no-results {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+
+/* Define mobile styles */
+
+@media only screen and (max-width: 40em) {
+    table th,
+    table td {
+        font-size: 1em;
+    }
+    table th {
+        font-weight: 100;
+    }
+    .card {
+        border-radius: 3px;
+    }
+    .nopadding-xs {
+        padding: 0;
+    }
+}
