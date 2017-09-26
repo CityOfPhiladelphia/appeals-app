@@ -44,7 +44,7 @@ export const strings = {
   rcoGeo: 'ORGANIZATION_NAME=\'%s\'',
   appealsByDate: `${BASE_APPEALS_LIST} ORDER BY date_scheduled ASC`,
   appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ORDER BY date_scheduled ASC`,
-  appealById: 'SELECT * FROM LI_APPEALS WHERE appealno = \'%s\'',
+  appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\'',
   courtHistory: 'SELECT * FROM LI_COURT_APPEALS WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
   deicisionHistory: 'SELECT * FROM LI_BOARD_DECISIONS WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
 };
@@ -68,15 +68,16 @@ export function prepare(...args) {
 }
 
 export function post(q, data) {
-  const instance = axios.create();
-  instance.defaults.withCredentials = true;
-  instance.defaults.headers = { 'Access-Control-Allow-Origin': '*' };
-  return instance.post(q, data);
+  const options = {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  };
+  return axios.post(q, data, options);
 }
 
 export function get(q, data) {
-  const params = data;
-  return axios.get(q, { params });
+  const instance = axios.create();
+  const parameters = data;
+  return instance.get(q, { params: parameters });
 }
 
 export function getRCOs() {
@@ -103,12 +104,12 @@ function getCouncilAppealsGeography(id) {
 
 function getPlanningDistrictGeography(id) {
   gisCommonData.where = replace(strings.planinDistrictGeo, id);
-  return get(CD_URL, gisCommonData);
+  return get(PD_URL, gisCommonData);
 }
 
 function getRCOGeography(id) {
   gisCommonData.where = replace(strings.rcoGeo, id);
-  return get(CD_URL, gisCommonData);
+  return get(RCO_URL, gisCommonData);
 }
 
 export function getGeographyData(region, id) {

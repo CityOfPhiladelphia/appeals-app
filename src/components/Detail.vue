@@ -115,6 +115,15 @@
             <a v-bind:href="'http://li.phila.gov/#summary?address=' + encodeURI(appealData.address)" target="_blank" ref="liLink"><strong>LOCATION HISTORY: </strong>{{ appealData.address }} <i class="fi-arrow-right"></i></a>
           </div>
         </div>
+        <div class="card">
+          <div class="card-section">
+            <div class="map-container">
+              <gmap-map :center="centerPoint" :zoom="16" style="width: 100%; height: 100%">
+                <gmap-marker :position="markerPoint"></gmap-marker>
+              </gmap-map>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -124,6 +133,8 @@
   /**
   * Import Helpers
   */
+  import Vue from 'vue';
+  import * as VueGoogleMaps from 'vue2-google-maps';
   import * as objects from '../assets/js/objects';
   import * as cache from '../assets/js/utils/cache';
   import * as queries from '../assets/js/queries';
@@ -132,6 +143,12 @@
   * Import components
   */
   import Table from './Table';
+
+  Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyB6vatQ1UDUMpOsAYRLTIdH9NJlJD4_8OY',
+    },
+  });
 
   export default {
     name: 'Detail',
@@ -143,9 +160,12 @@
         localCourtHistoryRows: [],
         showHideDecisionHistory: false,
         showHideCourtHistory: false,
+        centerPoint: { lat: 39.952463, lng: -75.164069 },
+        markerPoint: null,
       };
     },
     components: {
+      // 'gmap-map': VueGoogleMaps,
       'custom-table-decision': Table,
       'custom-table-court': Table,
     },
@@ -159,6 +179,20 @@
       },
     },
     methods: {
+      setMarkerPoint(pointText) {
+        if (pointText) {
+          let point = '';
+          point = pointText.toString().replace('POINT(', '');
+          point = point.replace(')', '');
+          const pointArr = point.split(' ');
+          console.warn(pointArr);
+          if (pointArr.length === 2) {
+            const marker = { lat: parseFloat(pointArr[1]), lng: parseFloat(pointArr[0]) };
+            this.centerPoint = marker;
+            this.markerPoint = marker;
+          }
+        }
+      },
       loadData: function loadData() {
         if (typeof this.$route.params.appealId === 'undefined') {
           // Wrong URL go to not found
@@ -171,13 +205,14 @@
             if (cache.get(appealPath)) {
               this.appealData = cache.get(appealPath);
             } else {
-              const subQuery = queries.prepare(queries.strings.appealById, appealId);
-              queries.post(queries.CARTO_URL, { q: subQuery })
+              const subQuery = queries.replace(queries.strings.appealById, appealId);
+              queries.get(queries.CARTO_URL, { q: subQuery })
                 .then((response) => {
                   if (response.data.rows.length > 0) {
                     const appealsDataObject = objects.getAppealsDataObject(response.data.rows[0]);
                     cache.set(appealPath, appealsDataObject);
                     this.appealData = appealsDataObject;
+                    this.setMarkerPoint(this.appealData.latLng);
                   } else {
                     // Not results go to not found
                     this.$router.push('/not-found');
@@ -201,8 +236,8 @@
         if (cache.get(decisionPath)) {
           this.localDecisionHistoryRows = cache.get(decisionPath);
         } else {
-          const subQuery = queries.prepare(queries.strings.deicisionHistory, this.appealNo);
-          queries.post(queries.CARTO_URL, { q: subQuery })
+          const subQuery = queries.replace(queries.strings.deicisionHistory, this.appealNo);
+          queries.get(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const dataRows = response.data.rows;
               const decisionHistoryCollection = objects.getDecisionHistoryCollection(dataRows);
@@ -223,8 +258,8 @@
         if (cache.get(courtPath)) {
           this.localCourtHistoryRows = cache.get(courtPath);
         } else {
-          const subQuery = queries.prepare(queries.strings.courtHistory, this.appealNo);
-          queries.post(queries.CARTO_URL, { q: subQuery })
+          const subQuery = queries.replace(queries.strings.courtHistory, this.appealNo);
+          queries.get(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const courtHistoryColletion = objects.getCourtHistoryCollection(response.data.rows);
               cache.set(courtPath, courtHistoryColletion);

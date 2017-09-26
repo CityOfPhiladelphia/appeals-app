@@ -7,7 +7,7 @@
             <form>
               <h3><i class="fi-marker"></i> Regions</h3>
               <select class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL">
-                <option value="all" selected="selected">All regions</option>
+                <option value="all">All regions</option>
                 <optgroup label="Council District">
                   <option value="cd:1">Council District 1</option>
                   <option value="cd:2">Council District 2</option>
@@ -49,9 +49,9 @@
               <div>
                 <h3><i class="fi-calendar"></i> Date</h3>
                 <div class="input-group">
-                  <input class="input-group-field" id="dpd1" type="text" ref="refDate1">
+                  <input class="input-group-field" id="dpd1" type="text" v-model="date1" ref="refDate1">
                   <span class="input-group-label">to</span>
-                  <input class="input-group-field" id="dpd2" type="text" ref="refDate2">
+                  <input class="input-group-field" id="dpd2" type="text" v-model="date2" ref="refDate2">
                 </div>
               </div>
             </form>
@@ -97,19 +97,18 @@
   global.$ = global.jQuery = require('jquery');
   require('../assets/js/utils/foundation-datepicker.js');
   
-
+  const DATE_FORMAT = 'YYYY-MM-DD';
   const homeStore = {
     date1: null,
     displayDate1: '',
     date2: null,
     displayDate2: '',
-    region: null,
-    regionId: null,
     rcoArray: [],
     datepicker1: null,
     datepicker2: null,
     localRows: [],
-    rowsCount: 0
+    rowsCount: 0,
+    regionSelect: 'all'
   };
 
   export default {
@@ -123,38 +122,34 @@
     beforeMount() {
       let forceURL = false;
       console.log(this.$route);
-      if (moment(this.$route.params.date1, 'YYYY-MM-DD', true).isValid()) {
-        this.date1 = moment(this.$route.params.date1);
+      if (moment(this.$route.params.date1, DATE_FORMAT, true).isValid()) {
+        this.date1 = moment(this.$route.params.date1).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
       }
 
-      if (moment(     this.$route.params.date2, 'YYYY-MM-DD', true).isValid()     ) {
-        this.date2 = moment(this.$route.params.date2);
+      if (moment(this.$route.params.date2, DATE_FORMAT, true).isValid()) {
+        this.date2 = moment(this.$route.params.date2).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
       }
 
       if (!this.date1) {
-        this.date1 = moment();
+        this.date1 = moment().format(DATE_FORMAT);
       }
 
       if (!this.date2) {
-        this.date2 = moment().add(6, 'months');
+        this.date2 = moment().add(6, 'months').format(DATE_FORMAT);
       }
 
-      if (this.$route.params.region) {
-        this.region = this.$route.params.region;
-      }
-
-      if (this.$route.params.regionId) {
-        this.regionId = this.$route.params.regionId;
+      if (this.$route.params.region && this.$route.params.regionId) {
+        this.regionSelect = `${this.$route.params.region}:${this.$route.params.regionId}`;
       }
 
       if (forceURL) {
-        let URL = `/filter/${this.date1.format('YYYY-MM-DD')}/${this.date2.format('YYYY-MM-DD')}`;
+        let URL = `/filter/${this.date1}/${this.date2}`;
         if (this.region && this.regionId) {
           URL += `/${this.region}/${this.regionId}`;
         }
@@ -180,14 +175,14 @@
     },
     mounted() {
       this.datepicker1 = $(this.$refs.refDate1).fdatepicker({
-          initialDate: this.date1.toDate(),
+          //initialDate: this.date1,
           format: 'yyyy-mm-dd'
         })
         .on('changeDate', this.changeDate1)
         .data('datepicker');
 
       this.datepicker2 = $(this.$refs.refDate2).fdatepicker({
-          initialDate: this.date2.toDate(),
+          //initialDate: this.date2,
           format: 'yyyy-mm-dd',
           onRender (date) {
             return date.valueOf() <= homeStore.datepicker1.date.valueOf() ? 'disabled' : '';
@@ -199,77 +194,59 @@
       this.filter();
     },
     computed: {
-      regionSelect: function() {
-        return `${this.region}:${this.regionId}`;
+      region: function() {
+        let arr = this.regionSelect.split(':');
+        return (arr[0]) ? arr[0] : '';
+      },
+      regionId: function() {
+        let arr = this.regionSelect.split(':');
+        return (arr[1]) ? arr[1] : '';
       }
     },
     methods: {
       changeDate1(ev) {
-        if (ev.date.valueOf() > this.datepicker2.date.valueOf()) {
-          var newDate = new Date(ev.date)
-          newDate.setDate(newDate.getDate() + 1);
-          homeStore.datepicker2.update(newDate);
-        }
+        this.date1 = moment(ev.date).format(DATE_FORMAT);
+        // if (ev.date.valueOf() > this.datepicker2.date.valueOf()) {
+        //   var newDate = new Date(ev.date)
+        //   newDate.setDate(newDate.getDate() + 1);
+        //   homeStore.datepicker2.update(newDate);
+        // }
         this.datepicker1.hide();
         this.changeURL();
       },
       changeDate2(ev) {
+        this.date2 = moment(ev.date).format(DATE_FORMAT);
         this.datepicker2.hide();
         this.changeURL();
       },
-      filterParams() {
-        const date1 = this.$refs.refDate1.value;
-        const date2 = this.$refs.refDate2.value;
-
-        let region = "";
-        let regionId = "";
-
-        if (this.regionSelect) {
-          let selectArr = this.regionSelect.split(':');
-          region = selectArr[0];
-          regionId = selectArr[1];
-        }
-
-        return {
-          date1: date1,
-          date2: date2,
-          region: region,
-          regionId: regionId
-        };
-      },
       changeURL() {
-        const params = this.filterParams();
-
-        let URL = `/filter/${params.date1}/${params.date2}`;
-        if (params.region && params.regionId) {
-          URL += `/${params.region}/${params.regionId}`;
+        // this.filterParams();
+        let URL = `/filter/${this.date1}/${this.date2}`;
+        if (this.region && this.regionId) {
+          URL += `/${this.region}/${this.regionId}`;
         }
 
         this.$router.replace(URL);
       },
       filter() {
-        const params = this.filterParams();
-        this.date1 = moment(params.date1, "YYYY-MM-DD");
-        this.date2 = moment(params.date2, "YYYY-MM-DD");
-
+        //const params = this.filterParams();
         //Update dates on table title
-        this.displayDate1 = this.date1.format('MM/DD/YYYY');
-        this.displayDate2 = this.date2.format('MM/DD/YYYY');
+        this.displayDate1 = moment(this.date1).format('MM/DD/YYYY');
+        this.displayDate2 = moment(this.date2).format('MM/DD/YYYY');
 
         if (cache.get(this.$route.path)) {
           this.rowsCount = cache.get(this.$route.path).length;
           this.localRows = cache.get(this.$route.path);
         } else {
           let sql = "";
-
-          if (!params.region || !params.regionId) {
-            queries.post(
+          if (!this.region || !this.regionId) {
+            queries.get(
                 queries.CARTO_URL, 
                 {
                   q:queries.replace(
                     queries.strings.appealsByDate,
-                    this.date1.toISOString(),
-                    this.date2.toISOString()
+                    moment(this.date1).toISOString(),
+                    moment(this.date2).toISOString()
                   )
                 }
               )
@@ -284,39 +261,42 @@
               });
           } else {
             try {
-              queries.getGeographyData(params.region, params.regionId)
+              queries.getGeographyData(this.region, this.regionId)
                 .then((response) => {
                   if(!response.data.error) {
                     const geometry = response.data.features[0].geometry.rings;
-                    queries.post(
+                    queries.get(
                         queries.CARTO_URL,
                         {
                           q: queries.replace(
                             queries.strings.appealsByDateAndRegion,
-                            this.date1.toISOString(),
-                            this.date2.toISOString(),
+                            moment(this.date1).toISOString(),
+                            moment(this.date2).toISOString(),
                             JSON.stringify(geometry)
                           )
                         }
                       )
-                      .then((response) => {
-                        let filterDataCollection = objects.getFilterResultsCollection(response.data.rows);
+                      .then((cartoResponse) => {
+                        let filterDataCollection = objects.getFilterResultsCollection(cartoResponse.data.rows);
                         cache.set(this.$route.path, filterDataCollection);
                         this.rowsCount = filterDataCollection.length;
                         this.localRows = filterDataCollection;
                       })
                       .catch(err => {
+                        console.warn(err);
                         // Error handler here
                       });
                   }else{
+                    console.warn(cartoResponse.data.error);
                     // Error handler here
                   }
                 })
                 .catch((err) => {
-
+                  console.warn(err);
                 });
-            } catch (error) {
+            } catch (err) {
               // Error handler here
+              console.warn(err);
             }
           }
         }

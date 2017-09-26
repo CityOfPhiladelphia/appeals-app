@@ -24,6 +24,7 @@ export function getAppealsDataObject(data) {
     tempObj.permitNo = data.descriptionofproject;
     tempObj.description = data.appealgrounds;
     tempObj.primaryApplicant = data.primaryapplicant;
+    tempObj.latLng = data.latlng;
 
     const tempDate = moment(data.date_scheduled);
     tempObj.date = tempDate.format('MM/DD/YYYY');
