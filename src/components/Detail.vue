@@ -185,11 +185,10 @@
           point = pointText.toString().replace('POINT(', '');
           point = point.replace(')', '');
           const pointArr = point.split(' ');
-          console.warn(pointArr);
           if (pointArr.length === 2) {
-            const marker = { lat: parseFloat(pointArr[1]), lng: parseFloat(pointArr[0]) };
-            this.centerPoint = marker;
-            this.markerPoint = marker;
+            const mp = { lat: parseFloat(pointArr[1]), lng: parseFloat(pointArr[0]) };
+            this.centerPoint = mp;
+            this.markerPoint = mp;
           }
         }
       },
