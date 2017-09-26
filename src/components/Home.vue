@@ -6,7 +6,7 @@
           <div class="card-section">
             <form>
               <h3><i class="fi-marker"></i> Regions</h3>
-              <select class="selectpicker region-picker" title="Select a region..." ref="select" v-on:change="changeURL">
+              <select class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL">
                 <option value="all" selected="selected">All regions</option>
                 <optgroup label="Council District">
                   <option value="cd:1">Council District 1</option>
@@ -164,7 +164,7 @@
       if (cache.get('rco')) {
         this.rcoArray = cache.get('rco');
       } else {
-        let promise = queries.query(queries.strings.rco);
+        let promise = queries.getRCOs();
         promise.then(
           response => {
           try {
@@ -198,6 +198,11 @@
 
       this.filter();
     },
+    computed: {
+      regionSelect: function() {
+        return `${this.region}:${this.regionId}`;
+      }
+    },
     methods: {
       changeDate1(ev) {
         if (ev.date.valueOf() > this.datepicker2.date.valueOf()) {
@@ -213,15 +218,14 @@
         this.changeURL();
       },
       filterParams() {
-        const select = this.$refs.select.value;
         const date1 = this.$refs.refDate1.value;
         const date2 = this.$refs.refDate2.value;
 
         let region = "";
         let regionId = "";
 
-        if (select) {
-          let selectArr = select.split(':');
+        if (this.regionSelect) {
+          let selectArr = this.regionSelect.split(':');
           region = selectArr[0];
           regionId = selectArr[1];
         }
@@ -259,15 +263,16 @@
           let sql = "";
 
           if (!params.region || !params.regionId) {
-            sql = queries.CARTO_URL + queries.prepare(
-              queries.strings.appealsByDate,
-              this.date1.toISOString(),
-              this.date2.toISOString()
-            );
-          }
-
-          if (sql != "") {
-            queries.query(sql)
+            queries.post(
+                queries.CARTO_URL, 
+                {
+                  q:queries.replace(
+                    queries.strings.appealsByDate,
+                    this.date1.toISOString(),
+                    this.date2.toISOString()
+                  )
+                }
+              )
               .then((response) => {
                 let filterDataCollection = objects.getFilterResultsCollection(response.data.rows);
                 cache.set(this.$route.path, filterDataCollection);
@@ -275,8 +280,44 @@
                 this.localRows = filterDataCollection;
               })
               .catch(err => {
-
+                // Error handler here
               });
+          } else {
+            try {
+              queries.getGeographyData(params.region, params.regionId)
+                .then((response) => {
+                  if(!response.data.error) {
+                    const geometry = response.data.features[0].geometry.rings;
+                    queries.post(
+                        queries.CARTO_URL,
+                        {
+                          q: queries.replace(
+                            queries.strings.appealsByDateAndRegion,
+                            this.date1.toISOString(),
+                            this.date2.toISOString(),
+                            JSON.stringify(geometry)
+                          )
+                        }
+                      )
+                      .then((response) => {
+                        let filterDataCollection = objects.getFilterResultsCollection(response.data.rows);
+                        cache.set(this.$route.path, filterDataCollection);
+                        this.rowsCount = filterDataCollection.length;
+                        this.localRows = filterDataCollection;
+                      })
+                      .catch(err => {
+                        // Error handler here
+                      });
+                  }else{
+                    // Error handler here
+                  }
+                })
+                .catch((err) => {
+
+                });
+            } catch (error) {
+              // Error handler here
+            }
           }
         }
       },

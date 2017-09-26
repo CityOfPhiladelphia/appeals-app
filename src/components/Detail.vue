@@ -85,29 +85,6 @@
                 </tr>
               </thead>
             </custom-table-court>
-            <!-- <table class="hover" v-show="courtHistory.length>0">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Court Type</th>
-                  <th>Case #</th>
-                  <th>Action</th>
-                  <th>Result</th>
-                  <th>Proviso</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="ch in courtHistory">
-                  <td>{{ ch.courtactiondate }}</td>
-                  <td>{{ ch.court }}</td>
-                  <td>{{ ch.courtcasenumber }}</td>
-                  <td>{{ ch.courtaction }}</td>
-                  <td>{{ ch.courtresult }}</td>
-                  <td>{{ ch.courtproviso }}</td>
-                </tr>
-              </tbody>
-            </table> -->
-            
           </div>
         </div>
       </div>
@@ -195,7 +172,7 @@
               this.appealData = cache.get(appealPath);
             } else {
               const subQuery = queries.prepare(queries.strings.appealById, appealId);
-              queries.query(queries.CARTO_URL + subQuery)
+              queries.post(queries.CARTO_URL, { q: subQuery })
                 .then((response) => {
                   if (response.data.rows.length > 0) {
                     const appealsDataObject = objects.getAppealsDataObject(response.data.rows[0]);
@@ -225,7 +202,7 @@
           this.localDecisionHistoryRows = cache.get(decisionPath);
         } else {
           const subQuery = queries.prepare(queries.strings.deicisionHistory, this.appealNo);
-          queries.query(queries.CARTO_URL + subQuery)
+          queries.post(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const dataRows = response.data.rows;
               const decisionHistoryCollection = objects.getDecisionHistoryCollection(dataRows);
@@ -247,7 +224,7 @@
           this.localCourtHistoryRows = cache.get(courtPath);
         } else {
           const subQuery = queries.prepare(queries.strings.courtHistory, this.appealNo);
-          queries.query(queries.CARTO_URL + subQuery)
+          queries.post(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const courtHistoryColletion = objects.getCourtHistoryCollection(response.data.rows);
               cache.set(courtPath, courtHistoryColletion);
