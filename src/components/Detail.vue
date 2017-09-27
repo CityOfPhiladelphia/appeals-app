@@ -2,7 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="columns">
-        <h3>{{ appealData.address }} <small># {{ appealData.appealNo }}</small></h3>
+        <h3 v-show="!loading">{{ appealData.address }} <small># {{ appealData.appealNo }}</small></h3>
+        <h3 v-show="loading">Fetching data...</small></h3>
       </div>
     </div>
     <div class="row">
@@ -162,6 +163,7 @@
         showHideCourtHistory: false,
         centerPoint: { lat: 39.952463, lng: -75.164069 },
         markerPoint: null,
+        loading: true,
       };
     },
     components: {
@@ -203,6 +205,7 @@
             this.appealNo = appealId;
             if (cache.get(appealPath)) {
               this.appealData = cache.get(appealPath);
+              this.loading = false;
             } else {
               const subQuery = queries.replace(queries.strings.appealById, appealId);
               queries.get(queries.CARTO_URL, { q: subQuery })
@@ -212,6 +215,7 @@
                     cache.set(appealPath, appealsDataObject);
                     this.appealData = appealsDataObject;
                     this.setMarkerPoint(this.appealData.latLng);
+                    this.loading = false;
                   } else {
                     // Not results go to not found
                     this.$router.push('/not-found');

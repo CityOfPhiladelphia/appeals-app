@@ -61,7 +61,8 @@
       <div class="columns medium-16 text-center">
         <div class="card">
           <div class="card-divider">
-            <h3>There are {{ rowsCount }} appeals from {{ displayDate1 }} to {{ displayDate2 }}</h3>
+            <h3 v-show="!loading">There are {{ rowsCount }} appeals from {{ displayDate1 }} to {{ displayDate2 }}</h3>
+            <h3 v-show="loading">Fetching data...</h3>
           </div>
           <div class="card-section nopadding-xs">
             <custom-table v-on:rowClick="goToDetail" v-bind:enableRowClick="true" v-bind:allowLoadMore="true" v-bind:rows="localRows"
@@ -112,7 +113,8 @@
     rowsCount: 0,
     regionSelect: 'all',
     showModal: false,
-    modalMessage: ""
+    modalMessage: "",
+    loading: true,
   };
 
   export default {
@@ -126,7 +128,6 @@
     },
     beforeMount() {
       let forceURL = false;
-      console.log(this.$route);
       if (moment(this.$route.params.date1, DATE_FORMAT, true).isValid()) {
         this.date1 = moment(this.$route.params.date1).format(DATE_FORMAT);
       } else {
@@ -236,10 +237,13 @@
         //Update dates on table title
         this.displayDate1 = moment(this.date1).format('MM/DD/YYYY');
         this.displayDate2 = moment(this.date2).format('MM/DD/YYYY');
+        this.loading = true;
+        this.localRows = [];
 
         if (cache.get(this.$route.path)) {
           this.rowsCount = cache.get(this.$route.path).length;
           this.localRows = cache.get(this.$route.path);
+          tihs.loading = false;
         } else {
           let sql = "";
           if (!this.region || !this.regionId) {
@@ -258,6 +262,7 @@
                 cache.set(this.$route.path, filterDataCollection);
                 this.rowsCount = filterDataCollection.length;
                 this.localRows = filterDataCollection;
+                this.loading = false;
               })
               .catch(err => {
                 this.displayModal('filtering by date (CODE 005)');
@@ -285,6 +290,7 @@
                         cache.set(this.$route.path, filterDataCollection);
                         this.rowsCount = filterDataCollection.length;
                         this.localRows = filterDataCollection;
+                        this.loading = false;
                       })
                       .catch(err => {
                         this.displayModal('filtering by region (CODE: 001)');
