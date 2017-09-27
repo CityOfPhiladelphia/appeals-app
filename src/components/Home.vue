@@ -79,6 +79,7 @@
         </div>
       </div>
     </div>
+    <modal v-if="showModal" @close="showModal = false" :message="modalMessage"></modal>
   </div>
 </template>
 <script type="text/javsacript">
@@ -94,6 +95,7 @@
    * Import components
    */
   import Table from './Table.vue';
+  import Modal from './Modal.vue';
   global.$ = global.jQuery = require('jquery');
   require('../assets/js/utils/foundation-datepicker.js');
   
@@ -108,7 +110,9 @@
     datepicker2: null,
     localRows: [],
     rowsCount: 0,
-    regionSelect: 'all'
+    regionSelect: 'all',
+    showModal: false,
+    modalMessage: ""
   };
 
   export default {
@@ -117,7 +121,8 @@
       return homeStore;
     },
     components: {
-      'custom-table': Table
+      'custom-table': Table,
+      'modal': Modal
     },
     beforeMount() {
       let forceURL = false;
@@ -168,7 +173,7 @@
               this.rcoArray = response.data.features;
             }
           } catch (err) {
-
+            this.displayModal('getting the RCO data (CODE 006)');
           }
         });
       }
@@ -220,7 +225,6 @@
         this.changeURL();
       },
       changeURL() {
-        // this.filterParams();
         let URL = `/filter/${this.date1}/${this.date2}`;
         if (this.region && this.regionId) {
           URL += `/${this.region}/${this.regionId}`;
@@ -229,7 +233,6 @@
         this.$router.replace(URL);
       },
       filter() {
-        //const params = this.filterParams();
         //Update dates on table title
         this.displayDate1 = moment(this.date1).format('MM/DD/YYYY');
         this.displayDate2 = moment(this.date2).format('MM/DD/YYYY');
@@ -257,7 +260,7 @@
                 this.localRows = filterDataCollection;
               })
               .catch(err => {
-                // Error handler here
+                this.displayModal('filtering by date (CODE 005)');
               });
           } else {
             try {
@@ -265,7 +268,7 @@
                 .then((response) => {
                   if(!response.data.error) {
                     const geometry = response.data.features[0].geometry.rings;
-                    queries.get(
+                    queries.post(
                         queries.CARTO_URL,
                         {
                           q: queries.replace(
@@ -277,26 +280,24 @@
                         }
                       )
                       .then((cartoResponse) => {
-                        let filterDataCollection = objects.getFilterResultsCollection(cartoResponse.data.rows);
+                        let dataRows = cartoResponse.data.rows;
+                        let filterDataCollection = objects.getFilterResultsCollection(dataRows);
                         cache.set(this.$route.path, filterDataCollection);
                         this.rowsCount = filterDataCollection.length;
                         this.localRows = filterDataCollection;
                       })
                       .catch(err => {
-                        console.warn(err);
-                        // Error handler here
+                        this.displayModal('filtering by region (CODE: 001)');
                       });
                   }else{
-                    console.warn(cartoResponse.data.error);
-                    // Error handler here
+                    this.displayModal('filtering by region (CODE: 002)');
                   }
                 })
                 .catch((err) => {
-                  console.warn(err);
+                  this.displayModal('filtering by region (CODE: 003)');
                 });
             } catch (err) {
-              // Error handler here
-              console.warn(err);
+              this.displayModal('filtering by region (CODE: 004)');
             }
           }
         }
@@ -304,7 +305,15 @@
       goToDetail(rowObject) {
         this.$emit('setZoningLink', this.$route.path);
         this.$router.push(`/appeals/${rowObject.appealno}`);
-      }
+      },
+      displayModal(text) {
+        this.rowsCount = 0;
+        this.localRows = [];
+        this.modalMessage = `The application has encountered an unknown error ${text}, 
+                            please try again, if the problem persists, 
+                            contact your system administrator.`;
+        this.showModal=true;
+      },
     },
     watch: {
       '$route' (to, from) {

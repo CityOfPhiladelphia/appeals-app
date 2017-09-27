@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const qs = require('qs');
+
 const vsprintf = require('sprintf-js').vsprintf;
 
 const gisCommonData = {
@@ -68,10 +70,15 @@ export function prepare(...args) {
 }
 
 export function post(q, data) {
-  const options = {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  };
-  return axios.post(q, data, options);
+  return axios({
+    method: 'post',
+    url: q,
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    },
+    data: qs.stringify(data),
+  });
 }
 
 export function get(q, data) {
