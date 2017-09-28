@@ -99,7 +99,7 @@
   import Modal from './Modal.vue';
   global.$ = global.jQuery = require('jquery');
   require('../assets/js/utils/foundation-datepicker.js');
-  
+
   const DATE_FORMAT = 'YYYY-MM-DD';
   const homeStore = {
     date1: null,
@@ -243,12 +243,12 @@
         if (cache.get(this.$route.path)) {
           this.rowsCount = cache.get(this.$route.path).length;
           this.localRows = cache.get(this.$route.path);
-          tihs.loading = false;
+          this.loading = false;
         } else {
           let sql = "";
           if (!this.region || !this.regionId) {
             queries.get(
-                queries.CARTO_URL, 
+                queries.CARTO_URL,
                 {
                   q:queries.replace(
                     queries.strings.appealsByDate,
@@ -315,8 +315,8 @@
       displayModal(text) {
         this.rowsCount = 0;
         this.localRows = [];
-        this.modalMessage = `The application has encountered an unknown error ${text}, 
-                            please try again, if the problem persists, 
+        this.modalMessage = `The application has encountered an unknown error ${text},
+                            please try again, if the problem persists,
                             contact your system administrator.`;
         this.showModal=true;
       },
