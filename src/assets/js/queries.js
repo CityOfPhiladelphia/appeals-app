@@ -70,13 +70,17 @@ export function prepare(...args) {
 }
 
 export function post(q, data) {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+  };
+  if (document.documentElement.className === 'lt-ie10') {
+    headers['X-Requested-With'] = 'XMLHttpRequest';
+  }
   return axios({
     method: 'post',
     url: q,
+    headers,
     timeout: 10000,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    },
     data: qs.stringify(data),
   });
 }
