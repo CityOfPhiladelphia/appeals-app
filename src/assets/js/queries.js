@@ -34,10 +34,10 @@ const gisCommonData = {
   f: 'pjson',
 };
 
-export const CARTO_URL = 'https://data.phila.gov/carto/api/v2/sql';
-export const CD_URL = 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/2/query';
-export const PD_URL = 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
-export const RCO_URL = 'http://gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
+export const CARTO_URL = '//phl.carto.com/api/v1/sql';
+export const CD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/2/query';
+export const PD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
+export const RCO_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
 
 const BASE_APPEALS_LIST = 'SELECT date_scheduled, address, appealno, applictype FROM LI_APPEALS WHERE applictype = \'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
 export const strings = {

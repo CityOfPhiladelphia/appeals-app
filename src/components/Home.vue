@@ -174,7 +174,7 @@
               this.rcoArray = response.data.features;
             }
           } catch (err) {
-            this.displayModal('getting the RCO data (CODE 006)');
+            this.displayModal('getting the RCO data (CODE 006)', err);
           }
         });
       }
@@ -265,7 +265,7 @@
                 this.loading = false;
               })
               .catch(err => {
-                this.displayModal('filtering by date (CODE 005)');
+                this.displayModal('filtering by date (CODE 005)', err);
               });
           } else {
             try {
@@ -293,17 +293,17 @@
                         this.loading = false;
                       })
                       .catch(err => {
-                        this.displayModal('filtering by region (CODE: 001)');
+                        this.displayModal('filtering by region (CODE: 001)', err);
                       });
                   }else{
-                    this.displayModal('filtering by region (CODE: 002)');
+                    this.displayModal('filtering by region (CODE: 002)', err);
                   }
                 })
                 .catch((err) => {
-                  this.displayModal('filtering by region (CODE: 003)');
+                  this.displayModal('filtering by region (CODE: 003)', err);
                 });
             } catch (err) {
-              this.displayModal('filtering by region (CODE: 004)');
+              this.displayModal('filtering by region (CODE: 004)', err);
             }
           }
         }
@@ -312,7 +312,8 @@
         this.$emit('setZoningLink', this.$route.path);
         this.$router.push(`/appeals/${rowObject.appealno}`);
       },
-      displayModal(text) {
+      displayModal(text, err) {
+        console.log(err);
         this.rowsCount = 0;
         this.localRows = [];
         this.modalMessage = `The application has encountered an unknown error ${text},
