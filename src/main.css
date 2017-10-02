@@ -33,6 +33,13 @@
         width: 100%;
         height: 400px;
     }
+    .awkward{
+        background-color: #fcf8e3;
+        padding: 1rem;
+        margin-bottom: 1em;
+        border: 1px solid #faebcc;
+        color: #8a6d3b;
+    }
 }
 
 

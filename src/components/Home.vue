@@ -5,8 +5,8 @@
         <div class="card">
           <div class="card-section">
             <form>
-              <h3><i class="fi-marker"></i> Regions</h3>
-              <select class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL">
+              <h3 v-if="!hideSelect"><i class="fi-marker"></i> Regions</h3>
+              <select v-if="!hideSelect" class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL">
                 <option value="all">All regions</option>
                 <optgroup label="Council District">
                   <option value="cd:1">Council District 1</option>
@@ -115,6 +115,7 @@
     showModal: false,
     modalMessage: "",
     loading: true,
+    hideSelect: false,
   };
 
   export default {
@@ -127,6 +128,8 @@
       'modal': Modal
     },
     beforeMount() {
+      this.hideSelect = (document.documentElement.className === 'lt-ie10');
+
       let forceURL = false;
       if (moment(this.$route.params.date1, DATE_FORMAT, true).isValid()) {
         this.date1 = moment(this.$route.params.date1).format(DATE_FORMAT);

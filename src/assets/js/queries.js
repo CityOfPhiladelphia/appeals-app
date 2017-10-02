@@ -34,7 +34,7 @@ const gisCommonData = {
   f: 'pjson',
 };
 
-export const CARTO_URL = '//phl.carto.com/api/v1/sql';
+export const CARTO_URL = '//data.phila.gov/carto/api/v2/sql';
 export const CD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/2/query';
 export const PD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
 export const RCO_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
@@ -73,9 +73,6 @@ export function post(q, data) {
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
   };
-  if (document.documentElement.className === 'lt-ie10') {
-    headers['X-Requested-With'] = 'XMLHttpRequest';
-  }
   return axios({
     method: 'post',
     url: q,

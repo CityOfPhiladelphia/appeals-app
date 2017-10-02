@@ -21,6 +21,14 @@
     </div>
     <main>
       <div id="app">
+        <div class="row" v-if="ie9">
+          <div class="columns">
+            <div class="awkward">
+              <h3>Ok, this is awkward =(</h3>
+              <p>Hmmm, could you please upgrade your Internet Browser? Currently, you are using an unsupported and insecure browser. <strong>Some features are not available</strong></p>
+            </div>
+          </div>
+        </div>
         <router-view v-on:setZoningLink="setZoningLink"></router-view>
       </div>
     </main>
@@ -51,6 +59,7 @@
     data() {
       return {
         zoningLink: '/',
+        ie9: false,
       };
     },
     methods: {
@@ -60,6 +69,9 @@
     },
     created() {
       this.zoningLink = '/';
+    },
+    beforeMount() {
+      this.ie9 = (document.documentElement.className === 'lt-ie10');
     },
   };
 </script>
