@@ -4,9 +4,13 @@ export function getFilterResultsCollection(data) {
   const myData = data;
   if (typeof data === 'object' && data.length > 0) {
     for (let i = 0; i < data.length; i += 1) {
-      const temp = moment(data[i].date_scheduled);
+      const temp = moment(data[i].date_scheduled, moment.ISO_8601).utc();
       myData[i].date = temp.format('MM/DD/YYYY');
-      myData[i].time = temp.format('hh:mm A');
+      if (temp.format('HH:mm:ss') === '00:00:00') {
+        myData[i].time = '';
+      } else {
+        myData[i].time = temp.format('hh:mm A');
+      }
     }
 
     return myData;
@@ -26,9 +30,13 @@ export function getAppealsDataObject(data) {
     tempObj.primaryApplicant = data.primaryapplicant;
     tempObj.latLng = data.latlng;
 
-    const tempDate = moment(data.date_scheduled);
+    const tempDate = moment(data.date_scheduled, moment.ISO_8601).utc();
+    if (tempDate.format('HH:mm:ss') === '00:00:00') {
+      tempObj.time = '-';
+    } else {
+      tempObj.time = tempDate.format('hh:mm A');
+    }
     tempObj.date = tempDate.format('MM/DD/YYYY');
-    tempObj.time = tempDate.format('hh:mm A');
 
     return tempObj;
   }
@@ -40,7 +48,12 @@ export function getCourtHistoryCollection(data) {
     const tempArr = [];
     for (let i = 0; i < data.length; i += 1) {
       const tempObj = {};
-      tempObj.courtactiondate = moment(data[i].courtactiondate).format('MM/DD/YYYY hh:mm A');
+      const tempDate = moment(data[i].courtactiondate, moment.ISO_8601).utc();
+      if (tempDate.format('HH:mm:ss') === '00:00:00') {
+        tempObj.courtactiondate = tempDate.format('MM/DD/YYYY');
+      } else {
+        tempObj.courtactiondate = tempDate.format('MM/DD/YYYY hh:mm A');
+      }
       tempObj.court = data[i].court;
       tempObj.courtcasenumber = data[i].courtcasenumber;
       tempObj.courtaction = data[i].courtaction;
@@ -59,7 +72,12 @@ export function getDecisionHistoryCollection(data) {
     const tempArr = [];
     for (let i = 0; i < data.length; i += 1) {
       const tempObj = {};
-      tempObj.decisiondate = moment(data[i].decisiondate).format('MM/DD/YYYY hh:mm A');
+      const tempDate = moment(data[i].decisiondate, moment.ISO_8601).utc();
+      if (tempDate.format('HH:mm:ss') === '00:00:00') {
+        tempObj.decisiondate = tempDate.format('MM/DD/YYYY');
+      } else {
+        tempObj.decisiondate = tempDate.format('MM/DD/YYYY hh:mm A');
+      }
       tempObj.decision = data[i].decision;
       tempObj.proviso = data[i].proviso;
       tempArr.push(tempObj);
