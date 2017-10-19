@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="app-nav">
-      <div class="row expanded">
+      <div class="row">
         <div class="columns">
           <nav>
             <ul>
@@ -75,3 +75,9 @@
     },
   };
 </script>
+<style>
+nav{
+  text-align: left;
+}
+</style>
+

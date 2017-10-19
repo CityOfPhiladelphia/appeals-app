@@ -15,5 +15,4 @@ export default new Router({
     { path: '/appeals/:appealId', component: Detail, name: 'appealDetail' },
     { path: '/not-found', component: NoFound, name: 'noFound' },
   ],
-  base: '/apps/zoning-appeals/',
 });
