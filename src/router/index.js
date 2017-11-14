@@ -15,4 +15,10 @@ export default new Router({
     { path: '/appeals/:appealId', component: Detail, name: 'appealDetail' },
     { path: '/not-found', component: NoFound, name: 'noFound' },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { x: 0, y: 0 };
+  },
 });
