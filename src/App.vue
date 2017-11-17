@@ -41,9 +41,9 @@
                 <li>
                   <a href="https://beta.phila.gov/feedback/">Feedback</a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="#">More links</a>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>
@@ -76,7 +76,7 @@
   };
 </script>
 <style>
-nav{
+#application .app-nav nav{
   text-align: left;
 }
 </style>
