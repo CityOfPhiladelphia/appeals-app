@@ -119,9 +119,10 @@
         <div class="card">
           <div class="card-section">
             <div class="map-container">
-              <gmap-map :center="centerPoint" :zoom="16" style="width: 100%; height: 100%">
+              <!-- <gmap-map :center="centerPoint" :zoom="16" style="width: 100%; height: 100%">
                 <gmap-marker :position="markerPoint"></gmap-marker>
-              </gmap-map>
+              </gmap-map> -->
+              <city-map :location="localLocation" style="width: 100%; height: 100%"></city-map>
             </div>
           </div>
         </div>
@@ -134,22 +135,15 @@
   /**
   * Import Helpers
   */
-  import Vue from 'vue';
-  import * as VueGoogleMaps from 'vue2-google-maps';
   import * as objects from '../assets/js/objects';
   import * as cache from '../assets/js/utils/cache';
   import * as queries from '../assets/js/queries';
+  import Map from '../components/Map';
 
   /**
   * Import components
   */
   import Table from './Table';
-
-  Vue.use(VueGoogleMaps, {
-    load: {
-      key: 'AIzaSyB6vatQ1UDUMpOsAYRLTIdH9NJlJD4_8OY',
-    },
-  });
 
   export default {
     name: 'Detail',
@@ -161,13 +155,12 @@
         localCourtHistoryRows: [],
         showHideDecisionHistory: false,
         showHideCourtHistory: false,
-        centerPoint: { lat: 39.952463, lng: -75.164069 },
-        markerPoint: null,
         loading: true,
+        localLocation: null,
       };
     },
     components: {
-      // 'gmap-map': VueGoogleMaps,
+      'city-map': Map,
       'custom-table-decision': Table,
       'custom-table-court': Table,
     },
@@ -181,19 +174,6 @@
       },
     },
     methods: {
-      setMarkerPoint(pointText) {
-        if (pointText) {
-          let point = '';
-          point = pointText.toString().replace('POINT(', '');
-          point = point.replace(')', '');
-          const pointArr = point.split(' ');
-          if (pointArr.length === 2) {
-            const mp = { lat: parseFloat(pointArr[1]), lng: parseFloat(pointArr[0]) };
-            this.centerPoint = mp;
-            this.markerPoint = mp;
-          }
-        }
-      },
       loadData: function loadData() {
         if (typeof this.$route.params.appealId === 'undefined') {
           // Wrong URL go to not found
@@ -214,7 +194,16 @@
                     const appealsDataObject = objects.getAppealsDataObject(response.data.rows[0]);
                     cache.set(appealPath, appealsDataObject);
                     this.appealData = appealsDataObject;
-                    this.setMarkerPoint(this.appealData.latLng);
+                    // Get Latitude and Longitude Array
+                    if (typeof this.appealData.latLng === 'string') {
+                      let point = '';
+                      point = this.appealData.latLng.replace('POINT(', '');
+                      point = point.replace(')', '');
+                      const pointArr = point.split(' ');
+                      if (pointArr.length === 2) {
+                        this.localLocation = [parseFloat(pointArr[1]), parseFloat(pointArr[0])];
+                      }
+                    }
                     this.loading = false;
                   } else {
                     // Not results go to not found
@@ -278,3 +267,8 @@
     },
   };
 </script>
+<style stype="text/css">
+#application .app-footer.anchor{
+  z-index: 1000;
+}
+</style>
