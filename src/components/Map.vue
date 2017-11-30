@@ -51,6 +51,9 @@ export default {
     },
     placeMarker() {
       const location = this.getLocation();
+      if (this.marker !== null) {
+        this.map.removeLayer(this.marker);
+      }
       this.marker = L.marker(location).addTo(this.map);
       this.map.panTo(location);
     },
