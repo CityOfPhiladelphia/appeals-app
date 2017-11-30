@@ -122,7 +122,7 @@
               <!-- <gmap-map :center="centerPoint" :zoom="16" style="width: 100%; height: 100%">
                 <gmap-marker :position="markerPoint"></gmap-marker>
               </gmap-map> -->
-              <city-map :location="localLocation" style="width: 100%; height: 100%"></city-map>
+              <city-map v-if="localLocation !== null" :location="localLocation" style="width: 100%; height: 100%"></city-map>
             </div>
           </div>
         </div>
