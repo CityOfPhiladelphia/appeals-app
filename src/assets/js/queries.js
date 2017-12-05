@@ -34,7 +34,7 @@ const gisCommonData = {
   f: 'pjson',
 };
 
-export const CARTO_URL = '//data.phila.gov/carto/api/v2/sql';
+export const CARTO_URL = '//phl.carto.com/api/v2/sql';
 export const CD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/2/query';
 export const PD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
 export const RCO_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
