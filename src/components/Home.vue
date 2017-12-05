@@ -101,6 +101,7 @@
   require('../assets/js/utils/foundation-datepicker.js');
 
   const DATE_FORMAT = 'YYYY-MM-DD';
+  const ISO_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ';
   const homeStore = {
     date1: null,
     displayDate1: '',
@@ -132,14 +133,14 @@
 
       let forceURL = false;
       if (moment(this.$route.params.date1, DATE_FORMAT, true).isValid()) {
-        this.date1 = moment(this.$route.params.date1).format(DATE_FORMAT);
+        this.date1 = moment(this.$route.params.date1, DATE_FORMAT).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
       }
 
       if (moment(this.$route.params.date2, DATE_FORMAT, true).isValid()) {
-        this.date2 = moment(this.$route.params.date2).format(DATE_FORMAT);
+        this.date2 = moment(this.$route.params.date2, DATE_FORMAT).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
@@ -214,17 +215,12 @@
     },
     methods: {
       changeDate1(ev) {
-        this.date1 = moment(ev.date).format(DATE_FORMAT);
-        // if (ev.date.valueOf() > this.datepicker2.date.valueOf()) {
-        //   var newDate = new Date(ev.date)
-        //   newDate.setDate(newDate.getDate() + 1);
-        //   homeStore.datepicker2.update(newDate);
-        // }
+        this.date1 = moment(ev.date).utc().format(DATE_FORMAT);
         this.datepicker1.hide();
         this.changeURL();
       },
       changeDate2(ev) {
-        this.date2 = moment(ev.date).format(DATE_FORMAT);
+        this.date2 = moment(ev.date).utc().format(DATE_FORMAT);
         this.datepicker2.hide();
         this.changeURL();
       },
@@ -255,8 +251,8 @@
                 {
                   q:queries.replace(
                     queries.strings.appealsByDate,
-                    moment(this.date1).toISOString(),
-                    moment(this.date2).toISOString()
+                    `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
+                    `${this.date2}T23:59:59Z` // Please do not ask, it just works =/
                   )
                 }
               )
@@ -281,8 +277,8 @@
                         {
                           q: queries.replace(
                             queries.strings.appealsByDateAndRegion,
-                            moment(this.date1).toISOString(),
-                            moment(this.date2).toISOString(),
+                            `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
+                            `${this.date2}T23:59:59Z`, // Please do not ask, it just works =/
                             JSON.stringify(geometry)
                           )
                         }
@@ -316,7 +312,6 @@
         this.$router.push(`/appeals/${rowObject.appealno}`);
       },
       displayModal(text, err) {
-        console.log(err);
         this.rowsCount = 0;
         this.localRows = [];
         this.modalMessage = `The application has encountered an unknown error ${text},

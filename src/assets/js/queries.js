@@ -39,7 +39,7 @@ export const CD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceArea
 export const PD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
 export const RCO_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
 
-const BASE_APPEALS_LIST = 'SELECT date_scheduled, address, appealno, applictype FROM LI_APPEALS WHERE applictype = \'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
+const BASE_APPEALS_LIST = 'SELECT date_scheduled, address, appealno, applictype FROM LI_APPEALS WHERE applictype = \'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) <= \'%s\'';
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
   planinDistrictGeo: 'DIST_NAME=\'%s\'',
