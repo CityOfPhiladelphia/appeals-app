@@ -131,7 +131,6 @@
     },
     beforeMount() {
       this.hideSelect = (document.documentElement.className === 'lt-ie10');
-
       let forceURL = false;
       if (moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT, true).isValid()) {
         this.date1 = moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT).format(DATE_FORMAT);
@@ -163,6 +162,10 @@
         let URL = `/filter/${this.date1}/${this.date2}`;
         if (this.region && this.regionId) {
           URL += `/${this.region}/${this.regionId}`;
+        }
+        if (Object.keys(this.$route.params).length !== 0 ) {
+          this.displayCustomErrorModal(`The date range provided is invalid. 
+          Please use the date picker to select the desired date range.`);
         }
         this.$router.push(URL);
       }
@@ -318,6 +321,10 @@
         this.modalMessage = `The application has encountered an unknown error ${text},
                             please try again, if the problem persists,
                             contact your system administrator.`;
+        this.showModal=true;
+      },
+      displayCustomErrorModal(text) {
+        this.modalMessage = text;
         this.showModal=true;
       },
     },

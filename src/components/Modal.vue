@@ -6,7 +6,7 @@
           <div class="modal-header small-24 medium-12 small-centered columns">
             <div class="card">
               <div class="card-divider">
-                <slot name="header"><h3><i class="fi-skull"></i> {{ title }}</h3></slot>
+                <slot name="header"><h3><i class="fi-alert"></i> {{ title }}</h3></slot>
               </div>
               <div class="card-section">
                 <div class="modal-body">
