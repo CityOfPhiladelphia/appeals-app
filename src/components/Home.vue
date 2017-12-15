@@ -100,6 +100,7 @@
   global.$ = global.jQuery = require('jquery');
   require('../assets/js/utils/foundation-datepicker.js');
 
+  const VALIDATE_URL_DATE_FORMAT = 'YYYY-M-D';
   const DATE_FORMAT = 'YYYY-MM-DD';
   const ISO_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ';
   const homeStore = {
@@ -132,15 +133,15 @@
       this.hideSelect = (document.documentElement.className === 'lt-ie10');
 
       let forceURL = false;
-      if (moment(this.$route.params.date1, DATE_FORMAT, true).isValid()) {
-        this.date1 = moment(this.$route.params.date1, DATE_FORMAT).format(DATE_FORMAT);
+      if (moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT, true).isValid()) {
+        this.date1 = moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
       }
 
-      if (moment(this.$route.params.date2, DATE_FORMAT, true).isValid()) {
-        this.date2 = moment(this.$route.params.date2, DATE_FORMAT).format(DATE_FORMAT);
+      if (moment(this.$route.params.date2, VALIDATE_URL_DATE_FORMAT, true).isValid()) {
+        this.date2 = moment(this.$route.params.date2, VALIDATE_URL_DATE_FORMAT).format(DATE_FORMAT);
       } else {
         // Wrong URL
         forceURL = true;
