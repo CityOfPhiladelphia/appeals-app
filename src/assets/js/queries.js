@@ -39,14 +39,17 @@ export const CD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceArea
 export const PD_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/ServiceAreas/MapServer/20/query';
 export const RCO_URL = '//gis.phila.gov/arcgis/rest/services/PhilaGov/RCO/MapServer/0/query';
 
-const BASE_APPEALS_LIST = 'SELECT date_scheduled, address, appealno, applictype FROM LI_APPEALS WHERE applictype = \'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) <= \'%s\'';
+const BASE_APPEALS_LIST = 'SELECT date_scheduled,  address, appealno, applictype, array_agg(appealtype) as appealtype FROM LI_APPEALS_REV WHERE DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
+const END_APPEALS_LIST = 'GROUP BY date_scheduled, address, appealno, applictype';
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
   planinDistrictGeo: 'DIST_NAME=\'%s\'',
   rcoGeo: 'ORGANIZATION_NAME=\'%s\'',
-  appealsByDate: `${BASE_APPEALS_LIST} ORDER BY date_scheduled ASC`,
-  appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ORDER BY date_scheduled ASC`,
-  appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\'',
+  appealsByDate: `${BASE_APPEALS_LIST} ${END_APPEALS_LIST} ORDER BY date_scheduled ASC`,
+  appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ${END_APPEALS_LIST} ORDER BY date_scheduled ASC`,
+  appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS_REV WHERE appealno = \'%s\'',
+  appealByIdDate: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS_REV WHERE appealno = \'%s\' AND date_scheduled = \'%s\'',
+  appealTypes: 'SELECT appealtype FROM LI_APPEALS_REV WHERE appealno= \'%s\' GROUP BY appealtype',
   courtHistory: 'SELECT * FROM LI_COURT_APPEALS WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
   deicisionHistory: 'SELECT * FROM LI_BOARD_DECISIONS WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
 };

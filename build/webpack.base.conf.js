@@ -41,7 +41,7 @@ module.exports = {
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
         options: {
-          //emitWarning: true,
+          emitWarning: true,
           formatter: require('eslint-friendly-formatter')
         }
       },

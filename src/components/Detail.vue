@@ -22,7 +22,13 @@
                   </li>
                   <li>
                     <h4>TYPE</h4>
-                    <p>{{ appealData.type }}</p>
+                    <p>{{ appealData.type | humanReadableAppealType }}</p>
+                  </li>
+                  <li>
+                    <h4>APPLICATION TYPE</h4>
+                    <p v-for="(at, key) in localAppealsTypes" :key="key">
+                      {{ at }}
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -135,15 +141,10 @@
   /**
   * Import Helpers
   */
+  import Table from '@/components/legacy/Table';
   import * as objects from '../assets/js/objects';
-  import * as cache from '../assets/js/utils/cache';
   import * as queries from '../assets/js/queries';
   import Map from '../components/Map';
-
-  /**
-  * Import components
-  */
-  import Table from './Table';
 
   export default {
     name: 'Detail',
@@ -157,6 +158,7 @@
         showHideCourtHistory: false,
         loading: true,
         localLocation: null,
+        localAppealsTypes: null,
       };
     },
     components: {
@@ -173,7 +175,33 @@
         this.loadData();
       },
     },
+    filters: {
+      humanReadableAppealType(type) {
+        switch (type) {
+          case 'RB_BBS':
+            return 'Board of Building Standards';
+          case 'RB_LIRB':
+            return 'L&I Review Board of Appeal';
+          case 'RB_ZBA':
+            return 'Zoning Board of Appeal';
+          default:
+            return '';
+        }
+      },
+    },
     methods: {
+      renderLocalLocation() {
+        // Get Latitude and Longitude Array
+        if (typeof this.appealData.latLng === 'string') {
+          let point = '';
+          point = this.appealData.latLng.replace('POINT(', '');
+          point = point.replace(')', '');
+          const pointArr = point.split(' ');
+          if (pointArr.length === 2) {
+            this.localLocation = [parseFloat(pointArr[1]), parseFloat(pointArr[0])];
+          }
+        }
+      },
       loadData: function loadData() {
         if (typeof this.$route.params.appealId === 'undefined') {
           // Wrong URL go to not found
@@ -183,27 +211,32 @@
           try {
             const appealId = parseInt(this.$route.params.appealId, 10);
             this.appealNo = appealId;
-            if (cache.get(appealPath)) {
-              this.appealData = cache.get(appealPath);
+            const appealData = this.$store.getters.getAppealDetailBySlug(appealPath);
+            if (appealData) {
+              this.appealData = appealData;
+              this.renderLocalLocation();
+              this.renderAppealTypes();
               this.loading = false;
             } else {
-              const subQuery = queries.replace(queries.strings.appealById, appealId);
+              let subQuery = '';
+              if (this.$route.params.date) {
+                subQuery = queries.replace(
+                  queries.strings.appealByIdDate,
+                  appealId,
+                  this.$route.params.date);
+              } else {
+                subQuery = queries.replace(
+                  queries.strings.appealById,
+                  appealId);
+              }
               queries.get(queries.CARTO_URL, { q: subQuery })
                 .then((response) => {
                   if (response.data.rows.length > 0) {
                     const appealsDataObject = objects.getAppealsDataObject(response.data.rows[0]);
-                    cache.set(appealPath, appealsDataObject);
+                    this.$store.commit('setAppealDetailBySlug', { slug: appealPath, data: appealsDataObject });
                     this.appealData = appealsDataObject;
-                    // Get Latitude and Longitude Array
-                    if (typeof this.appealData.latLng === 'string') {
-                      let point = '';
-                      point = this.appealData.latLng.replace('POINT(', '');
-                      point = point.replace(')', '');
-                      const pointArr = point.split(' ');
-                      if (pointArr.length === 2) {
-                        this.localLocation = [parseFloat(pointArr[1]), parseFloat(pointArr[0])];
-                      }
-                    }
+                    this.renderLocalLocation();
+                    this.renderAppealTypes();
                     this.loading = false;
                   } else {
                     // Not results go to not found
@@ -221,24 +254,51 @@
           }
         }
       },
+      renderAppealTypes() {
+        const appealsTypes = this.$store.getters.getAppealsTypesByID(this.appealNo);
+        if (appealsTypes) {
+          this.localAppealsTypes = appealsTypes;
+        } else {
+          const subQuery = queries.replace(queries.strings.appealTypes, this.appealNo);
+          queries.get(queries.CARTO_URL, { q: subQuery })
+            .then((response) => {
+              const dataRows = response.data.rows;
+              if (dataRows.length > 0) {
+                const maped = dataRows.map(obj => obj.appealtype);
+                this.$store.commit('setAppealTypeByID', {
+                  appealNo: this.appealNo,
+                  types: maped });
+                this.localAppealsTypes = maped;
+              } else {
+                this.$store.commit('decisions/setDecisionBySlug', { appealNo: this.appealNo, types: [] });
+                this.localAppealsTypes = [];
+              }
+            })
+            .catch(() => {
+              // Something went wrong, go to not found
+              this.$store.commit('decisions/setDecisionBySlug', { appealNo: this.appealNo, types: [] });
+              this.localAppealsTypes = [];
+            });
+        }
+      },
       initDecisionHistory() {
         this.showHideDecisionHistory = true;
         const decisionPath = `${this.$route.path}/decision`;
-
-        if (cache.get(decisionPath)) {
-          this.localDecisionHistoryRows = cache.get(decisionPath);
+        const decisionData = this.$store.getters['decisions/getDecisionBySlug'](decisionPath);
+        if (decisionData) {
+          this.localDecisionHistoryRows = decisionData;
         } else {
           const subQuery = queries.replace(queries.strings.deicisionHistory, this.appealNo);
           queries.get(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const dataRows = response.data.rows;
               const decisionHistoryCollection = objects.getDecisionHistoryCollection(dataRows);
-              cache.set(decisionPath, decisionHistoryCollection);
+              this.$store.commit('decisions/setDecisionBySlug', { slug: decisionPath, data: decisionHistoryCollection });
               this.localDecisionHistoryRows = decisionHistoryCollection;
             })
             .catch(() => {
               // Something went wrong, go to not found
-              cache.set(decisionPath, []);
+              this.$store.commit('decisions/setDecisionBySlug', { slug: decisionPath, data: [] });
               this.localDecisionHistoryRows = [];
             });
         }
@@ -246,20 +306,20 @@
       initCourtHistory() {
         this.showHideCourtHistory = true;
         const courtPath = `${this.$route.path}/court`;
-
-        if (cache.get(courtPath)) {
-          this.localCourtHistoryRows = cache.get(courtPath);
+        const historyData = this.$store.getters['history/getHistoryBySlug'](courtPath);
+        if (historyData) {
+          this.localCourtHistoryRows = historyData;
         } else {
           const subQuery = queries.replace(queries.strings.courtHistory, this.appealNo);
           queries.get(queries.CARTO_URL, { q: subQuery })
             .then((response) => {
               const courtHistoryColletion = objects.getCourtHistoryCollection(response.data.rows);
-              cache.set(courtPath, courtHistoryColletion);
+              this.$store.commit('history/setHistoryBySlug', { slug: courtPath, data: courtHistoryColletion });
               this.localCourtHistoryRows = courtHistoryColletion;
             })
             .catch(() => {
               // Something went wrong, go to not found
-              cache.set(courtPath, []);
+              this.$store.commit('history/setHistoryBySlug', { slug: courtPath, data: [] });
               this.localCourtHistoryRows = [];
             });
         }
@@ -267,8 +327,19 @@
     },
   };
 </script>
-<style stype="text/css">
-#application .app-footer.anchor{
-  z-index: 1000;
-}
+<style scoped>
+  #application .app-footer.anchor{
+    z-index: 1000;
+  }
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  p {
+    font-size: 0.9375rem;
+  }
+  ul li {
+    margin: 15px 0;
+  }
 </style>
