@@ -6,6 +6,7 @@
           <div class="card-section">
             <form>
               <h3 v-if="!hideSelect"><i class="fi-marker"></i> Regions</h3>
+              <p>Select a region below to filter the table data.</p>
               <select v-if="!hideSelect" class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL(true)">
                 <option value="all">All regions</option>
                 <optgroup label="Council District">
@@ -46,8 +47,17 @@
                   </option>
                 </optgroup>
               </select>
+              <hr>
+              <div>
+                <p>Use the calendar to filter by Appeals Type and Date</p>
+              </div>
               <div>
                 <full-calendar ref="calendar" :events="events" :config="config" @event-selected="filterTable"></full-calendar>
+              </div>
+              <div class="Legend">
+                <p class=""><strong>LIBR:</strong> L&amp;I Review Board of Appeal</p>
+                <p class=""><strong>ZBA:</strong> Zoning Board of Appeal</p>
+                <p class=""><strong>BBS:</strong> Board of Building Standards</p>
               </div>
             </form>
           </div>
@@ -56,7 +66,7 @@
       <div class="columns medium-15 text-center">
         <div class="card">
           <div class="card-divider">
-            <h3 v-show="!loading">Appeals from {{ this.date1 }} to {{ this.date2 | substractOneDay }} </h3>
+            <h3 v-show="!loading">Listing Appeals from {{ this.date1 }} to {{ this.date2 | substractOneDay }} </h3>
             <h3 v-show="loading">Fetching data...</h3>
           </div>
           <div class="card-section nopadding-xs">
@@ -417,6 +427,10 @@
   }
 </script>
 <style lang="scss">
+  p {
+    font-size: 14px;
+    line-height: 1.3;
+  }
   table {
     input,
     select {
@@ -455,19 +469,26 @@
       margin-top: 3px;
       margin-bottom: 3px;
       font-size: 11px;
-      border: 2px solid #c0e1ff;
+      // border: 2px solid #c0e1ff;
       border-radius: 0px;
       font-weight: 400;
-      transition: all 250ms linear;
+      // transition: all 250ms linear;
       color: #444;
+
+      opacity: 0.85;
     }
     .fc-event:hover{
       font-weight: bold;
     }
     .fc-event.highlight {
       font-weight: bold;
-      box-shadow: 0px 2px 3px #888888;
-      border: 1px solid #fff;
+      opacity: 1;
+      border-top: 1px solid #CCCCCC;
+      border-right: 1px solid #777777;
+      border-bottom: 1px solid #777777;
+      border-left: 1px solid #CCCCCC;
+      // box-shadow: 0px 2px 3px #888888;
+      // border: 1px solid #fff;
     }
     .fc-head {
       background: #0f4d90;
@@ -477,17 +498,17 @@
     }
     .event-RB-LIRB {
       background: #DAEDFE;
-      border-color: #DAEDFE;
+      // border-color: #DAEDFE;
       // color: #0f4d90;
     }
     .event-RB-ZBA {
       background: #b9f2b1;
-      border-color: #b9f2b1;
+      // border-color: #b9f2b1;
       // color: #58c04d;
     }
     .event-RB-BBS {
       background: #fed0d0;
-      border-color: #fed0d0;
+      // border-color: #fed0d0;
       // color: #f99300;
     }
     thead,
@@ -610,4 +631,15 @@
     cursor: not-allowed;
   }
 
+
+  .Legend {
+    margin: 1rem 0;
+    h4 {
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+    p {
+      margin: 0;
+    }
+  }
 </style>
