@@ -3,7 +3,7 @@
     <div class="row">
       <div class="columns">
         <h3 v-show="!loading">{{ appealData.address }} <small># {{ appealData.appealNo }}</small></h3>
-        <h3 v-show="loading">Fetching data...</small></h3>
+        <h3 v-show="loading"><small>Fetching data...</small></h3>
       </div>
     </div>
     <div class="row">
