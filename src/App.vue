@@ -79,5 +79,10 @@
 #application .app-nav nav{
   text-align: left;
 }
+select {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
 </style>
 

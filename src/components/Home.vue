@@ -112,8 +112,8 @@
     sortIcon: { base:'fa', up:'fa-sort-up', down:'fa-sort-down', is:'fa-sort' },
     filterByColumn: true,
     perPageValues: [],
-    sortable: ['date', 'time', 'applictype'],
-    filterable:["address", 'appealno'],
+    sortable: ['date', 'time'],
+    filterable:["address", 'appealno', 'applictype'],
     customFilters: [{
         name:'byevent',
         callback: function(row, query) {
@@ -121,6 +121,18 @@
           return row.applictype === query.applictype && row.date === query.date;
         }
     }],
+    listColumns: {
+      applictype: [
+        { id: 'RB_ZBA', text: 'ZBA' },
+        { id: 'RB_BBS', text: 'BBS' },
+        { id: 'RB_LIRB', text: 'LIRB' },
+      ],
+    },
+    texts:{
+      noResults:"No matching records",
+      filterBy:"Filter by {column}",
+      defaultOption:'All {column}s',
+    },
   });
 
   const serviceURL = "https://data.phila.gov/carto/api/v2/sql?q=";
@@ -417,6 +429,10 @@
   }
 </script>
 <style lang="scss">
+  .table-responsive {
+    overflow: hidden;
+    overflow-x: auto;
+  }
   .selected-filter {
     h3 {
       font-size: 16px;
@@ -425,7 +441,8 @@
       color: inherit;
       display: block;
       font-size: 13px;
-      margin: 1rem 0;
+      // margin: 1rem 0;
+      line-height: 1.3;
     }
   }
   p {
@@ -554,10 +571,25 @@
       padding: 3px;
       height: auto;
       color: #444;
-
+      height: 24px;
       // &:focus {
       //   border: none;
       // }
+    }
+    select {
+      font-size: 13px;
+      line-height: 100%;
+      height: auto;
+      color: #444;
+      background-color: #F0F0F9;
+      border: none;
+      padding-left: 4px;
+      height: 24px;
+      padding-bottom: 0;
+      padding-top: 0;
+      background-position: right -11px center;
+      min-width: 75px;
+      padding-right: 15px;
     }
   }
   
