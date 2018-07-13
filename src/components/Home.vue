@@ -65,9 +65,13 @@
       </div>
       <div class="columns medium-15 text-center">
         <div class="card">
-          <div class="card-divider">
-            <h3 v-show="!loading">Listing Appeals from {{ this.date1 }} to {{ this.date2 | substractOneDay }} </h3>
-            <h3 v-show="loading">Fetching data...</h3>
+          <div class="card-divider selected-filter">
+            <h3 v-if="!loading && this.selectedEvent">Listing <strong>{{ this.selectedEvent.title | typeName }}</strong> for <strong>{{ this.selectedEvent.date | readableDate }}</strong></h3>
+            <h3 v-else-if="!loading && !this.selectedEvent">
+              Listing Appeals from <strong>{{ this.date1 | readableDate}}</strong> to <strong>{{ this.date2 | substractOneDay }}</strong>
+              <small>The current list of Appeals are limited by the first and last dates on the calendar</small>
+            </h3>
+            <h3 v-else-if="loading">Fetching data...</h3>
           </div>
           <div class="card-section nopadding-xs">
             <v-client-table :data="localRows" :columns="['date', 'time', 'address', 'applictype', 'appealno']" @row-click="goToDetail"></v-client-table>
@@ -165,34 +169,6 @@
     },
     beforeMount() {
       this.hideSelect = (document.documentElement.className === 'lt-ie10');
-
-      // let forceURL = false;
-      // if (moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT, true).isValid()) {
-      //   this.date1 = moment(this.$route.params.date1, VALIDATE_URL_DATE_FORMAT).format(DATE_FORMAT);
-      // } else {
-      //   // Wrong URL
-      //   forceURL = true;
-      // }
-
-      // if (moment(this.$route.params.date2, VALIDATE_URL_DATE_FORMAT, true).isValid()) {
-      //   this.date2 = moment(this.$route.params.date2, VALIDATE_URL_DATE_FORMAT).format(DATE_FORMAT);
-      // } else {
-      //   // Wrong URL
-      //   forceURL = true;
-      // }
-
-      // if (!this.date1) {
-      //   this.date1 = moment().format(DATE_FORMAT);
-      // }
-
-      // if (!this.date2) {
-      //   this.date2 = moment().add(6, 'months').format(DATE_FORMAT);
-      // }
-
-      // if (this.$route.params.region && this.$route.params.regionId) {
-      //   this.regionSelect = `${this.$route.params.region}:${this.$route.params.regionId}`;
-      // }
-
       if (this.$store.state.rcos.rcos.length > 0) {
         this.rcoArray = this.$store.state.rcos.rcos;
       } else {
@@ -221,8 +197,22 @@
       }
     },
     filters: {
+      typeName(type) {
+        switch (type) {
+          case 'LIRB':
+            return 'L&I Review Board of Appeal';
+          case 'ZBA':
+            return 'Zoning Board of Appeal';
+          case 'BBS':
+            return 'Board of Building Standards';
+        }
+        return '';
+      },
       substractOneDay(value) {
-        return moment(value, 'MM/DD/YYYY').subtract(1, 'day').format('MM/DD/YYYY');
+        return moment(value, 'MM/DD/YYYY').subtract(1, 'day').format('ll');
+      },
+      readableDate(value) {
+        return moment(value, 'MM/DD/YYYY').format('ll');
       },
     },
     methods: {
@@ -427,6 +417,17 @@
   }
 </script>
 <style lang="scss">
+  .selected-filter {
+    h3 {
+      font-size: 16px;
+    }
+    small {
+      color: inherit;
+      display: block;
+      font-size: 13px;
+      margin: 1rem 0;
+    }
+  }
   p {
     font-size: 14px;
     line-height: 1.3;
@@ -463,30 +464,35 @@
     }
     .fc-day-number {
       font-size: 10px;
+      font-weight: 300;
     }
     .fc-event,
     .fc-event-dot {
-      margin-top: 3px;
-      margin-bottom: 3px;
+      // margin-top: 3px;
+      margin-bottom: 10px;
       font-size: 11px;
       // border: 2px solid #c0e1ff;
       border-radius: 0px;
       font-weight: 400;
       // transition: all 250ms linear;
       color: #444;
+      background: none !important;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
 
       opacity: 0.85;
     }
-    .fc-event:hover{
-      font-weight: bold;
+    .fc-event:hover {
+      opacity: 1;
     }
     .fc-event.highlight {
       font-weight: bold;
       opacity: 1;
-      border-top: 1px solid #CCCCCC;
-      border-right: 1px solid #777777;
-      border-bottom: 1px solid #777777;
-      border-left: 1px solid #CCCCCC;
+      // border-top: 1px solid #CCCCCC;
+      // border-right: 1px solid #777777;
+      border-bottom: 2px solid #3a87ad;
+      // border-left: 1px solid #CCCCCC;
       // box-shadow: 0px 2px 3px #888888;
       // border: 1px solid #fff;
     }
@@ -520,6 +526,11 @@
     
     .fc-scroller {
       overflow-y: hidden !important;
+    }
+
+    .fc-highlight {
+      background-color: #25cef7;
+      background: none !important;
     }
   }
 
