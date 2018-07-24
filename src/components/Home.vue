@@ -48,7 +48,7 @@
                 </optgroup>
               </select>
               <hr>
-              <div>
+              <div class="calendar-help">
                 <p>Use the calendar to filter by Appeals Type and Date</p>
               </div>
               <div>
@@ -69,7 +69,7 @@
             <h3 v-if="!loading && this.selectedEvent">Listing <strong>{{ this.selectedEvent.title | typeName }}</strong> for <strong>{{ this.selectedEvent.date | readableDate }}</strong></h3>
             <h3 v-else-if="!loading && !this.selectedEvent">
               Listing Appeals from <strong>{{ this.date1 | readableDate}}</strong> to <strong>{{ this.date2 | substractOneDay }}</strong>
-              <small>The current list of Appeals are limited by the first and last dates on the calendar</small>
+              <small>The current list of Appeals are limited by the first and last dates in the calendar</small>
             </h3>
             <h3 v-else-if="loading">Fetching data...</h3>
           </div>
@@ -159,9 +159,9 @@
           defaultDate: moment(),
           displayEventTime: false,
           header: {
-            left: 'prev',
+            left: 'prevYear,prev',
             center: 'title',
-            right: 'next'
+            right: 'next,nextYear'
           },
           defaultView: 'month',
           height: 'auto',
@@ -406,7 +406,13 @@
       goToDetail(object) {
         this.$emit('setZoningLink', this.$route.path);
         const rowObject = object.row;
-        this.$router.push(`/appeals/${rowObject.appealno}/${encodeURIComponent(rowObject.date_scheduled)}`);
+
+        // Removed the date scheduled from the URL to display the last date schedule, that way users chan see the
+        // Last updated informatio.
+        this.$router.push(`/appeals/${rowObject.appealno}`);
+
+
+        // this.$router.push(`/appeals/${rowObject.appealno}/${encodeURIComponent(rowObject.date_scheduled)}`);
       },
       displayModal(text, err) {
         console.log(err);
@@ -548,6 +554,14 @@
     .fc-highlight {
       background-color: #25cef7;
       background: none !important;
+    }
+    .fc-toolbar {
+      .fc-center {
+        h2 {
+          font-size: 20px;
+          margin-top: 4px;
+        }
+      }
     }
   }
 
