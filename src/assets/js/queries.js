@@ -46,7 +46,7 @@ export const strings = {
   rcoGeo: 'ORGANIZATION_NAME=\'%s\'',
   appealsByDate: `${BASE_APPEALS_LIST} ORDER BY date_scheduled ASC`,
   appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ORDER BY date_scheduled ASC`,
-  appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\'',
+  appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\' ORDER BY date_scheduled DESC LIMIT 1 OFFSET 0',
   courtHistory: 'SELECT * FROM LI_COURT_APPEALS WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
   deicisionHistory: 'SELECT * FROM LI_BOARD_DECISIONS WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
 };

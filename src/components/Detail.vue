@@ -3,7 +3,7 @@
     <div class="row">
       <div class="columns">
         <h3 v-show="!loading">{{ appealData.address }} <small># {{ appealData.appealNo }}</small></h3>
-        <h3 v-show="loading">Fetching data...</small></h3>
+        <h3 v-show="loading"><small>Fetching data...</small></h3>
       </div>
     </div>
     <div class="row">
@@ -98,7 +98,7 @@
             <ul class="no-bullet">
               <li>
                 <h4>DATE</h4>
-                <p>{{ appealData.date }}</p>
+                <p>{{ appealData.date | readableDate }}</p>
               </li>
               <li>
                 <h4>TIME</h4>
