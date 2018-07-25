@@ -2,8 +2,8 @@
 <template></template>
 
 <script>
-import L from 'leaflet';
-import esri from 'esri-leaflet';
+const L = require('leaflet');
+const esri = require('esri-leaflet');
 // eslint-disable-next-line
 delete L.Icon.Default.prototype._getIconUrl;
 
