@@ -20,9 +20,8 @@ export default {
   },
   methods: {
     goToZoningAppealsList() {
-      const date1 = moment().format('YYYY-MM-DD');
-      const date2 = moment().add(6, 'months').format('YYYY-MM-DD');
-      this.$router.push(`/filter/${date1}/${date2}`);
+      const date = moment().format('YYYY/MM');
+      this.$router.push(`/${date}`);
     },
   },
 };

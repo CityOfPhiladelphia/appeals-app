@@ -543,9 +543,6 @@
       border: none;
       background-color: initial;
       color: #333;
-      td {
-        // background: initial;
-      }
     }
     
     .fc-scroller {
