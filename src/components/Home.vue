@@ -568,6 +568,13 @@
         cursor: pointer;
       }
     }
+    thead, tbody {
+      tr {
+        th:nth-child(2), td:nth-child(2) {
+          width: 75px;
+        }
+      }
+    }
     tbody {
       tr:nth-child(even) {
         background-color: #dfdfdf;

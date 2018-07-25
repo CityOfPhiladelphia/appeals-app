@@ -348,4 +348,10 @@
   ul li {
     margin: 15px 0;
   }
+  ul li > p {
+    margin: 0;
+  }
+  ul li > p:last-child {
+    margin-bottom: 1rem;
+  }
 </style>
