@@ -223,9 +223,6 @@
       substractOneDay(value) {
         return moment(value, 'MM/DD/YYYY').subtract(1, 'day').format('ll');
       },
-      readableDate(value) {
-        return moment(value, 'MM/DD/YYYY').format('ll');
-      },
     },
     methods: {
       filterTable(event, jsEvent, view) {
