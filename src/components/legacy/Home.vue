@@ -12,7 +12,7 @@
       <div class="columns text-center">
         <div class="card">
           <div class="card-divider">
-            <h3 v-show="!loading">There are {{ rowsCount }} appeals from {{ displayDate1 }} to {{ displayDate2 }}</h3>
+            <h3 v-show="!loading">There are {{ rowsCount }} appeals from {{ displayDate1 | readableDate }} to {{ displayDate2 | readableDate }}</h3>
             <h3 v-show="loading">Fetching data...</h3>
           </div>
           <div class="card-section nopadding-xs">
