@@ -39,7 +39,7 @@
             <nav>
               <ul class="inline-list">
                 <li>
-                  <a href="https://beta.phila.gov/feedback/">Feedback</a>
+                  <a href="https://beta.phila.gov/feedback/" class="philly-feedback-button">Feedback</a>
                 </li>
                 <!-- <li>
                   <a href="#">More links</a>
