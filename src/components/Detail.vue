@@ -175,6 +175,12 @@
     },
     methods: {
       loadData: function loadData() {
+        // Reset some variables
+        this.localDecisionHistoryRows = [];
+        this.showHideDecisionHistory = false;
+        this.localCourtHistoryRows = [];
+        this.showHideCourtHistory = false;
+
         if (typeof this.$route.params.appealId === 'undefined') {
           // Wrong URL go to not found
           this.$router.push('/not-found');
