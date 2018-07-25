@@ -517,9 +517,9 @@
       // border: 1px solid #fff;
     }
     .fc-head {
-      background: #0f4d90;
       th {
         color: #fff;
+        background: #0f4d90;
       }
     }
     .event-RB-LIRB {
@@ -538,10 +538,14 @@
       // color: #f99300;
     }
     thead,
-    tbody {
-      border: initial;
+    tbody, 
+    tfoot {
+      border: none;
       background-color: initial;
       color: #333;
+      td {
+        // background: initial;
+      }
     }
     
     .fc-scroller {
@@ -560,7 +564,17 @@
         }
       }
     }
+
+    thead {
+       background: none;
+    }
   }
+
+  .fc .fc-row .fc-content-skeleton table,
+  .fc .fc-row .fc-content-skeleton td,
+  .fc .fc-row .fc-helper-skeleton td {
+      border-color: #ddd !important;
+    }
 
   .VueTables {
     tr  {
