@@ -6,7 +6,7 @@
           <div class="card-section">
             <form>
               <h3 v-if="!hideSelect"><i class="fi-marker"></i> Regions</h3>
-              <select v-if="!hideSelect" class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL">
+              <select v-if="!hideSelect" class="selectpicker region-picker" title="Select a region..." v-model="regionSelect" v-on:change="changeURL" :disabled="this.filtering">
                 <option value="all">All regions</option>
                 <optgroup label="Council District">
                   <option value="cd:1">Council District 1</option>
@@ -49,9 +49,9 @@
               <div>
                 <h3><i class="fi-calendar"></i> Date</h3>
                 <div class="input-group">
-                  <input class="input-group-field" id="dpd1" type="text" v-model="date1" ref="refDate1">
+                  <input class="input-group-field" id="dpd1" type="text" v-model="date1" ref="refDate1" :disabled="filtering">
                   <span class="input-group-label">to</span>
-                  <input class="input-group-field" id="dpd2" type="text" v-model="date2" ref="refDate2">
+                  <input class="input-group-field" id="dpd2" type="text" v-model="date2" ref="refDate2" :disabled="filtering">
                 </div>
               </div>
             </form>
@@ -61,8 +61,8 @@
       <div class="columns medium-16 text-center">
         <div class="card">
           <div class="card-divider">
-            <h3 v-show="!loading">There are {{ rowsCount }} appeals from {{ displayDate1 | readableDate }} to {{ displayDate2 | readableDate }}</h3>
-            <h3 v-show="loading">Fetching data...</h3>
+            <h3 v-show="!filtering">There are {{ rowsCount }} appeals from {{ displayDate1 | readableDate }} to {{ displayDate2 | readableDate }}</h3>
+            <h3 v-show="filtering">Fetching data...</h3>
           </div>
           <div class="card-section nopadding-xs">
             <custom-table v-on:rowClick="goToDetail" v-bind:enableRowClick="true" v-bind:allowLoadMore="true" v-bind:rows="localRows"
@@ -118,6 +118,7 @@
     modalMessage: "",
     loading: true,
     hideSelect: false,
+    filtering: false,
   };
 
   export default {
@@ -234,79 +235,90 @@
           URL += `/${this.region}/${this.regionId}`;
         }
 
-        this.$router.replace(URL);
+        this.$router.push(URL);
       },
       filter() {
-        //Update dates on table title
-        this.displayDate1 = moment(this.date1).format('MM/DD/YYYY');
-        this.displayDate2 = moment(this.date2).format('MM/DD/YYYY');
-        this.loading = true;
-        this.localRows = [];
+        if (!this.filtering) {
+          this.filtering = true;
+          //Update dates on table title
+          this.displayDate1 = moment(this.date1).format('MM/DD/YYYY');
+          this.displayDate2 = moment(this.date2).format('MM/DD/YYYY');
+          this.loading = true;
+          this.localRows = [];
 
-        if (cache.get(this.$route.path)) {
-          this.rowsCount = cache.get(this.$route.path).length;
-          this.localRows = cache.get(this.$route.path);
-          this.loading = false;
-        } else {
-          let sql = "";
-          if (!this.region || !this.regionId) {
-            queries.get(
-                queries.CARTO_URL,
-                {
-                  q:queries.replace(
-                    queries.strings.appealsByDate,
-                    `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
-                    `${this.date2}T23:59:59Z` // Please do not ask, it just works =/
-                  )
-                }
-              )
-              .then((response) => {
-                let filterDataCollection = objects.getFilterResultsCollection(response.data.rows);
-                cache.set(this.$route.path, filterDataCollection);
-                this.rowsCount = filterDataCollection.length;
-                this.localRows = filterDataCollection;
-                this.loading = false;
-              })
-              .catch(err => {
-                this.displayModal('filtering by date (CODE 005)', err);
-              });
+          if (cache.get(this.$route.path)) {
+            this.rowsCount = cache.get(this.$route.path).length;
+            this.localRows = cache.get(this.$route.path);
+            this.loading = false;
+            this.filtering = false;
           } else {
-            try {
-              queries.getGeographyData(this.region, this.regionId)
-                .then((response) => {
-                  if(!response.data.error) {
-                    const geometry = response.data.features[0].geometry.rings;
-                    queries.post(
-                        queries.CARTO_URL,
-                        {
-                          q: queries.replace(
-                            queries.strings.appealsByDateAndRegion,
-                            `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
-                            `${this.date2}T23:59:59Z`, // Please do not ask, it just works =/
-                            JSON.stringify(geometry)
-                          )
-                        }
-                      )
-                      .then((cartoResponse) => {
-                        let dataRows = cartoResponse.data.rows;
-                        let filterDataCollection = objects.getFilterResultsCollection(dataRows);
-                        cache.set(this.$route.path, filterDataCollection);
-                        this.rowsCount = filterDataCollection.length;
-                        this.localRows = filterDataCollection;
-                        this.loading = false;
-                      })
-                      .catch(err => {
-                        this.displayModal('filtering by region (CODE: 001)', err);
-                      });
-                  }else{
-                    this.displayModal('filtering by region (CODE: 002)', err);
+            let sql = "";
+            if (!this.region || !this.regionId) {
+              queries.get(
+                  queries.CARTO_URL,
+                  {
+                    q:queries.replace(
+                      queries.strings.appealsByDate,
+                      `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
+                      `${this.date2}T23:59:59Z` // Please do not ask, it just works =/
+                    )
                   }
+                )
+                .then((response) => {
+                  let filterDataCollection = objects.getFilterResultsCollection(response.data.rows);
+                  cache.set(this.$route.path, filterDataCollection);
+                  this.rowsCount = filterDataCollection.length;
+                  this.localRows = filterDataCollection;
+                  this.loading = false;
+                  this.filtering = false;
                 })
-                .catch((err) => {
-                  this.displayModal('filtering by region (CODE: 003)', err);
+                .catch(err => {
+                  this.filtering = false;
+                  this.displayModal('filtering by date (CODE 005)', err);
                 });
-            } catch (err) {
-              this.displayModal('filtering by region (CODE: 004)', err);
+            } else {
+              try {
+                queries.getGeographyData(this.region, this.regionId)
+                  .then((response) => {
+                    if(!response.data.error) {
+                      const geometry = response.data.features[0].geometry.rings;
+                      queries.post(
+                          queries.CARTO_URL,
+                          {
+                            q: queries.replace(
+                              queries.strings.appealsByDateAndRegion,
+                              `${this.date1}T00:00:00Z`, // Please do not ask, it just works =/
+                              `${this.date2}T23:59:59Z`, // Please do not ask, it just works =/
+                              JSON.stringify(geometry)
+                            )
+                          }
+                        )
+                        .then((cartoResponse) => {
+                          let dataRows = cartoResponse.data.rows;
+                          let filterDataCollection = objects.getFilterResultsCollection(dataRows);
+                          cache.set(this.$route.path, filterDataCollection);
+                          this.rowsCount = filterDataCollection.length;
+                          this.localRows = filterDataCollection;
+                          this.loading = false;
+                          this.filtering = false;
+                        })
+                        .catch(err => {
+                          this.filtering = false;
+                          this.displayModal('filtering by region (CODE: 001)', err);
+                        });
+                    }else{
+                      this.filtering = false;
+                      this.displayModal('filtering by region (CODE: 002)', err);
+                    }
+                  })
+                  .catch((err) => {
+                    this.filtering = false;
+                    this.displayModal('filtering by region (CODE: 003)', err);
+                  });
+              } catch (err) {
+                this.filtering = false;
+                this.displayModal('filtering by region (CODE: 004)', err);
+              }
             }
           }
         }
