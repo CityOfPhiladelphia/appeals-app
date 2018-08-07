@@ -26,9 +26,14 @@
                   </li>
                   <li>
                     <h4>APPLICATION TYPE</h4>
-                    <p v-for="(at, key) in localAppealsTypes" :key="key">
-                      {{ at }}
-                    </p>
+                    <template v-if="localAppealsTypes && localAppealsTypes.length > 0">
+                      <p v-for="(at, key) in localAppealsTypes" :key="key">
+                        {{ at }}
+                      </p>
+                    </template>
+                    <template v-else>
+                      <p>-</p>
+                    </template>
                   </li>
                 </ul>
               </div>
@@ -276,13 +281,13 @@
                   types: maped });
                 this.localAppealsTypes = maped;
               } else {
-                this.$store.commit('decisions/setDecisionBySlug', { appealNo: this.appealNo, types: [] });
+                this.$store.commit('setAppealTypeByID', { appealNo: this.appealNo, types: [] });
                 this.localAppealsTypes = [];
               }
             })
             .catch(() => {
               // Something went wrong, go to not found
-              this.$store.commit('decisions/setDecisionBySlug', { appealNo: this.appealNo, types: [] });
+              this.$store.commit('setAppealTypeByID', { appealNo: this.appealNo, types: [] });
               this.localAppealsTypes = [];
             });
         }

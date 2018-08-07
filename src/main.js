@@ -9,7 +9,12 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-Vue.filter('readableDate', v => moment(v, 'MM/DD/YYYY').format('ll'));
+Vue.filter('readableDate', (v) => {
+  if (moment(v, 'MM/DD/YYYY').isValid()) {
+    return moment(v, 'MM/DD/YYYY').format('ll');
+  }
+  return v;
+});
 
 /* eslint-disable no-new */
 new Vue({
