@@ -33,7 +33,7 @@
                   <option value="planning:North Delaware">North Delaware</option>
                   <option value="planning:River Wards">River Wards</option>
                   <option value="planning:South">South</option>
-                  <option value="planning:University/Southwest">University/Southwest</option>
+                  <option value="planning:University Southwest">University Southwest</option>
                   <option value="planning:Upper Far Northeast">Upper Far Northeast</option>
                   <option value="planning:Upper North">Upper North</option>
                   <option value="planning:Upper Northwest">Upper Northwest</option>
@@ -232,7 +232,7 @@
       changeURL() {
         let URL = `/filter/${this.date1}/${this.date2}`;
         if (this.region && this.regionId) {
-          URL += `/${this.region}/${this.regionId}`;
+          URL += `/${this.region}/${encodeURIComponent(this.regionId)}`;
         }
 
         this.$router.push(URL);
