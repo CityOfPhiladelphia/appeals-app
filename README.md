@@ -1,6 +1,8 @@
 # zoning-appeals
 
-> City of Philadelphia Zoning Appeals 2017 with Vue
+> City of Philadelphia Zoning Appeals App 2017, Version 1.0.0.
+
+We are using Vue 2, and Webpack 2 to develop and deploy the app.
 
 ## Build Setup
 
