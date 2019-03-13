@@ -39,7 +39,7 @@ export const CD_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/servic
 export const PD_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/services/Planning_Districts/FeatureServer/0/query';
 export const RCO_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/services/Zoning_RCO/FeatureServer/0/query';
 
-const BASE_APPEALS_LIST = 'SELECT date_scheduled,  address, appealno, applictype FROM LI_APPEALS WHERE DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
+const BASE_APPEALS_LIST = 'SELECT date_scheduled,  address, appealno, applictype FROM LI_APPEALS WHERE applictype=\'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
 const END_APPEALS_LIST = 'GROUP BY date_scheduled, address, appealno, applictype';
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
