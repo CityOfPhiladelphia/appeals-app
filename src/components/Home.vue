@@ -34,7 +34,7 @@
                   <option value="planning:North Delaware">North Delaware</option>
                   <option value="planning:River Wards">River Wards</option>
                   <option value="planning:South">South</option>
-                  <option value="planning:University/Southwest">University/Southwest</option>
+                  <option value="planning:University Southwest">University Southwest</option>
                   <option value="planning:Upper Far Northeast">Upper Far Northeast</option>
                   <option value="planning:Upper North">Upper North</option>
                   <option value="planning:Upper Northwest">Upper Northwest</option>
@@ -42,9 +42,11 @@
                   <option value="planning:West Park">West Park</option>
                 </optgroup>
                 <optgroup label="RCO">
-                  <option v-for="option in rcoArray" :key="option.attributes.ORGANIZATION_NAME" :value="`rco:${option.attributes.ORGANIZATION_NAME}`">
-                    {{ option.attributes.ORGANIZATION_NAME }}
-                  </option>
+                  <option
+                    v-for="option in rcoArray"
+                    :key="option.attributes.ORGANIZATION_NAME"
+                    :value="`rco:${fixOrganizationName(option.attributes.ORGANIZATION_NAME)}`"
+                  >{{ option.attributes.ORGANIZATION_NAME }}</option>
                 </optgroup>
               </select>
               <hr>
@@ -218,6 +220,9 @@
       },
     },
     methods: {
+      fixOrganizationName(value) {
+        return String(value).replace("'", "''");
+      },
       filterTable(event, jsEvent, view) {
         if (this.selectedEvent && event) {
           if (this.selectedEvent.date === event.date && this.selectedEvent.applictype === event.applictype) {
@@ -258,7 +263,7 @@
       changeURL(get) {
         let URL = `/${this.selectedYear}/${this.selectedMonth}`;
         if (this.region && this.regionId) {
-          URL += `/${this.region}/${this.regionId}`;
+          URL += `/${this.region}/${encodeURIComponent(this.regionId)}`;
         }
 
         this.$router.replace(URL);
@@ -268,7 +273,6 @@
       validateRoute(changeCalendar) {
         if ( this.$route.path.indexOf('filter') !== -1 ) {
           // Legacy Stuff!
-          alert("legacy");
         } else {
           let forceURL = false;
           if (Object.keys(this.$route.params).length !== 0 ) {
@@ -292,7 +296,7 @@
               let URL = `/${this.selectedYear}/${this.selectedMonth}`;
 
               if (this.region && this.regionId) {
-                URL += `/${this.region}/${this.regionId}`;
+                URL += `/${this.region}/${encodeURIComponent(this.regionId)}`;
               }
               if (Object.keys(this.$route.params).length !== 0 ) {
                 this.displayCustomErrorModal(`The URL parameters provided are invalid. 
@@ -400,9 +404,6 @@
         // Removed the date scheduled from the URL to display the last date schedule, that way users chan see the
         // Last updated informatio.
         this.$router.push(`/appeals/${rowObject.appealno}`);
-
-
-        // this.$router.push(`/appeals/${rowObject.appealno}/${encodeURIComponent(rowObject.date_scheduled)}`);
       },
       displayModal(text, err) {
         console.log(err);
