@@ -55,9 +55,9 @@
                 <full-calendar ref="calendar" :events="events" :config="config" @event-selected="filterTable"></full-calendar>
               </div>
               <div class="Legend">
-                <p class=""><strong>LIBR:</strong> L&amp;I Review Board of Appeal</p>
-                <p class=""><strong>ZBA:</strong> Zoning Board of Appeal</p>
-                <p class=""><strong>BBS:</strong> Board of Building Standards</p>
+                <p v-for="type in appealsAppConfig.types" :key="type.id">
+                  <strong>{{ type.text }}:</strong> {{ type.description }}
+                </p>
               </div>
             </form>
           </div>
@@ -122,11 +122,7 @@
         }
     }],
     listColumns: {
-      applictype: [
-        { id: 'RB_ZBA', text: 'ZBA' },
-        { id: 'RB_BBS', text: 'BBS' },
-        { id: 'RB_LIRB', text: 'LIRB' },
-      ],
+      applictype: Object.values(window.appealsAppConfig.types)
     },
     texts:{
       noResults:"No matching records",
@@ -171,6 +167,7 @@
           viewRender: this.changedMonth,
         },
         events: [],
+        appealsAppConfig: window.appealsAppConfig
       };
     },
     components: {
@@ -210,14 +207,10 @@
     },
     filters: {
       typeName(type) {
-        switch (type) {
-          case 'LIRB':
-            return 'L&I Review Board of Appeal';
-          case 'ZBA':
-            return 'Zoning Board of Appeal';
-          case 'BBS':
-            return 'Board of Building Standards';
+        if (window.appealsAppConfig.types[type]) {
+          return window.appealsAppConfig.types[type].description;
         }
+
         return '';
       },
       substractOneDay(value) {

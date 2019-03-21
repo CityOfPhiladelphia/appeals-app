@@ -182,16 +182,11 @@
     },
     filters: {
       humanReadableAppealType(type) {
-        switch (type) {
-          case 'RB_BBS':
-            return 'Board of Building Standards';
-          case 'RB_LIRB':
-            return 'L&I Review Board of Appeal';
-          case 'RB_ZBA':
-            return 'Zoning Board of Appeal';
-          default:
-            return '';
+        if (window.appealsAppConfig.types[type]) {
+          return window.appealsAppConfig.types[type].description;
         }
+
+        return '';
       },
     },
     methods: {

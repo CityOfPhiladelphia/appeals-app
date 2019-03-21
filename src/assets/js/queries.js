@@ -39,8 +39,11 @@ export const CD_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/servic
 export const PD_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/services/Planning_Districts/FeatureServer/0/query';
 export const RCO_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/services/Zoning_RCO/FeatureServer/0/query';
 
-const BASE_APPEALS_LIST = 'SELECT date_scheduled,  address, appealno, applictype FROM LI_APPEALS WHERE applictype=\'RB_ZBA\' AND DATE(date_scheduled) >= \'%s\' AND DATE(date_scheduled) < \'%s\'';
+
+const applictypeFilters = Object.keys(window.appealsAppConfig.types).join("','");
+const BASE_APPEALS_LIST = `SELECT date_scheduled,  address, appealno, applictype FROM LI_APPEALS WHERE applictype IN ('${applictypeFilters}') AND DATE(date_scheduled) >= '%s' AND DATE(date_scheduled) < '%s'`;
 const END_APPEALS_LIST = 'GROUP BY date_scheduled, address, appealno, applictype';
+
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
   planinDistrictGeo: 'DIST_NAME=\'%s\'',
@@ -49,7 +52,6 @@ export const strings = {
   appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ${END_APPEALS_LIST} ORDER BY date_scheduled ASC`,
   appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\' ORDER BY date_scheduled DESC LIMIT 1 OFFSET 0',
   appealByIdDate: 'SELECT *, st_astext(the_geom) AS latlng FROM LI_APPEALS WHERE appealno = \'%s\' AND date_scheduled = \'%s\'',
-  // appealTypes: 'SELECT appealtype FROM LI_APPEALS WHERE appealno= \'%s\' GROUP BY appealtype',
   appealTypes: 'SELECT appealtype FROM LI_APPEALS_TYPE WHERE appealnumber =  \'%s\'',
   courtHistory: 'SELECT * FROM LI_COURT_APPEALS WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
   deicisionHistory: 'SELECT * FROM LI_BOARD_DECISIONS WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
@@ -89,7 +91,9 @@ export function post(q, data) {
 export function get(q, data) {
   const instance = axios.create();
   const parameters = data;
-  return instance.get(q, { params: parameters });
+  return instance.get(q, {
+    params: parameters,
+  });
 }
 
 export function getRCOs() {

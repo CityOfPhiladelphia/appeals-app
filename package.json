@@ -1,8 +1,8 @@
 {
   "name": "zoning-appeals",
   "version": "1.0.0",
-  "description": "City of Philadelphia Zoning Appeals 2017 with Vue",
-  "author": "Alejandro Lopez <alejo0109@gmail.com>",
+  "description": "City of Philadelphia Appeals App",
+  "author": "Alejandro Lopez <alejandro.lopez@phila.gov>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

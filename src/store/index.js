@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import rcos from '@/store/rcos';
 import decisions from '@/store/decisions';
 import history from '@/store/history';
-import slugify from '@/store/helpers';
+import slugify from '@/assets/js/helpers';
 
 Vue.use(Vuex);
 

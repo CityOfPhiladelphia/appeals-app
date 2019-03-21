@@ -1,5 +1,5 @@
 /* eslint-disable */
-import slugify from '@/store/helpers';
+import slugify from '@/assets/js/helpers';
 
 export default {
   namespaced: true,
