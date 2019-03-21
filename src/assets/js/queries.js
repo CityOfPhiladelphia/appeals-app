@@ -41,8 +41,8 @@ export const RCO_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/servi
 
 
 const applictypeFilters = Object.keys(window.appealsAppConfig.types).join("','");
-const BASE_APPEALS_LIST = `SELECT date_scheduled,  address, appealno, applictype FROM LI_APPEALS WHERE applictype IN ('${applictypeFilters}') AND DATE(date_scheduled) >= '%s' AND DATE(date_scheduled) < '%s'`;
-const END_APPEALS_LIST = 'GROUP BY date_scheduled, address, appealno, applictype';
+const BASE_APPEALS_LIST = `SELECT date_scheduled,  address, appealno, applictype, appealgrounds FROM LI_APPEALS WHERE applictype IN ('${applictypeFilters}') AND DATE(date_scheduled) >= '%s' AND DATE(date_scheduled) < '%s'`;
+const END_APPEALS_LIST = 'GROUP BY date_scheduled, address, appealno, applictype, appealgrounds';
 
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
