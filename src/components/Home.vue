@@ -69,7 +69,7 @@
             <h3 v-if="!loading && this.selectedEvent">Listing <strong>{{ this.selectedEvent.title | typeName }}</strong> for <strong>{{ this.selectedEvent.date | readableDate }}</strong></h3>
             <h3 v-else-if="!loading && !this.selectedEvent">
               Listing Appeals from <strong>{{ this.date1 | readableDate}}</strong> to <strong>{{ this.date2 | substractOneDay }}</strong>
-              <small>The current list of Appeals are limited by the first and last dates in the calendar</small>
+              <small>The current list of Appeals are  between the first and last dates in the calendar</small>
             </h3>
             <h3 v-else-if="loading">Fetching data...</h3>
           </div>
