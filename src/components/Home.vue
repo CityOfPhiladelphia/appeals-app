@@ -8,7 +8,7 @@
               <h3 v-if="!hideSelect">
                 <i class="fi-marker"></i> Regions
               </h3>
-              <p>Select a region below to filter the table data.</p>
+              <p>Select a region to filter the table data.</p>
               <select
                 v-if="!hideSelect"
                 class="selectpicker region-picker"
@@ -59,7 +59,7 @@
               </select>
               <hr>
               <div class="calendar-help">
-                <p>Use the calendar to filter by Appeals Type and Date</p>
+                <p>Use the arrows to search by date.</p>
               </div>
               <div>
                 <full-calendar
@@ -90,11 +90,14 @@
               Listing Appeals from
               <strong>{{ this.date1 | readableDate}}</strong> to
               <strong>{{ this.date2 | substractOneDay }}</strong>
-              <small>The current list of Appeals are between the first and last dates in the calendar</small>
+              <small>The list of appeals is between the first and last dates on the calendar.</small>
             </h3>
             <h3 v-else-if="loading">Fetching data...</h3>
           </div>
-          <div class="card-section nopadding-xs">
+          <div class="card-section nopadding-xs" :class="{ 'hide': !loading }">
+            ...
+          </div>
+          <div class="card-section nopadding-xs" :class="{ 'hide': loading }">
             <v-client-table
               :data="localRows"
               :columns="['date', 'time', 'address', 'applictype', 'appealno', 'appealgrounds']"
@@ -145,7 +148,7 @@ Vue.use(ClientTable, {
   },
   // filterByColumn IS NOT NEEDED ANYMORE.
   // filterByColumn: true,
-  perPageValues: [10, 50, 100],
+  perPageValues: [],
   sortable: ["date", "time"],
   // filterable IS NOT NEEDED ANYMORE.
   // filterable: ["address", "appealno", "applictype", "appealgrounds"], 
@@ -163,9 +166,11 @@ Vue.use(ClientTable, {
   //   applictype: Object.values(window.appealsAppConfig.types)
   // },
   texts: {
-    noResults: "No matching records",
+    noResults: "Sorry, there are no results for those filters. Try searching for different keywords and dates.",
     filterBy: "Filter by {column}",
-    defaultOption: "All {column}s"
+    defaultOption: "All {column}s",
+    filter: 'Filter by address, appeal number, or application description:',
+    filterPlaceholder: 'Enter term'
   }
 });
 
@@ -505,23 +510,46 @@ export default {
 };
 </script>
 <style lang="scss">
-.VueTables__search-field {
-  label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 1rem;
+.VueTables__no-results {
+  td {
+    font-size: 16px;
   }
-  input {
-    margin: 0;
-    margin-left: 10px;
-    background: #fff;
-    width: 200px;
-    display: inline-block;
-    vertical-align: middle;
-    border: 2px solid #0f4d90;
-  }
-  &::after {
-    display: none;
+}
+.VueTables__search {
+  float: none;
+  margin: 0 2px;
+  .VueTables__search-field {
+    margin: 2rem 0 1rem;
+    text-align: left;
+    float: none;
+    width: 100%;
+    display: flex;
+
+    label {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 130%;
+      text-align: left;
+      font-weight: normal;
+
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+    }
+    input {
+      margin: 0;
+      background: #fff;
+      display: inline-block;
+      vertical-align: middle;
+      border: 2px solid #0f4d90;
+
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+    }
+    &::after {
+      display: none;
+    }
   }
 }
 .VueTables__limit-field {
@@ -684,8 +712,8 @@ table {
     td {
       cursor: pointer;
     }
-    td:last-child,
-    th:last-child {
+    td:last-child:not(:first-child),
+    th:last-child:not(:first-child) {
       display: none;
       visibility: hidden;
     }

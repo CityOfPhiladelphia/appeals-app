@@ -1,7 +1,7 @@
 {
   "name": "zoning-appeals",
   "version": "1.0.0",
-  "description": "City of Philadelphia Appeals App",
+  "description": "City of Philadelphia Zoning Board of Appeals Calendar",
   "author": "Alejandro Lopez <alejandro.lopez@phila.gov>",
   "private": true,
   "scripts": {
@@ -37,8 +37,8 @@
     "chalk": "^2.0.1",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.0",
-    "cssnano": "^3.10.0",
+    "css-loader": "^2.1.1",
+    "cssnano": "^4.1.10",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-friendly-formatter": "^3.0.0",

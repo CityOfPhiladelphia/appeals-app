@@ -1,17 +1,13 @@
 <template>
   <div id="app">
     <div class="app-nav">
-      <div class="row">
-        <div class="columns">
-          <nav>
-            <ul>
-              <li v-if="displayGoBack">
-                <router-link v-bind:to="zoningLink">Go Back</router-link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <nav>
+        <ul>
+          <li v-if="displayGoBack">
+            <router-link v-bind:to="zoningLink">Go Back</router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
     <main>
       <div id="app">
@@ -73,6 +69,7 @@
 </script>
 <style>
 #application .app-nav {
+  text-align: left !important;
   min-height: 10px;
   padding: 0;
 }
