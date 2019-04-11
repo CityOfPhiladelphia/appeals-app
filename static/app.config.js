@@ -5,16 +5,16 @@ const app_config = {
       text: 'ZBA',
       description: 'Zoning Board of Appeals',
     },
-    RB_BBS: {
-      id: 'RB_BBS',
-      text: 'BBS',
-      description: 'Board of Building Standards'
-    },
-    RB_LIRB: {
-      id: 'RB_LIRB',
-      text: 'LIRB',
-      description: 'L&I Review Board of Appeals'
-    },
+    // RB_BBS: {
+    //   id: 'RB_BBS',
+    //   text: 'BBS',
+    //   description: 'Board of Building Standards'
+    // },
+    // RB_LIRB: {
+    //   id: 'RB_LIRB',
+    //   text: 'LIRB',
+    //   description: 'L&I Review Board of Appeals'
+    // },
   }
 }
 

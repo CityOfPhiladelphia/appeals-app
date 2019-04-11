@@ -1,5 +1,5 @@
-@import "./assets/css/foundation-datepicker.min.css";
-@import "./assets/css/phila-app.min.css";
+@import "css/foundation-datepicker.min.css";
+@import "css/phila-app.min.css";
 @media only screen {
     body {
         background-color: #eee;
