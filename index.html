@@ -11,18 +11,23 @@
   <meta charset="UTF-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zoning Appeals | City of Philadelphia</title>
+  <!-- TODO: Display title per app type. -->
+  <title>Zoning Board of Appeals Calendar | City of Philadelphia</title>
   <link rel="shortcut icon" type="image/png" href="static/favicon.png"/>
   <meta name="twitter:card" content="summary">
-  <meta property="og:title" content="">
-  <meta property="og:description" content="">
+  <meta property="og:title" content="Zoning Board of Appeals Calendar">
+  <meta property="og:description" content="City of Philadelphia Zoning Board of Appeals Calendar">
   <meta property="og:type" content="website">
   <meta property="og:url" content="">
-  <meta property="og:site_name" content="Digital Standards | City of Philadelphia">
-	<meta property="og:image" content="//beta.phila.gov/media/20160715133810/phila-gov.jpg">
+  <meta property="og:image" content="https://www.phila.gov/media/20160715133810/phila-gov.jpg">
+  <link rel="stylesheet" href="static/main.css">
+  <link rel="stylesheet" href="static/icons/foundation-icons.css">
+  <link rel="stylesheet" href="static/awesome-fonts/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.min.css">
   <script src="//code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script> 
   <!-- Load the feedback script -->
   <script src="https://s3.amazonaws.com/philly-feedback/philly-feedback.js"></script>
+  <script src="static/app.config.js"></script>
 </head>
 
 <body>
@@ -32,13 +37,14 @@
       <div class="row expanded">
         <!-- if you don't want a full-width header, remove the expanded class -->
         <div class="columns">
-          <a href="//beta.phila.gov/" class="logo">
+          <a href="https://www.phila.gov/" class="logo">
             <img class="logo" src="static/logo.png">
           </a>
           <div class="app-divide"></div>
           <div class="page-title-container">
             <a href="/">
-              <h1 class="page-title">Zoning Appeals</h1>
+              <!-- TODO: Display title per app type. -->
+              <h1 class="page-title">City of Philadelphia Zoning Board of Appeals Calendar</h1>
             </a>
           </div>
         </div>

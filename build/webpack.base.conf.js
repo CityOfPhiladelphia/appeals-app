@@ -41,7 +41,7 @@ module.exports = {
         enforce: 'pre',
         include: [resolve('src'), resolve('test')],
         options: {
-          //emitWarning: true,
+          emitWarning: true,
           formatter: require('eslint-friendly-formatter')
         }
       },
@@ -76,7 +76,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: utils.assetsPath('../fonts/[name].[hash:7].[ext]')
         }
       }
     ]

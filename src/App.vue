@@ -1,31 +1,21 @@
 <template>
   <div id="app">
     <div class="app-nav">
-      <div class="row">
-        <div class="columns">
-          <nav>
-            <ul>
-              <li>
-                <a href="http://www.phila.gov/">Phila</a>
-              </li>
-              <li>
-                <a href="http://www.phila.gov/li/Pages/default.aspx">L &amp; I</a>
-              </li>
-              <li>
-                <router-link v-bind:to="zoningLink">Zoning Appeals</router-link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <nav>
+        <ul>
+          <li v-if="displayGoBack">
+            <router-link v-bind:to="zoningLink">Go Back</router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
     <main>
       <div id="app">
         <div class="row" v-if="ie9">
           <div class="columns">
             <div class="awkward">
-              <h3>Ok, this is awkward =(</h3>
-              <p>Hmmm, could you please upgrade your Internet Browser? You are using an unsupported and insecure browser. <strong>Some features may be disabled.</strong></p>
+              <h3>Ok, this is awkward =/</h3>
+              <p>Hmmm, could you please upgrade your Internet Browser? This is an unsupported one. <strong>Some features may be disabled.</strong></p>
             </div>
           </div>
         </div>
@@ -41,9 +31,6 @@
                 <li>
                   <a href="https://beta.phila.gov/feedback/" class="philly-feedback-button">Feedback</a>
                 </li>
-                <!-- <li>
-                  <a href="#">More links</a>
-                </li> -->
               </ul>
             </nav>
           </div>
@@ -70,14 +57,26 @@
     created() {
       this.zoningLink = '/';
     },
+    computed: {
+      displayGoBack() {
+        return (this.$route.name === 'appealDetail');
+      },
+    },
     beforeMount() {
       this.ie9 = (document.documentElement.className === 'lt-ie10');
     },
   };
 </script>
 <style>
-#application .app-nav nav{
-  text-align: left;
+#application .app-nav {
+  text-align: left !important;
+  min-height: 10px;
+  padding: 0;
+}
+select {
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
 }
 </style>
 

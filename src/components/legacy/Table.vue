@@ -5,10 +5,10 @@
       <tbody>
         <tr v-for="(row, key) in rowsList" v-bind:key="key" v-on:click="doRowClick(row)">
           <template v-if="fields.length">
-            <td v-for="field in fields" v-bind:key="field">{{ row[field] }}</td>
+            <td v-for="field in fields" v-bind:key="field">{{ row[field] | readableDate }}</td>
           </template>
           <template v-else>
-            <td v-for="(f, ck) in row" v-bind:key="ck">{{ f }}</td>
+            <td v-for="(f, ck) in row" v-bind:key="ck">{{ f | readableDate }}</td>
           </template>
         </tr>
       </tbody>

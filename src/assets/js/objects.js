@@ -86,3 +86,30 @@ export function getDecisionHistoryCollection(data) {
   }
   return [];
 }
+
+export function getAppealTypes(data) {
+  if (typeof data === 'object' && data.length > 0) {
+    const tempArr = [];
+    const done = [];
+    for (let i = 0; i < data.length; i += 1) {
+      if (data[i].date_scheduled) {
+        const id = String(data[i].date_scheduled).substring(0, 10);
+        if (!done[id]) done[id] = {};
+        if (!done[id][data[i].applictype]) {
+          const date = moment(id, 'YYYY-MM-DD').utc();
+          tempArr.push({
+            className: [`event-${data[i].applictype.toString().replace('_', '-')}`],
+            applictype: data[i].applictype,
+            title: data[i].applictype.toString().replace('RB_', ''),
+            start: date,
+            editable: false,
+            date: date.format('MM/DD/YYYY'),
+          });
+          done[id][data[i].applictype] = true;
+        }
+      }
+    }
+    return tempArr;
+  }
+  return [];
+}
