@@ -3,7 +3,7 @@ const app_config = {
     RB_ZBA: {
       id: 'RB_ZBA',
       text: 'ZBA',
-      description: 'Zoning Board of Appeals',
+      description: 'Zoning Board of Adjustment',
     },
     // RB_BBS: {
     //   id: 'RB_BBS',
