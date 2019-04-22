@@ -1,7 +1,7 @@
 {
   "name": "zoning-appeals",
   "version": "1.0.0",
-  "description": "City of Philadelphia Zoning Board of Appeals Calendar",
+  "description": "City of Philadelphia Zoning Board of Adjustment Calendar",
   "author": "Alejandro Lopez <alejandro.lopez@phila.gov>",
   "private": true,
   "scripts": {
