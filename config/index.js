@@ -10,7 +10,7 @@ module.exports = {
 
      // DISTRIBUTION FOLDER FOR STATIC FILES (SUBFOLDERS AFTER THE ROOT)
      // TODO: update this field when buiding for production.
-    assetsPublicPath: process.env.BUILD_FOR || '/zba/appeals-app/',
+    assetsPublicPath: process.env.BUILD_FOR || '/',
 
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
