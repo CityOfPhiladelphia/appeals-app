@@ -10,7 +10,6 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: 'appeals-app'
-    upload-dir: 'zba/appeals-app'
     on:
       branch: zba_only
     local_dir: dist
