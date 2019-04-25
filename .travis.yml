@@ -14,11 +14,11 @@ deploy:
       branch: zba_only
     local_dir: dist
     skip_cleanup: true
-  # - provider: s3
-  #   access_key_id: $AWS_ACCESS_KEY_ID
-  #   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  #   bucket: 'discover-benefits-prod'
-  #   on:
-  #     branch: master
-  #   local_dir: dist
-  #   skip_cleanup: true
+  - provider: s3
+      access_key_id: $AWS_ACCESS_KEY_ID
+      secret_access_key: $AWS_SECRET_ACCESS_KEY
+      bucket: 'appeals-app-all'
+      on:
+        branch: master
+      local_dir: dist
+      skip_cleanup: true
