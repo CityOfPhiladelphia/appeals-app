@@ -1,10 +1,12 @@
 # zoning-appeals
 
-> City of Philadelphia Zoning Appeals 2017 with Vue
+> City of Philadelphia Appeals App
+
+Vue.js app for the City of Philadelphia Appeals Calendar [L&I](<https://www.phila.gov/li/appeals-calendar/>) and [Zoning Board of Adjustment](<https://www.phila.gov/zba/appeals-calendar/>).
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -13,9 +15,9 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## LICENSE
+
+[MIT](LICENSE)
+
