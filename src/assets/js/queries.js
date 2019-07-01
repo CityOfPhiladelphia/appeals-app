@@ -5,32 +5,10 @@ const qs = require('qs');
 const vsprintf = require('sprintf-js').vsprintf;
 
 const gisCommonData = {
-  where: null,
-  text: null,
-  objectIds: null,
-  time: null,
-  geometry: null,
   geometryType: 'esriGeometryPolygon',
-  inSR: null,
   spatialRel: 'esriSpatialRelIntersects',
-  relationParam: null,
-  outFields: null,
   returnGeometry: true,
-  returnTrueCurves: false,
-  maxAllowableOffset: null,
-  geometryPrecision: null,
-  outSR: null,
-  returnIdsOnly: false,
-  returnCountOnly: false,
-  orderByFields: null,
-  groupByFieldsForStatistics: null,
-  outStatistics: null,
-  returnZ: false,
-  returnM: false,
-  gdbVersion: null,
-  returnDistinctValues: false,
-  resultOffset: null,
-  resultRecordCount: null,
+  outSR: '2272',
   f: 'pjson',
 };
 
