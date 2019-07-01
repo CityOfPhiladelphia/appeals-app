@@ -170,8 +170,8 @@ Vue.use(ClientTable, {
     noResults: "Sorry, there are no results for those filters. Try searching for different keywords and dates.",
     filterBy: "Filter by {column}",
     defaultOption: "All {column}s",
-    filter: 'Filter by address, appeal number, or application description:',
-    filterPlaceholder: 'Enter term'
+    filter: 'Select a property to see appeal details, hearing information, and decisions.',
+    filterPlaceholder: 'Filter by address, keyword, or appeal #'
   }
 });
 
