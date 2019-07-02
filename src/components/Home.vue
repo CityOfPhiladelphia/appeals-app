@@ -6,7 +6,7 @@
           <div class="card-section">
             <form>
               <h3 v-if="!hideSelect">
-                Filter by region
+                Filter list by region
               </h3>
               <p>Select a region to filter results.</p>
               <select
@@ -59,7 +59,7 @@
               </select>
               <hr>
               <div class="calendar-help">
-                <h3>Filter by date</h3>
+                <h3>Filter list by date</h3>
                 <p>Use the arrows to select a six-week period. You can also narrow your search by selecting a single day.</p>
               </div>
               <div>
