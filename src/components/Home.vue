@@ -258,7 +258,6 @@ export default {
     },
     typeShortName(type) {
       if (window.appealsAppConfig.types[type]) {
-        console.log(type)
         return window.appealsAppConfig.types[type].text;
       }
 
