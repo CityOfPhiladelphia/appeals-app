@@ -145,7 +145,7 @@
                     <br>1515 Arch St, 18th Floor
                   </p>
                   <p>
-                    <strong>Gun Permits</strong>
+                    <strong>Appeals for licenses to carry firearms</strong>
                     <br>1301 Filbert St.
                     <br>Rm 408
                     <br>215.686.2427 or 215.686.2428
