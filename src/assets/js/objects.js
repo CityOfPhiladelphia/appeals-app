@@ -97,10 +97,11 @@ export function getAppealTypes(data) {
         if (!done[id]) done[id] = {};
         if (!done[id][data[i].applictype]) {
           const date = moment(id, 'YYYY-MM-DD').utc();
+          const name = data[i].applictype.toString().replace('RB_LIRB', 'BLIR');
           tempArr.push({
             className: [`event-${data[i].applictype.toString().replace('_', '-')}`],
             applictype: data[i].applictype,
-            title: data[i].applictype.toString().replace('RB_', ''),
+            title: name.toString().replace('RB_', ''),
             start: date,
             editable: false,
             date: date.format('MM/DD/YYYY'),
