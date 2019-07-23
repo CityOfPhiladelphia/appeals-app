@@ -171,7 +171,7 @@ Vue.use(ClientTable, {
     filterBy: "Filter by {column}",
     defaultOption: "All {column}s",
     filter: 'Select a property to see appeal details, hearing information, and decisions.',
-    filterPlaceholder: 'Enter term'
+    filterPlaceholder: 'Filter by address, keyword, or appeal #'
   }
 });
 
