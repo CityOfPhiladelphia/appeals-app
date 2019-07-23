@@ -3,8 +3,17 @@
     <div class="app-nav">
       <nav>
         <ul>
+          <li>
+            <a href="https://www.phila.gov/"><i class="fa fa-home"></i></a>
+          </li>
+          <li>
+            <a href="https://www.phila.gov/departments/department-of-licenses-and-inspections/">Department of Licenses and Inspections</a>
+          </li>
           <li v-if="displayGoBack">
-            <router-link v-bind:to="zoningLink">Go Back</router-link>
+            <router-link v-bind:to="zoningLink">Appeals calendar</router-link>
+          </li>
+          <li v-else>
+            Appeals calendar
           </li>
         </ul>
       </nav>
@@ -71,7 +80,7 @@
 #application .app-nav {
   text-align: left !important;
   min-height: 10px;
-  padding: 0;
+  padding: 0.5rem 0;
 }
 select {
   -moz-appearance: none;

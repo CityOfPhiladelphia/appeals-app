@@ -6,9 +6,9 @@
           <div class="card-section">
             <form>
               <h3 v-if="!hideSelect">
-                <i class="fi-marker"></i> Regions
+                <i class="fi-marker"></i>Filter list by region
               </h3>
-              <p>Select a region to filter the table data.</p>
+              <p>Select a region to filter results.</p>
               <select
                 v-if="!hideSelect"
                 class="selectpicker region-picker"
@@ -59,7 +59,8 @@
               </select>
               <hr>
               <div class="calendar-help">
-                <p>Use the arrows to search by date.</p>
+                <h3>Filter list by date</h3>
+                <p>Use the arrows to select a six-week period. You can also narrow your search by selecting a single day.</p>
               </div>
               <div>
                 <full-calendar
@@ -90,7 +91,7 @@
               Listing Appeals from
               <strong>{{ this.date1 | readableDate}}</strong> to
               <strong>{{ this.date2 | substractOneDay }}</strong>
-              <small>The list of appeals is between the first and last dates on the calendar.</small>
+              <small>The list of appeals is between the first and last dates on the calendar. Use the calendar to choose a different six-week period or select a single day.</small>
             </h3>
             <h3 v-else-if="loading">Fetching data...</h3>
           </div>
@@ -169,8 +170,8 @@ Vue.use(ClientTable, {
     noResults: "Sorry, there are no results for those filters. Try searching for different keywords and dates.",
     filterBy: "Filter by {column}",
     defaultOption: "All {column}s",
-    filter: 'Filter by address, appeal number, or application description:',
-    filterPlaceholder: 'Enter term'
+    filter: 'Select a property to see appeal details, hearing information, and decisions.',
+    filterPlaceholder: 'Filter by address, keyword, or appeal #'
   }
 });
 
