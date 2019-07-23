@@ -8,16 +8,16 @@ const app_config = {
     RB_BBS: {
       id: 'RB_BBS',
       text: 'BBS',
-      description: 'Board of Building Standards'
+      description: 'Board of Building Standards',
     },
-    //LIRB and BLIR are two names for the same thing. 
+    // LIRB and BLIR are two names for the same thing. 
     RB_LIRB: {
       id: 'RB_LIRB',
       text: 'BLIR',
-      description: 'Board of Licenses and Inspections Review'
+      description: 'Board of Licenses and Inspections Review',
     },
-  }
-}
+  },
+};
 
 // Set the app config globaly
 window.appealsAppConfig = app_config;
