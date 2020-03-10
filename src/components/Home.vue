@@ -82,6 +82,16 @@
       </div>
       <div class="columns medium-15 text-center">
         <div class="card">
+          <div class="callout">
+            <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
+            <div class="callout-text-div"> The City of Philadelphia is conducting a software update and data conversion process that will interrupt property
+                  history data updates beginning March 13, 2020. The City regrets the inconvenience and anticipates – but cannot guarantee
+                  – that updates will resume in 20 or fewer days. Visit L+I's
+                  <a href="https://www.phila.gov/2020-03-09-updates-to-li-data-on-city-websites-to-be-temporarily-interrupted/">
+                    blog post
+                  </a> for more information.
+            </div>
+          </div>
           <div class="card-divider selected-filter">
             <h3 v-if="!loading && this.selectedEvent">Listing
               <strong>{{ this.selectedEvent.title | typeName }}</strong> for
@@ -152,7 +162,7 @@ Vue.use(ClientTable, {
   perPageValues: [],
   sortable: ["date", "time"],
   // filterable IS NOT NEEDED ANYMORE.
-  // filterable: ["address", "appealno", "applictype", "appealgrounds"], 
+  // filterable: ["address", "appealno", "applictype", "appealgrounds"],
   customFilters: [
     {
       name: "byevent",
@@ -362,7 +372,7 @@ export default {
             }
             if (Object.keys(this.$route.params).length !== 0) {
               this
-                .displayCustomErrorModal(`The URL parameters provided are invalid. 
+                .displayCustomErrorModal(`The URL parameters provided are invalid.
                 Please used the elements provided to get the Appeals.`);
             }
             this.$router.push(URL);
@@ -511,6 +521,30 @@ export default {
 };
 </script>
 <style lang="scss">
+
+@media screen and (max-width: 768px) {
+  .callout>.callout-image-div {
+    display: inline-block;
+    float: none;
+  }
+}
+
+.callout-image-div {
+  margin-right: 10px;
+  float: left;
+  height: 100px;
+  width: 70px;
+  .fa-exclamation-triangle {
+    float: left;
+  }
+}
+
+.callout-text-div {
+  font-size: 13px;
+  display: -webkit-box;
+  text-align: left;
+}
+
 .VueTables__no-results {
   td {
     font-size: 16px;
