@@ -30,9 +30,9 @@ export const strings = {
   appealsByDateAndRegion: `${BASE_APPEALS_LIST} AND ST_intersects(st_transform(the_geom,2272),st_geomfromgeojson('{"type":"Polygon","coordinates":%s,"crs":{"type":"name","properties":{"name":"EPSG:2272"}}}')) ${END_APPEALS_LIST} ORDER BY scheduleddate ASC`,
   appealById: 'SELECT *, st_astext(the_geom) AS latlng FROM appeals WHERE appealnumber = \'%s\' ORDER BY scheduleddate DESC LIMIT 1 OFFSET 0',
   appealByIdDate: 'SELECT *, st_astext(the_geom) AS latlng FROM appeals WHERE appealnumber = \'%s\' AND scheduleddate = \'%s\'',
-  appealTypes: 'SELECT appealtype FROM appeals_TYPE WHERE appealnumber =  \'%s\'',
-  courtHistory: 'SELECT * FROM LI_COURT_APPEALS WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
-  deicisionHistory: 'SELECT * FROM LI_BOARD_DECISIONS WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
+  appealTypes: 'SELECT appealtype FROM appeals WHERE appealnumber =  \'%s\'',
+  courtHistory: 'SELECT * FROM court_appeals WHERE appealnumber = \'%s\' ORDER BY courtactiondate DESC',
+  deicisionHistory: 'SELECT * FROM board_decisions WHERE appealnumber = \'%s\' ORDER BY decisiondate DESC',
 };
 
 export function replace(...args) {
