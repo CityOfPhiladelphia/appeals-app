@@ -17,7 +17,7 @@
           </div>
           <div class="card-section nopadding-xs">
             <custom-table v-on:rowClick="goToDetail" v-bind:enableRowClick="true" v-bind:allowLoadMore="true" v-bind:rows="localRows"
-                v-bind:fields="['date', 'time', 'address', 'applictype', 'appealno']">
+                v-bind:fields="['date', 'time', 'address', 'applictype', 'appealnumber']">
               <thead slot="head">
                 <tr>
                   <th class="text-center">Date</th>
@@ -184,7 +184,7 @@
       },
       goToDetail(rowObject) {
         this.$emit('setZoningLink', this.$route.path);
-        this.$router.push(`/appeals/${rowObject.appealno}`);
+        this.$router.push(`/appeals/${rowObject.appealnumber}`);
       },
       displayModal(text, err) {
         this.rowsCount = 0;
