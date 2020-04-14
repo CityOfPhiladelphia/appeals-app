@@ -327,7 +327,6 @@ export default {
       this.getAppeals();
     },
     changeURL(get) {
-      console.log("changed url");
       let URL = `/${this.selectedYear}/${this.selectedMonth}`;
       if (this.region && this.regionId) {
         URL += `/${this.region}/${encodeURIComponent(this.regionId)}`;
@@ -416,14 +415,11 @@ export default {
         .format("MM/DD/YYYY");
       this.loading = true;
       this.localRows = [];
-      console.log("about to get table by slug. this.$route.path: ", this.$route.path);
       const appealsTableBySlug = this.$store.getters.getAppealsTableBySlug(
         this.$route.path
       );
-      console.log("appealsTableBySlug: ", appealsTableBySlug);
       if (appealsTableBySlug) {
         this.localRows = appealsTableBySlug;
-        console.log("localRows: ", this.localRows);
         this.events = objects.getAppealTypes(this.localRows);
         this.loading = false;
       } else {
@@ -441,7 +437,6 @@ export default {
               let filterDataCollection = objects.getFilterResultsCollection(
                 response.data.rows
               );
-              console.log("filterDataCollection: ", filterDataCollection);
               this.$store.dispatch("setAppealsHome", {
                 slug: this.$route.path,
                 data: filterDataCollection
@@ -474,7 +469,6 @@ export default {
                       let filterDataCollection = objects.getFilterResultsCollection(
                         dataRows
                       );
-                      console.log("the second setAppealsHome");
                       this.$store.dispatch("setAppealsHome", {
                         slug: this.$route.path,
                         data: filterDataCollection

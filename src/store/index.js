@@ -16,7 +16,6 @@ const store = new Vuex.Store({
   },
   getters: {
     getAppealsTableBySlug: (state) => (slug) => {
-      console.log("getAppealsTableBySlug: ", state, state.appealsTable[slugify(slug)])
       return state.appealsTable[slugify(slug)] || null;
     },
 
@@ -30,9 +29,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     setAppealsTable(state, obj) {
-      console.log("setAppealsTable, obj.data: ", obj.data, slugify(obj.slug));
       state.appealsTable[slugify(obj.slug)] = obj.data;
-      console.log("state.appealsTable: ", state.appealsTable);
     },
     setAppealTypeByID(state, appealType) {
       state.appelsTypesByID[appealType.appealnumber] = appealType.types;
@@ -48,7 +45,6 @@ const store = new Vuex.Store({
       }
     },
     setAppealsHome({ commit, dispatch }, obj ) {
-      console.log("setAppealsHome, obj: ", obj);
       commit('setAppealsTable', obj);
       // dispatch('renderAppealsTypesByID', obj.data);
     },
