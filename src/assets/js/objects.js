@@ -25,9 +25,9 @@ export function getAppealsDataObject(data) {
     tempObj.address = data.address;
     tempObj.type = data.applicationtype;
     tempObj.appealnumber = data.appealnumber;
-    tempObj.permitNo = data.descriptionofproject;
+    tempObj.permitNo = data.relatedpermit;
     tempObj.description = data.appealgrounds;
-    tempObj.primaryApplicant = data.primaryapplicant;
+    tempObj.primaryApplicant = data.primaryappellant;
     tempObj.latLng = data.latlng;
 
     const tempDate = moment(data.scheduleddate, moment.ISO_8601).utc();
@@ -79,7 +79,7 @@ export function getDecisionHistoryCollection(data) {
         tempObj.decisiondate = tempDate.format('MM/DD/YYYY hh:mm A');
       }
       tempObj.decision = data[i].decision;
-      tempObj.proviso = data[i].proviso;
+      tempObj.meetingremarks = data[i].meetingremarks;
       tempArr.push(tempObj);
     }
     return tempArr;
