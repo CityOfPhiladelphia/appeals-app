@@ -4,7 +4,7 @@ export function getFilterResultsCollection(data) {
   const myData = data;
   if (typeof data === 'object' && data.length > 0) {
     for (let i = 0; i < data.length; i += 1) {
-      const temp = moment(data[i].date_scheduled, moment.ISO_8601).utc();
+      const temp = moment(data[i].scheduleddate, moment.ISO_8601).utc();
       myData[i].date = temp.format('MM/DD/YYYY');
       if (temp.format('HH:mm:ss') === '00:00:00') {
         myData[i].time = '';
@@ -23,14 +23,14 @@ export function getAppealsDataObject(data) {
     const tempObj = {};
 
     tempObj.address = data.address;
-    tempObj.type = data.applictype;
-    tempObj.appealNo = data.appealno;
-    tempObj.permitNo = data.descriptionofproject;
+    tempObj.type = data.applicationtype;
+    tempObj.appealnumber = data.appealnumber;
+    tempObj.permitNo = data.relatedpermit;
     tempObj.description = data.appealgrounds;
-    tempObj.primaryApplicant = data.primaryapplicant;
+    tempObj.primaryappellant = data.primaryappellant;
     tempObj.latLng = data.latlng;
 
-    const tempDate = moment(data.date_scheduled, moment.ISO_8601).utc();
+    const tempDate = moment(data.scheduleddate, moment.ISO_8601).utc();
     if (tempDate.format('HH:mm:ss') === '00:00:00') {
       tempObj.time = '-';
     } else {
@@ -79,7 +79,7 @@ export function getDecisionHistoryCollection(data) {
         tempObj.decisiondate = tempDate.format('MM/DD/YYYY hh:mm A');
       }
       tempObj.decision = data[i].decision;
-      tempObj.proviso = data[i].proviso;
+      tempObj.meetingremarks = data[i].meetingremarks;
       tempArr.push(tempObj);
     }
     return tempArr;
@@ -92,20 +92,20 @@ export function getAppealTypes(data) {
     const tempArr = [];
     const done = [];
     for (let i = 0; i < data.length; i += 1) {
-      if (data[i].date_scheduled) {
-        const id = String(data[i].date_scheduled).substring(0, 10);
+      if (data[i].scheduleddate) {
+        const id = String(data[i].scheduleddate).substring(0, 10);
         if (!done[id]) done[id] = {};
-        if (!done[id][data[i].applictype]) {
+        if (!done[id][data[i].applicationtype]) {
           const date = moment(id, 'YYYY-MM-DD').utc();
           tempArr.push({
-            className: [`event-${data[i].applictype.toString().replace('_', '-')}`],
-            applictype: data[i].applictype,
-            title: data[i].applictype.toString().replace('RB_', ''),
+            className: [`event-${data[i].applicationtype.toString().replace('_', '-')}`],
+            applicationtype: data[i].applicationtype,
+            title: data[i].applicationtype.toString().replace('RB_', ''),
             start: date,
             editable: false,
             date: date.format('MM/DD/YYYY'),
           });
-          done[id][data[i].applictype] = true;
+          done[id][data[i].applicationtype] = true;
         }
       }
     }
