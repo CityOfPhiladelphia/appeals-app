@@ -111,11 +111,11 @@
           <div class="card-section nopadding-xs" :class="{ 'hide': loading }">
             <v-client-table
               :data="localRows"
-              :columns="['date', 'time', 'address', 'applictype', 'appealno', 'appealgrounds']"
+              :columns="['date', 'time', 'address', 'applicationtype', 'appealnumber', 'appealgrounds']"
               @row-click="goToDetail"
             >
-              <template slot="applictype" slot-scope="props">
-                {{ props.row.applictype | typeShortName }}
+              <template slot="applicationtype" slot-scope="props">
+                {{ props.row.applicationtype | typeShortName }}
               </template>
             </v-client-table>
           </div>
@@ -147,8 +147,8 @@ Vue.use(FullCalendar);
 
 Vue.use(ClientTable, {
   headings: {
-    applictype: "Type",
-    appealno: "Appeals #"
+    applicationtype: "Type",
+    appealnumber: "Appeals #"
   },
   perPage: 50,
   sortIcon: {
@@ -162,19 +162,19 @@ Vue.use(ClientTable, {
   perPageValues: [],
   sortable: ["date", "time"],
   // filterable IS NOT NEEDED ANYMORE.
-  // filterable: ["address", "appealno", "applictype", "appealgrounds"],
+  // filterable: ["address", "appealnumber", "applicationtype", "appealgrounds"],
   customFilters: [
     {
       name: "byevent",
       callback: function(row, query) {
         if (query === false) return true;
-        return row.applictype === query.applictype && row.date === query.date;
+        return row.applicationtype === query.applicationtype && row.date === query.date;
       }
     },
   ],
   // listColumns IS NOT NEEDED ANYMORE.
   // listColumns: {
-  //   applictype: Object.values(window.appealsAppConfig.types)
+  //   applicationtype: Object.values(window.appealsAppConfig.types)
   // },
   texts: {
     noResults: "Sorry, there are no results for those filters. Try searching for different keywords and dates.",
@@ -287,7 +287,7 @@ export default {
       if (this.selectedEvent && event) {
         if (
           this.selectedEvent.date === event.date &&
-          this.selectedEvent.applictype === event.applictype
+          this.selectedEvent.applicationtype === event.applicationtype
         ) {
           event = false;
         }
@@ -312,6 +312,7 @@ export default {
       this.$refs.calendar.$emit("refetch-events");
     },
     changedMonth() {
+      console.log("changed month");
       const view = this.$refs.calendar.fireMethod("getView");
       this.selectedYear = view.calendar.currentDate.utc().format("YYYY");
       this.selectedMonth = view.calendar.currentDate.utc().format("MM");
@@ -498,7 +499,7 @@ export default {
 
       // Removed the date scheduled from the URL to display the last date schedule, that way users chan see the
       // Last updated informatio.
-      this.$router.push(`/appeals/${rowObject.appealno}`);
+      this.$router.push(`/appeals/${rowObject.appealnumber}`);
     },
     displayModal(text, err) {
       console.log(err);

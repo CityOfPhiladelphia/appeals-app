@@ -32,7 +32,7 @@ const store = new Vuex.Store({
       state.appealsTable[slugify(obj.slug)] = obj.data;
     },
     setAppealTypeByID(state, appealType) {
-      state.appelsTypesByID[appealType.appealNo] = appealType.types;
+      state.appelsTypesByID[appealType.appealnumber] = appealType.types;
     },
     setAppealDetailBySlug(state, obj) {
       state.appealsDetails[slugify(obj.slug)] = obj.data;
@@ -41,12 +41,12 @@ const store = new Vuex.Store({
   actions: {
     renderAppealsTypesByID({ commit }, appeals) {
       for(let i = 0; i < appeals.length; i+=1) {
-        commit('setAppealTypeByID', { appealNo: appeals[i].appealno, types: appeals[i].appealtype });
+        commit('setAppealTypeByID', { appealnumber: appeals[i].appealnumber, types: appeals[i].appealtype });
       }
     },
     setAppealsHome({ commit, dispatch }, obj ) {
       commit('setAppealsTable', obj);
-      dispatch('renderAppealsTypesByID', obj.data);
+      // dispatch('renderAppealsTypesByID', obj.data);
     },
   },
   modules: {

@@ -4,7 +4,7 @@
       <div class="columns">
         <h3 v-show="!loading">
           {{ appealData.address }}
-          <small># {{ appealData.appealNo }}</small>
+          <small># {{ appealData.appealnumber }}</small>
         </h3>
         <h3 v-show="loading">
           <small>Fetching data...</small>
@@ -46,7 +46,7 @@
                 <ul class="no-bullet">
                   <li>
                     <h4>APPEAL #</h4>
-                    <p>{{ appealData.appealNo }}</p>
+                    <p>{{ appealData.appealnumber }}</p>
                   </li>
                   <li>
                     <h4>PERMIT APPLICATION #</h4>
@@ -204,7 +204,7 @@ export default {
   name: "Detail",
   data() {
     return {
-      appealNo: "",
+      appealnumber: "",
       appealData: {},
       localDecisionHistoryRows: [],
       localCourtHistoryRows: [],
@@ -268,7 +268,7 @@ export default {
         const appealPath = `${this.$route.path}/appealData`;
         try {
           const appealId = parseInt(this.$route.params.appealId, 10);
-          this.appealNo = appealId;
+          this.appealnumber = appealId;
           const appealData = this.$store.getters.getAppealDetailBySlug(
             appealPath
           );
@@ -321,14 +321,14 @@ export default {
     },
     renderAppealTypes() {
       const appealsTypes = this.$store.getters.getAppealsTypesByID(
-        this.appealNo
+        this.appealnumber
       );
       if (appealsTypes) {
         this.localAppealsTypes = appealsTypes;
       } else {
         const subQuery = queries.replace(
           queries.strings.appealTypes,
-          this.appealNo
+          this.appealnumber
         );
         queries
           .get(queries.CARTO_URL, { q: subQuery })
@@ -337,13 +337,13 @@ export default {
             if (dataRows.length > 0) {
               const maped = dataRows.map(obj => obj.appealtype);
               this.$store.commit("setAppealTypeByID", {
-                appealNo: this.appealNo,
+                appealnumber: this.appealnumber,
                 types: maped
               });
               this.localAppealsTypes = maped;
             } else {
               this.$store.commit("setAppealTypeByID", {
-                appealNo: this.appealNo,
+                appealnumber: this.appealnumber,
                 types: []
               });
               this.localAppealsTypes = [];
@@ -352,7 +352,7 @@ export default {
           .catch(() => {
             // Something went wrong, go to not found
             this.$store.commit("setAppealTypeByID", {
-              appealNo: this.appealNo,
+              appealnumber: this.appealnumber,
               types: []
             });
             this.localAppealsTypes = [];
@@ -370,7 +370,7 @@ export default {
       } else {
         const subQuery = queries.replace(
           queries.strings.deicisionHistory,
-          this.appealNo
+          this.appealnumber
         );
         queries
           .get(queries.CARTO_URL, { q: subQuery })
@@ -406,7 +406,7 @@ export default {
       } else {
         const subQuery = queries.replace(
           queries.strings.courtHistory,
-          this.appealNo
+          this.appealnumber
         );
         queries
           .get(queries.CARTO_URL, { q: subQuery })
