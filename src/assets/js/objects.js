@@ -100,7 +100,8 @@ export function getAppealTypes(data) {
           tempArr.push({
             className: [`event-${data[i].applicationtype.toString().replace('_', '-')}`],
             applicationtype: data[i].applicationtype,
-            title: data[i].applicationtype.toString().replace('RB_', ''),
+
+            title: data[i].applicationtype.toString().replace('RB_', '').replace('Zoning Board of Adjustment', 'ZBA'),
             start: date,
             editable: false,
             date: date.format('MM/DD/YYYY'),
