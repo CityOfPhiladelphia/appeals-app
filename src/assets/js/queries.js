@@ -20,7 +20,7 @@ export const RCO_URL = '//services.arcgis.com/fLeGjb7u4uXqeF9q/ArcGIS/rest/servi
 
 const applicationtypeFilters = Object.keys(window.appealsAppConfig.types).join("','");
 const BASE_APPEALS_LIST = `SELECT scheduleddate,  address, appealnumber, appealtype, applicationtype, appealgrounds FROM appeals WHERE applicationtype IN ('${applicationtypeFilters}') AND DATE(scheduleddate) >= '%s' AND DATE(scheduleddate) < '%s'`;
-const END_APPEALS_LIST = 'GROUP BY scheduleddate, address, appealnumber, applicationtype, appealgrounds';
+const END_APPEALS_LIST = 'GROUP BY scheduleddate, address, appealnumber, appealtype, applicationtype, appealgrounds';
 
 export const strings = {
   councilDistrictGeo: 'DISTRICT=\'%s\'',
