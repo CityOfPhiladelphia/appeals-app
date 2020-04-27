@@ -84,12 +84,9 @@
         <div class="card">
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
-            <div class="callout-text-div"> The City of Philadelphia is conducting a software update and data conversion process that will interrupt property
-                  history data updates beginning March 13, 2020. The City regrets the inconvenience and anticipates – but cannot guarantee
-                  – that updates will resume in 20 or fewer days. Visit L+I's
-                  <a href="https://www.phila.gov/2020-03-09-updates-to-li-data-on-city-websites-to-be-temporarily-interrupted/">
-                    blog post
-                  </a> for more information.
+            <div class="callout-text-div">
+              Please note that hearings of the Board of Building Standards, Plumbing Advisory Board,
+              and Board of License and Inspection Review have been postponed until further notice.
             </div>
           </div>
           <div class="card-divider selected-filter">
