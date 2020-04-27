@@ -6,7 +6,7 @@ const app_config = {
       description: 'Zoning Board of Adjustment',
     },
     'Zoning Board of Adjustment': {
-      id: 'Zoning Board of Adjustment%',
+      id: 'Zoning Board of Adjustment',
       text: 'ZBA',
       description: 'Zoning Board of Adjustment',
     },
