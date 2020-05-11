@@ -84,12 +84,11 @@
         <div class="card">
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
-            <div class="callout-text-div"> The City of Philadelphia is conducting a software update and data conversion process that will interrupt property
-                  history data updates beginning March 13, 2020. The City regrets the inconvenience and anticipates – but cannot guarantee
-                  – that updates will resume in 20 or fewer days. Visit L+I's
-                  <a href="https://www.phila.gov/2020-03-09-updates-to-li-data-on-city-websites-to-be-temporarily-interrupted/">
-                    blog post
-                  </a> for more information.
+            <div class="callout-text-div">
+              ZBA hearings for the month of May have been postponed. Even though they are listed on the calendar below
+              they will be rescheduled for later dates. <br><br>
+              Hearing dates listed below for June 3 and later are accurate. At present those hearings are still scheduled
+              to take place.
             </div>
           </div>
           <div class="card-divider selected-filter">
@@ -530,7 +529,8 @@ export default {
 }
 
 .callout-image-div {
-  margin-right: 10px;
+  margin-right: 20px;
+  padding-top: 10px;
   float: left;
   height: 100px;
   width: 70px;
