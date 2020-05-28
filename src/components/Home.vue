@@ -85,7 +85,7 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              ZBA hearings for the month of May have been postponed. Even though they are listed on the calendar below
+              ZBA hearings have been postponed through June 19th. Even though they are listed on the calendar below
               they will be rescheduled for later dates. <br><br>
               Hearing dates listed below for June 3 and later are accurate. At present those hearings are still scheduled
               to take place.
