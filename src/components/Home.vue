@@ -85,10 +85,8 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              ZBA hearings have been postponed through June 19th. Even though they are listed on the calendar below
-              they will be rescheduled for later dates. <br><br>
-              Hearing dates listed below for June 3 and later are accurate. At present those hearings are still scheduled
-              to take place.
+              ZBA hearings scheduled for July 1 and July 8 have been postponed. Even though they are listed on the calendar below, they will be rescheduled for later dates. <br><br>
+              Hearing dates listed for July 15 and later are accurate. At present, those hearings are still scheduled to take place. Hearings may also be scheduled for cases that were heard but not voted on. Those hearings will be listed here.
             </div>
           </div>
           <div class="card-divider selected-filter">
