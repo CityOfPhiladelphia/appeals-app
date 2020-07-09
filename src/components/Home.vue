@@ -85,8 +85,7 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              ZBA hearings scheduled for July 1 and July 8 have been postponed. Even though they are listed on the calendar below, they will be rescheduled for later dates. <br><br>
-              Hearing dates listed for July 15 and later are accurate. At present, those hearings are still scheduled to take place. Hearings may also be scheduled for cases that were heard but not voted on. Those hearings will be listed here.
+              This calendar reflects the currently scheduled ZBA hearings. As additional cases are rescheduled from earlier postponements, they will be listed here. These hearings will be virtual. Information about participating in these hearings will be available on the <a href="https://www.phila.gov/departments/zoning-board-of-adjustment/">ZBA website</a> five days prior to the hearing.
             </div>
           </div>
           <div class="card-divider selected-filter">
