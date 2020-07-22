@@ -85,8 +85,12 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              Please note that hearings of the Board of Building Standards, Plumbing Advisory Board,
-              and Board of License and Inspection Review have been postponed until further notice.
+              Regular hearings of the Board of Building Standards, Plumbing Advisory Board, and Board of License and 
+              Inspection Review will resume on August 4, 2020. Although the  restoration of the L&I Appeals Calendar 
+              remains ongoing, you can find scheduled hearing dates remaining in 2020 with other 
+              <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">
+                appeals documents.
+              </a>
             </div>
           </div>
           <div class="card-divider selected-filter">
