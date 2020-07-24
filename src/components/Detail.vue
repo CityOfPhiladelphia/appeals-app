@@ -267,7 +267,8 @@ export default {
       } else {
         const appealPath = `${this.$route.path}/appealData`;
         try {
-          const appealId = parseInt(this.$route.params.appealId, 10);
+          let parsedAppealId = parseInt(this.$route.params.appealId, 10);
+          const appealId = isNaN(parsedAppealId) ? this.$route.params.appealId : parsedAppealId;
           this.appealnumber = appealId;
           const appealData = this.$store.getters.getAppealDetailBySlug(
             appealPath
