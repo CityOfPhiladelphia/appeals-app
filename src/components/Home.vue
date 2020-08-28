@@ -85,7 +85,10 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              This calendar reflects the currently scheduled ZBA hearings. As additional cases are rescheduled from earlier postponements, they will be listed here. These hearings will be virtual. Information about participating in these hearings will be available on the <a href="https://www.phila.gov/departments/zoning-board-of-adjustment/">ZBA website</a> five days prior to the hearing.
+                The ZBA’s meetings have moved online and will follow the new regulations for virtual hearings (PDF).  All meetings will be held on the Zoom platform. You may also call 
+                <br><a href=”tel:++16468769923″>+1 (646) 876-9923</a> (webinar ID 820 8829 2595 and password 634842). For detailed instructions on joining the live hearing, see the meeting instructions (PDF).
+              <br><br>
+                The calendar below reflects the currently scheduled ZBA hearings. As additional cases are rescheduled from earlier postponements, they will be listed here and appear at least five days prior to the hearing.
             </div>
           </div>
           <div class="card-divider selected-filter">
@@ -527,12 +530,14 @@ export default {
 
 .callout-image-div {
   margin-right: 20px;
-  padding-top: 10px;
+  // padding-top: 10px;
   float: left;
   height: 100px;
   width: 70px;
   .fa-exclamation-triangle {
     float: left;
+    position: relative;
+    top: 30%;
   }
 }
 
