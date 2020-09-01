@@ -52,6 +52,10 @@
                     <h4>PERMIT APPLICATION #</h4>
                     <p>{{ appealData.permitNo }}</p>
                   </li>
+                  <li>
+                    <h4>MEETING ID</h4>
+                    <p>{{ appealData.meetingnumber }}</p>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -274,6 +278,7 @@ export default {
             appealPath
           );
           if (appealData) {
+            console.log("Appeal Data: ", appealData);
             this.appealData = appealData;
             this.renderLocalLocation();
             this.renderAppealTypes();
