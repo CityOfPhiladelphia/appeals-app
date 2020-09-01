@@ -28,6 +28,7 @@ export function getAppealsDataObject(data) {
     tempObj.permitNo = data.relatedpermit;
     tempObj.description = data.appealgrounds;
     tempObj.primaryappellant = data.primaryappellant;
+    tempObj.meetingnumber = data.meetingnumber;
     tempObj.latLng = data.latlng;
 
     const tempDate = moment(data.scheduleddate, moment.ISO_8601).utc();
