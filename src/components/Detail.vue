@@ -278,7 +278,6 @@ export default {
             appealPath
           );
           if (appealData) {
-            console.log("Appeal Data: ", appealData);
             this.appealData = appealData;
             this.renderLocalLocation();
             this.renderAppealTypes();
