@@ -86,7 +86,7 @@
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
                 The ZBA’s meetings have moved online and will follow the new <a href="http://regulations.phila-records.com/pdfs/ZBA%20Reg%20Hearing%20Procedure%202%5B47152%5D.pdf" target="_blank">regulations for virtual hearings (PDF)</a>.
-                All meetings will be held on the <a href="https://us02web.zoom.us/webinar/register/WN_0YCr-8pyQ-W_4o0Fc57Bsg" target="_blank">Zoom platform.</a> You may also call <a href="tel:+16468769923" target="_blank">+1 (646) 876-9923</a> (webinar ID 820 8829 2595 and password 634842). For detailed instructions on joining the live hearing, see the <a  href="https://www.phila.gov/media/20200729161400/ZBA-meeting-instructions-v2.pdf" target="_blank">meeting instructions (PDF)</a>.
+                All meetings will be held on the <a href="https://us02web.zoom.us/webinar/register/WN_0YCr-8pyQ-W_4o0Fc57Bsg" target="_blank">Zoom platform.</a> You may also call <a href="tel:+16468769923" target="_blank">+1 (646) 876-9923</a> (webinar ID 820 8829 2595 and password 634842). For detailed instructions on joining the live hearing, see the <a  href="https://admin.phila.gov/media/20200918164157/ZBA-meeting-instructions-v3.pdf" target="_blank">meeting instructions (PDF)</a>.
               <br><br>
                 The calendar below reflects the currently scheduled ZBA hearings. As additional cases are rescheduled from earlier postponements, they will be listed here and appear at least five days prior to the hearing.
             </div>
