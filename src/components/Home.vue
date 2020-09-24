@@ -85,12 +85,15 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              Regular hearings of the Board of Building Standards, Plumbing Advisory Board, and Board of License and 
-              Inspection Review will resume on August 4, 2020. Although the  restoration of the L&I Appeals Calendar 
-              remains ongoing, you can find scheduled hearing dates remaining in 2020 with other 
-              <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">
-                appeals documents.
-              </a>
+              We are working to fully restore the dates and agendas for regular hearings before the Board of License and 
+              Inspection Review (BLIR), the Board of Building Standards (BBS), and the Plumbing Advisory Board (PAB) to 
+              this calendar. In the meantime, you can find scheduled 2020 hearing dates for these Boards with other 
+              <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">appeals documents.</a>
+              <br>
+              <br>
+              Hearings begin at 10 a.m. for BLIR, 1 p.m. for BBS, and 9 a.m. for PAB. You can attend these hearings on the 
+              <a href="https://us02web.zoom.us/j/6626308763" target="_blank">Zoom Platform</a> or by dialing 
+              <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099.</a> The meeting ID is 662 630 8763.
             </div>
           </div>
           <div class="card-divider selected-filter">
@@ -537,6 +540,8 @@ export default {
   width: 70px;
   .fa-exclamation-triangle {
     float: left;
+    position: relative;
+    top: 33%;
   }
 }
 .callout-text-div {
