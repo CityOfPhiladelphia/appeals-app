@@ -110,7 +110,7 @@
           <div class="card-section nopadding-xs" :class="{ 'hide': loading }">
             <v-client-table
               :data="localRows"
-              :columns="['date', 'time', 'address', 'applicationtype', 'appealnumber', 'appealgrounds']"
+              :columns="['date', 'time', 'address', 'applicationtype', 'meetingnumber', 'appealgrounds']"
               @row-click="goToDetail"
             >
               <template slot="applicationtype" slot-scope="props">
@@ -147,7 +147,7 @@ Vue.use(FullCalendar);
 Vue.use(ClientTable, {
   headings: {
     applicationtype: "Type",
-    appealnumber: "Appeals #"
+    meetingnumber: "Meeting #"
   },
   perPage: 50,
   sortIcon: {
