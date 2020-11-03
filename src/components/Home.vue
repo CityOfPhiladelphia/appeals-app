@@ -85,10 +85,8 @@
           <div class="callout">
             <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
             <div class="callout-text-div">
-              BLIR hearings are held on Tuesdays; BBS and PAB hearings are held on Thursdays. Hearings begin at 1 p.m. 
-              for both BLIR and BBS, and 9 a.m. for PAB. You can attend these hearings on the <a href="https://us02web.zoom.us/webinar/register/WN_0YCr-8pyQ-W_4o0Fc57Bsg" target="_blank">Zoom platform.</a> 
-               or by dialing <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099</a>. The meeting ID is 662 630 8763.
-
+                The ZBA’s meetings have moved online and will follow the new <a href="http://regulations.phila-records.com/pdfs/ZBA%20Reg%20Hearing%20Procedure%202%5B47152%5D.pdf" target="_blank">regulations for virtual hearings (PDF)</a>.
+                All meetings will be held on the <a href="https://us02web.zoom.us/webinar/register/WN_0YCr-8pyQ-W_4o0Fc57Bsg" target="_blank">Zoom platform.</a> You may also call <a href="tel:+16468769923" target="_blank">+1 (646) 876-9923</a> (webinar ID 820 8829 2595 and password 634842). For detailed instructions on joining the live hearing, see the <a  href="https://admin.phila.gov/media/20200918164157/ZBA-meeting-instructions-v3.pdf" target="_blank">meeting instructions (PDF)</a>.
               <br><br>
                 The calendar below reflects the currently scheduled ZBA hearings. As additional cases are rescheduled from earlier postponements, they will be listed here and appear at least five days prior to the hearing.
             </div>
