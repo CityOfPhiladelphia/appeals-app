@@ -83,7 +83,7 @@
       <div class="columns medium-15 text-center">
         <div class="card">
           <div class="callout">
-            <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x" /></div>
+            <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-5x main-fa" /></div>
             <div class="callout-text-div">
               We are working to fully restore the dates and agendas for regular hearings before the Board of License and 
               Inspection Review (BLIR), the Board of Building Standards (BBS), and the Plumbing Advisory Board (PAB) to 
@@ -97,6 +97,18 @@
               <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099</a>. The meeting ID is 662 630 8763.
             </div>
           </div>
+
+
+          <div class="callout">
+            <div class="callout-image-div"><i class="fa fa-exclamation-triangle fa-3x" /></div>
+            <div class="callout-text-div">
+             The Board of Building Safety and the Plumbing Advisory Board hearings scheduled for <b>Thursday, November 5th</b> have been cancelled.
+            </div>
+          </div>
+
+
+
+
           <div class="card-divider selected-filter">
             <h3 v-if="!loading && this.selectedEvent">Listing
               <strong>{{ this.selectedEvent.title | typeName }}</strong> for
@@ -539,7 +551,7 @@ export default {
   float: left;
   height: 100px;
   width: 70px;
-  .fa-exclamation-triangle {
+  .main-fa {
     float: left;
     position: relative;
     top: 33%;
