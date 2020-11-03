@@ -91,9 +91,10 @@
               <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">appeals documents.</a>
               <br>
               <br>
-              Hearings begin at 1 p.m. for both BLIR and BBS, and 9 a.m. for PAB. You can attend these hearings on the 
-              <a href="https://us02web.zoom.us/j/6626308763" target="_blank">Zoom Platform</a> or by dialing 
-              <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099.</a> The meeting ID is 662 630 8763.
+              BLIR hearings are held on Tuesdays; BBS and PAB hearings are held on Thursdays. Hearings begin at 1 p.m. 
+              for both BLIR and BBS, and 9 a.m. for PAB. You can attend these hearings on the 
+              <a href="https://us02web.zoom.us/j/6626308763" target="_blank">Zoom platform.</a> or by dialing 
+              <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099</a>. The meeting ID is 662 630 8763.
             </div>
           </div>
           <div class="card-divider selected-filter">
