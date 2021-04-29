@@ -87,7 +87,7 @@
             <div class="callout-text-div">
               We are working to fully restore the dates and agendas for regular hearings before the Board of License and 
               Inspection Review (BLIR), the Board of Building Standards (BBS), and the Plumbing Advisory Board (PAB) to 
-              this calendar. In the meantime, you can find scheduled 2020 hearing dates for these Boards with other 
+              this calendar. In the meantime, you can find scheduled 2021 hearing dates for these Boards with other 
               <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">appeals documents.</a>
               <br>
               <br>
