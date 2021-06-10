@@ -87,14 +87,20 @@
             <div class="callout-text-div">
               We are working to fully restore the dates and agendas for regular hearings before the Board of License and 
               Inspection Review (BLIR), the Board of Building Standards (BBS), and the Plumbing Advisory Board (PAB) to 
-              this calendar. In the meantime, you can find scheduled 2021 hearing dates for these Boards with other 
+              this calendar. In the meantime, you can find scheduled 2021 hearing dates for these Boards with other
               <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">appeals documents.</a>
+              Refer to the <a href="https://www.phila.gov/documents/board-of-license-and-inspection-review-codes-hearing-schedule/" target="_blank">
+              hearing schedule</a> for a list of the upcoming BLIR codes hearing.
               <br>
               <br>
               BLIR hearings are held on Tuesdays; BBS and PAB hearings are held on Thursdays. Hearings begin at 1 p.m. 
               for both BLIR and BBS, and 9 a.m. for PAB. You can attend these hearings on the 
               <a href="https://us02web.zoom.us/j/6626308763" target="_blank">Zoom platform.</a> or by dialing 
               <a href="tel:+19292056099" target="_blank">+1 (929) 205-6099</a>. The meeting ID is 662 630 8763.
+               <br>
+               <br>
+               You may submit written comments by emailing <a href="mailto:Boards.Admin@phila.gov">Boards.Admin@phila.gov</a> 
+               or mailing them to the Boards Administration, 1401 John F. Kennedy Blvd. 11th Floor, Philadelphia, PA 19102 .
             </div>
           </div>
           <div class="card-divider selected-filter">
@@ -542,7 +548,7 @@ export default {
   .fa-exclamation-triangle {
     float: left;
     position: relative;
-    top: 33%;
+    top: 66%;
   }
 }
 .callout-text-div {

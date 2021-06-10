@@ -11,10 +11,10 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "esri-leaflet": "^2.1.1",
-    "jquery": "^3.4.0",
+    "jquery": "^3.6.0",
     "leaflet": "^1.2.0",
     "moment": "^2.22.2",
     "qs": "^6.5.1",
