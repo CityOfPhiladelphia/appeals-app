@@ -584,6 +584,16 @@ export default {
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+  #splash-screen.columns > div {
+    h1 {
+      width: 100%;
+      margin-left: 0px;
+    }
+  } 
+}
+
 // End Splash Screen Styles
 //
 
