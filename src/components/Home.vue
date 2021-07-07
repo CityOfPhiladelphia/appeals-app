@@ -1,5 +1,35 @@
 <template>
   <div class="container">
+    <!-- Added splash page and hiding app until data is available -->
+  <div class="columns medium-10 float-center" id="splash-screen">
+    <div class="column"
+    >
+      <h1><i class="fa fa-exclamation-triangle fa-1x"/> Calendar temporarily unavailable </h1>
+      <div>
+        <p>We are working to restore the dates and agendas for hearings of:</p>
+        <ul>
+          <li><a href="https://www.phila.gov/departments/board-of-building-standards/0" target="_blank">Board of License and Inspection Review (BLIR).</a></li>
+          <li><a href="https://www.phila.gov/departments/board-of-building-standards/" target="_blank">Board of Building Standards (BBS).</a></li>
+          <li><a href="https://www.phila.gov/departments/plumbing-advisory-board/" target="_blank">Plumbing Advisory Board (PAB).</a></li>
+        </ul>
+        <p>For now, <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">
+          a schedule of 2021 hearing dates</a> is posted with other appeal documents. 
+          <a href="https://www.phila.gov/documents/board-of-license-and-inspection-review-codes-hearing-schedule/" target="_blank">The agenda</a> for the next BLIR public hearing date is posted up to two weeks in advance.
+        </p>
+        <p>
+        You can attend hearings on Zoom or by dialing +1 (929) 205-6099. The meeting ID is 662 630 8763.
+        </p>
+        <h2>Comments</h2>
+        You can submit written comments by emailing <a href="mailto:BoardsAdmin@phila.gov">boardsadmin@phila.gov</a> or mailing them to:
+        <br>Boards Administration
+        <br>1401 John F. Kennedy Blvd.
+        <br>11th Floor,
+        <br>Philadelphia, PA 19102
+      </div>
+    </div>
+  </div>
+
+  <div class="container" v-show="false">
     <div class="row">
       <div class="columns medium-9">
         <div class="card">
@@ -134,6 +164,8 @@
       </div>
     </div>
     <modal v-if="showModal" @close="showModal = false" :message="modalMessage"></modal>
+  </div>
+
   </div>
 </template>
 <script type="text/javsacript">
@@ -533,6 +565,40 @@ export default {
 };
 </script>
 <style lang="scss">
+//
+// Splash Screen Styles
+.app-nav {
+  display: none;
+}
+#splash-screen {
+    float: none;
+    div {
+      margin-bottom: 40px !important;
+        h1 {
+          width: 120%;
+          margin-left: -12px;
+          i {
+              color:#cc3000;
+          }
+        }
+        div {
+            border-left: solid #a1a1a1 2px; 
+            padding-left: 20px; 
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+  #splash-screen.columns > div {
+    h1 {
+      width: 100%;
+      margin-left: 0px;
+    }
+  } 
+}
+
+// End Splash Screen Styles
+//
 
 @media screen and (max-width: 768px) {
   .callout>.callout-image-div {
