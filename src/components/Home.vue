@@ -570,6 +570,9 @@ export default {
 .app-nav {
   display: none;
 }
+body {
+  background-color: white;
+}
 #splash-screen {
     float: none;
     div {
