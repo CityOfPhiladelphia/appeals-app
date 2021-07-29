@@ -163,7 +163,7 @@
           <div class="card-divider">
             <a
               class="location-history"
-              v-bind:href="'http://li.phila.gov/#summary?address=' + encodeURI(appealData.address)"
+              v-bind:href="'https://li.phila.gov/property-history/search?address=' + encodeURI(appealData.address)"
               target="_blank"
               ref="liLink"
             >
