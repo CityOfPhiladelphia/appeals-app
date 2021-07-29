@@ -8,7 +8,7 @@
       <div>
         <p>We are working to restore the dates and agendas for hearings of:</p>
         <ul>
-          <li><a href="https://www.phila.gov/departments/board-of-building-standards/0" target="_blank">Board of License and Inspection Review (BLIR).</a></li>
+          <li><a href="https://www.​phila.​gov/departments/board-of-license-and-inspection-review/" target="_blank">Board of License and Inspection Review (BLIR).</a></li>
           <li><a href="https://www.phila.gov/departments/board-of-building-standards/" target="_blank">Board of Building Standards (BBS).</a></li>
           <li><a href="https://www.phila.gov/departments/plumbing-advisory-board/" target="_blank">Plumbing Advisory Board (PAB).</a></li>
         </ul>
