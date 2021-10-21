@@ -17,7 +17,7 @@
           <a href="https://www.phila.gov/documents/board-of-license-and-inspection-review-codes-hearing-schedule/" target="_blank">The agenda</a> for the next BLIR public hearing date is posted up to two weeks in advance.
         </p>
         <p>
-        You can attend hearings on Zoom or by dialing +1 (929) 205-6099. The meeting ID is 662 630 8763.
+        You can attend hearings on Zoom or by dialing +1 (267) 831-0333. The meeting ID is 562 078 8632.
         </p>
         <h2>Comments</h2>
         You can submit written comments by emailing <a href="mailto:BoardsAdmin@phila.gov">boardsadmin@phila.gov</a> or mailing them to:
