@@ -13,7 +13,7 @@
           <li><a href="https://www.phila.gov/departments/plumbing-advisory-board/" target="_blank">Plumbing Advisory Board (PAB).</a></li>
         </ul>
         <p>For now, <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">
-          a schedule of 2021 hearing dates</a> is posted with other appeal documents. 
+          a schedule of 2022 hearing dates</a> is posted with other appeal documents. 
           <a href="https://www.phila.gov/documents/board-of-license-and-inspection-review-codes-hearing-schedule/" target="_blank">The agenda</a> for the next BLIR public hearing date is posted up to two weeks in advance.
         </p>
         <p>
@@ -117,7 +117,7 @@
             <div class="callout-text-div">
               We are working to fully restore the dates and agendas for regular hearings before the Board of License and 
               Inspection Review (BLIR), the Board of Building Standards (BBS), and the Plumbing Advisory Board (PAB) to 
-              this calendar. In the meantime, you can find scheduled 2021 hearing dates for these Boards with other
+              this calendar. In the meantime, you can find scheduled 2022 hearing dates for these Boards with other
               <a href="https://www.phila.gov/documents/licenses-and-inspections-appeals-materials/" target="_blank">appeals documents.</a>
               Refer to the <a href="https://www.phila.gov/documents/board-of-license-and-inspection-review-codes-hearing-schedule/" target="_blank">
               hearing schedule</a> for a list of the upcoming BLIR codes hearing.
