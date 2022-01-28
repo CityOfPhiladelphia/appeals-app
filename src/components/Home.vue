@@ -1,5 +1,17 @@
 <template>
   <div class="container">
+    <div 
+      class="container newAppModal"
+      v-if="newAppModal"
+    >
+      <div class="modal-inner">
+
+        <p>Next week, this website will be phased out and replaced with <a href="https://li.phila.gov/zba-appeals-calendar">a new calendar application</a>.
+        </p>
+        <a class="button" href="https://li.phila.gov/zba-appeals-calendar">Take me to the new ZBA Appeals Calendar</a>
+        <a class="button modal-close" @click="closeNewAppModal()">No thanks, keep me on the old site.</a>
+      </div>
+    </div>
     <div class="row">
       <div class="columns medium-9">
         <div class="card">
@@ -200,6 +212,7 @@ export default {
       localRows: [],
       regionSelect: "all",
       showModal: false,
+      newAppModal: true,
       modalMessage: "",
       loading: true,
       hideSelect: false,
@@ -333,6 +346,9 @@ export default {
       this.$router.replace(URL);
 
       if (get) this.getAppeals();
+    },
+    closeNewAppModal(){
+      return this.newAppModal = false;
     },
     validateRoute(changeCalendar) {
       if (this.$route.path.indexOf("filter") !== -1) {
@@ -525,6 +541,41 @@ export default {
   .callout>.callout-image-div {
     display: inline-block;
     float: none;
+  }
+}
+
+.newAppModal {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: #d8d6d699;
+  z-index: 2000;
+
+  .modal-inner {
+    position: relative;
+    background-color: white;
+    width: 450px;
+    height: 210px;
+    margin-left: auto;
+    margin-right: auto;
+    top: 33%;
+    padding: 25px;
+    border: 1px solid #0f4d90;
+    p {
+      text-align: center;
+      margin: 0 5px 15px 5px;
+    }
+    a.button {
+      margin: 10px;
+      display: flow-root;
+      &.modal-close {
+        color: black;
+        background-color: lightgray;
+      }
+    }
+
   }
 }
 
